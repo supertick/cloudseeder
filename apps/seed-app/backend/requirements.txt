@@ -1,0 +1,8 @@
+fastapi                # FastAPI framework for building APIs
+uvicorn                # ASGI server for serving FastAPI applications
+pydantic               # Data validation and settings management
+# sqlalchemy             # SQL toolkit and ORM for database interaction
+databases              # Async database access for SQLAlchemy
+python-multipart       # For handling file uploads (optional)
+tinydb
+boto3
