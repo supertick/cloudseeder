@@ -1,6 +1,6 @@
-# FlexQueue
+# CloudSeeder
 
-FlexQueue is a modular platform designed to enable seamless application development and deployment across local, containerized, and cloud environments. It provides libraries and a seed application to help you build complex systems from a simple, extensible starting point.
+CloudSeeder is a modular platform designed to enable seamless application development and deployment across local, containerized, and cloud environments. It provides libraries and a seed application to help you build complex systems from a simple, extensible starting point.
 
 ## Key Features
 
@@ -13,10 +13,10 @@ FlexQueue is a modular platform designed to enable seamless application developm
 
 ## Monorepo Structure
 
-The FlexQueue repository is structured as follows:
+The CloudSeeder repository is structured as follows:
 
 ```plaintext
-flexqueue/
+cloudseeder/
 ├── apps/                  # Applications including the seed app and examples
 │   ├── seed-app/          # Starting application with FastAPI backend and Next.js frontend
 │   └── examples/          # Example applications for various use cases
@@ -34,7 +34,7 @@ flexqueue/
 │   ├── setup-guide.md     # Setup and installation guide
 │   ├── api-reference.md   # API documentation
 │   └── CONTRIBUTING.md    # Contribution guidelines
-└── README.md              # Main README for the FlexQueue monorepo
+└── README.md              # Main README for the CloudSeeder monorepo
 ```
 
 ## Getting Started
@@ -48,8 +48,8 @@ flexqueue/
 Clone the repository:
 
 ```bash
-git clone https://github.com/your-repo/flexqueue.git
-cd flexqueue
+git clone https://github.com/your-repo/cloudseeder.git
+cd cloudseeder
 ```
 
 ## Install dependencies for the seed app:
@@ -89,4 +89,4 @@ Access the application in your browser at http://localhost:3000.
 Contributions are welcome! See the CONTRIBUTING.md file for guidelines.
 
 ## License
-FlexQueue is licensed under the MIT License. See the LICENSE file for more details.
+CloudSeeder is licensed under the MIT License. See the LICENSE file for more details.
