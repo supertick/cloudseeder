@@ -1,9 +1,8 @@
 from fastapi import APIRouter, HTTPException
 from typing import List
 from uuid import uuid4
-
-from app.schemas.widget import WidgetCreate, WidgetRead
 from app.database import get_database
+from app.models.widget import Widget
 
 router = APIRouter()
 
