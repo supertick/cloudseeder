@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from src.api.widgets import router as widget_router
+from app.api.widgets import router as widget_router
 
 app = FastAPI(  # pylint: disable=invalid-name
     title="CloudSeeder",

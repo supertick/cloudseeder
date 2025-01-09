@@ -74,7 +74,7 @@ Running the Seed Application
 
 ```bash
 cd apps/seed-app/backend
-uvicorn src.main:app --reload
+uvicorn app.main:app --reload
 ```
 
 ## Start the Frontend:

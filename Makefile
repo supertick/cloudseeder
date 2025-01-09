@@ -6,7 +6,7 @@ FRONTEND_DIR := apps/seed-app/frontend
 
 # Task: Set up the backend environment
 setup-backend:
-	cd $(BACKEND_DIR) && python -m venv venv && source venv/bin/activate && pip install -r requirements.txt
+	cd $(BACKEND_DIR) && python -m venv venv && chmod +x venv/bin/activate && source venv/bin/activate && pip install -r requirements.txt
 
 # Task: Set up the frontend environment
 setup-frontend:
@@ -14,7 +14,7 @@ setup-frontend:
 
 # Task: Start the backend
 start-backend:
-	cd $(BACKEND_DIR) && source venv/bin/activate && uvicorn src.main:app --reload
+	cd $(BACKEND_DIR) && source venv/bin/activate && uvicorn app.main:app --reload
 
 # Task: Start the frontend
 start-frontend:

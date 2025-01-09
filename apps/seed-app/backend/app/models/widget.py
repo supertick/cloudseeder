@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String
-from src.database import Base
+from app.database import Base
 
 class Widget(Base):
     __tablename__ = "widgets"
