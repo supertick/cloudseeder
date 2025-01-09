@@ -1,4 +1,19 @@
 import { useState } from "react"
+import { apiClient } from "../utils/apiClient"
+import {
+  Box,
+  Button,
+  Container,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
+  Typography,
+  Paper
+} from "@mui/material"
 
 export default function Home({ initialWidgets }) {
   const [widgets, setWidgets] = useState(initialWidgets)
@@ -10,13 +25,7 @@ export default function Home({ initialWidgets }) {
     if (newWidgetName.trim() !== "") {
       const newWidget = { name: newWidgetName.trim() }
 
-      // Post to backend
-      const response = await fetch("/api/widgets", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newWidget)
-      })
-      const createdWidget = await response.json()
+      const createdWidget = await apiClient.post("/widgets", newWidget)
 
       setWidgets([...widgets, createdWidget])
       setNewWidgetName("")
@@ -25,97 +34,88 @@ export default function Home({ initialWidgets }) {
   }
 
   // Delete a widget
-  const handleDeleteWidget = async (id) => {
-    // Call backend to delete the widget
-    await fetch(`/api/widgets/${id}`, { method: "DELETE" })
-
-    // Remove from the state
-    setWidgets(widgets.filter(widget => widget.id !== id))
+  const handleDeleteWidget = async (uuid) => {
+    await apiClient.delete(`/widgets/${uuid}`)
+    setWidgets(widgets.filter((widget) => widget.uuid !== uuid))
   }
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Widgets</h1>
+    <Container maxWidth="md" sx={{ mt: 4 }}>
+      <Typography variant="h3" component="h1" gutterBottom>
+        Widgets
+      </Typography>
 
       {/* Table of widgets */}
-      <table style={{ width: "100%", borderCollapse: "collapse" }}>
-        <thead>
-          <tr>
-            <th style={{ border: "1px solid #ccc", padding: "8px" }}>Name</th>
-            <th style={{ border: "1px solid #ccc", padding: "8px" }}>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {widgets.map(widget => (
-            <tr key={widget.id}>
-              <td style={{ border: "1px solid #ccc", padding: "8px" }}>{widget.name}</td>
-              <td style={{ border: "1px solid #ccc", padding: "8px", textAlign: "center" }}>
-                {/* Delete button */}
-                <button
-                  onClick={() => handleDeleteWidget(widget.id)}
-                  style={{
-                    backgroundColor: "red",
-                    color: "white",
-                    border: "none",
-                    padding: "5px 10px",
-                    cursor: "pointer"
-                  }}
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <TableContainer component={Paper} sx={{ mb: 4 }}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell align="center">Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {widgets.map((widget) => (
+              <TableRow key={widget.uuid}>
+                <TableCell>{widget.name}</TableCell>
+                <TableCell align="center">
+                  <Button
+                    variant="contained"
+                    color="error"
+                    onClick={() => handleDeleteWidget(widget.uuid)}
+                  >
+                    Delete
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
 
       {/* Add Widget Button */}
-      <button
+      <Button
+        variant="contained"
+        color="primary"
         onClick={() => setShowForm(!showForm)}
-        style={{
-          marginTop: "20px",
-          backgroundColor: "green",
-          color: "white",
-          border: "none",
-          padding: "10px 20px",
-          cursor: "pointer"
-        }}
+        sx={{ mb: 4 }}
       >
         {showForm ? "Cancel" : "Add Widget"}
-      </button>
+      </Button>
 
       {/* Add Widget Form */}
       {showForm && (
-        <div style={{ marginTop: "20px" }}>
-          <input
-            type="text"
+        <Box
+          component="form"
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            mt: 2
+          }}
+        >
+          <TextField
+            label="Widget Name"
+            variant="outlined"
             value={newWidgetName}
             onChange={(e) => setNewWidgetName(e.target.value)}
-            placeholder="Enter widget name"
-            style={{ padding: "10px", marginRight: "10px", width: "60%" }}
           />
-          <button
+          <Button
+            variant="contained"
+            color="success"
             onClick={handleAddWidget}
-            style={{
-              backgroundColor: "blue",
-              color: "white",
-              border: "none",
-              padding: "10px 20px",
-              cursor: "pointer"
-            }}
           >
             Add Widget
-          </button>
-        </div>
+          </Button>
+        </Box>
       )}
-    </div>
+    </Container>
   )
 }
 
-// Fetch widgets from the backend
+// Fetch widgets from the backend/7
 export async function getStaticProps() {
-  const response = await fetch("http://localhost:3000/widgets")
-  const initialWidgets = await response.json()
+  const initialWidgets = await apiClient.get("/widgets")
 
   return {
     props: { initialWidgets }

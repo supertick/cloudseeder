@@ -10,8 +10,8 @@ router = APIRouter()
 # Dependency to get the database instance
 db = get_database()
 
-@router.post("/", response_model=WidgetRead)
-def create_widget(widget: WidgetCreate):
+@router.post("/", response_model=Widget)
+def create_widget(widget: Widget):
     """
     Create a new widget with a unique UUID.
     """
@@ -24,14 +24,14 @@ def create_widget(widget: WidgetCreate):
     db.insert_item(item)
     return item
 
-@router.get("/", response_model=List[WidgetRead])
+@router.get("/", response_model=List[Widget])
 def read_widgets():
     """
     Retrieve all widgets from the database.
     """
     return db.table.all()
 
-@router.get("/{uuid}", response_model=WidgetRead)
+@router.get("/{uuid}", response_model=Widget)
 def read_widget(uuid: str):
     """
     Retrieve a single widget by UUID.
