@@ -26,18 +26,18 @@ def create_{app_name}(item: {AppName}):
     item_id = str(uuid.uuid4())  # Generate a new UUID
     new_item = item.dict()
     new_item["id"] = item_id  # Store UUID in the database
-    db.insert_item(new_item)
+    db.insert_item("{app_name}", new_item)
     return new_item
 
 # Retrieve all items
 @router.get("/{app_name}s", response_model=List[{AppName}Response])
 def get_all_{app_name}s():
-    return db.get_all_items()
+    return db.get_all_items("{app_name}")
 
 # Retrieve a single item
 @router.get("/{app_name}/{id}", response_model={AppName}Response)
 def get_{app_name}(id: str):
-    item = db.get_item(id)
+    item = db.get_item("{app_name}", id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
     return item
@@ -45,18 +45,18 @@ def get_{app_name}(id: str):
 # Update an item (without modifying ID)
 @router.put("/{app_name}/{id}", response_model={AppName}Response)
 def update_{app_name}(id: str, updated_item: {AppName}):
-    item = db.get_item(id)
+    item = db.get_item("{app_name}", id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
     
     db.update_item(id, updated_item.dict())  # Update only name & description
-    return db.get_item(id)
+    return db.get_item("{app_name}", id)
 
 # Delete an item
 @router.delete("/{app_name}/{id}")
 def delete_{app_name}(id: str):
-    item = db.get_item(id)
+    item = db.get_item("{app_name}", id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
-    db.delete_item(id)
+    db.delete_item("{app_name}", id)
     return {"message": "Deleted successfully"}
