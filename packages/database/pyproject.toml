@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools", "wheel", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -12,17 +12,17 @@ readme = "README.md"
 requires-python = ">=3.8"
 
 dependencies = [
-    "tinydb",  # Add other dependencies here if needed
+    "tinydb"
 ]
 
 [tool.setuptools]
-packages = ["database"]
-
-[tool.setuptools.package-data]
-database = ["*.json"]  # Adjust if you have data files
+package-dir = {"" = "src"} 
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+database = ["*.json"]
+
 [project.optional-dependencies]
-dev = ["pytest", "black", "mypy"]  # Development dependencies
+dev = ["pytest", "black", "mypy"]

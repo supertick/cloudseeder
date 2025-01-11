@@ -2,9 +2,10 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import List
 import uuid
-from packages.database import NoSqlDb
-from packages.database import TinyDBDatabase
-from packages.queues import QueueFactory
+from database.interface import NoSqlDb
+from database import TinyDBDatabase
+from queues.factory import get_queue_client
+from widget.models.widget import Widget, WidgetResponse
 
 
 router = APIRouter()
@@ -12,16 +13,16 @@ router = APIRouter()
 # Initialize the database
 db: NoSqlDb = TinyDBDatabase()
 
-class WidgetBase(BaseModel):
-    name: str
-    description: str
+# class Widget(BaseModel):
+#     name: str
+#     description: str
 
-class WidgetResponse(WidgetBase):
-    id: str  # Include ID in the response
+# class WidgetResponse(Widget):
+#     id: str  # Include ID in the response
 
 # Create an item
 @router.post("/widget", response_model=WidgetResponse)
-def create_widget(item: WidgetBase):
+def create_widget(item: Widget):
     item_id = str(uuid.uuid4())  # Generate a new UUID
     new_item = item.dict()
     new_item["id"] = item_id  # Store UUID in the database
@@ -43,7 +44,7 @@ def get_widget(id: str):
 
 # Update an item (without modifying ID)
 @router.put("/widget/{id}", response_model=WidgetResponse)
-def update_widget(id: str, updated_item: WidgetBase):
+def update_widget(id: str, updated_item: Widget):
     item = db.get_item(id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")

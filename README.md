@@ -105,3 +105,75 @@ pip install -e packages/queues
 
 export PYTHONPATH=$(pwd)
 ```
+
+try 2 
+```bash
+cd apps/widget
+python -m venv venv
+source venv/bin/activate 
+pip install -e .
+python -m uvicorn widget.main:app --reload
+
+# in root
+
+export PYTHONPATH=$(pwd)
+
+
+# in root
+python -m venv venv
+source venv/bin/activate
+pip install -e packages/database
+pip install -e packages/queues
+
+
+pip install -e apps/widget
+
+```
+
+```bash
+rm -rf venv
+python -m venv venv
+source venv/bin/activate  # On macOS/Linux
+venv\Scripts\activate     # On Windows
+pip install --upgrade pip setuptools wheel
+pip install -e packages/database
+pip install -e packages/queues
+
+
+cd templates
+python create_python_app.py
+# answer the questions
+# widget
+# ..
+cd ..
+cd apps/widget
+pip install -e .
+python -m uvicorn widget.main:app --reload
+```
+
+# metalytics
+## users
+* id
+* email
+* roles[]
+
+## roles
+* id
+* name
+* description
+* products[name]
+
+## input_library
+* id
+* user_id
+* files []
+
+## products
+* id
+* name
+* description
+
+## usage
+* users[id]
+* products_success[id]
+* products_fail[id]

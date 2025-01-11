@@ -20,11 +20,13 @@ def create_fastapi_application(app_name: str, monorepo_root: str):
     base_dir = os.path.join(monorepo_root, "apps", app_name)
     src_dir = os.path.join(base_dir, "src", app_name)
     api_dir = os.path.join(src_dir, "api")
+    models_dir = os.path.join(src_dir, "models")
     tests_dir = os.path.join(base_dir, "tests")
 
     # Create directories
     os.makedirs(src_dir, exist_ok=True)
     os.makedirs(api_dir, exist_ok=True)
+    os.makedirs(models_dir, exist_ok=True)
     os.makedirs(tests_dir, exist_ok=True)
 
     # Create __init__.py
@@ -34,10 +36,11 @@ def create_fastapi_application(app_name: str, monorepo_root: str):
     # Write files using templates
     files_to_generate = {
         "main.py": ("main_content.py", src_dir),
-        f"{app_name}.py": ("api_content.py", api_dir),
+        f"{app_name}_api.py": ("api_content.py", api_dir),
         "README.md": ("README.md", base_dir),
         "pyproject.toml": ("pyproject_content.toml", base_dir),
         f"test_{app_name}.py": ("test_file_content.py", tests_dir),
+        f"{app_name}.py": ("model_content.py", models_dir),
     }
 
     for output_filename, (template_filename, target_dir) in files_to_generate.items():

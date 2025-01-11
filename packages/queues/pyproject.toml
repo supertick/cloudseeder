@@ -1,29 +1,30 @@
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools", "wheel", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "queues"
 version = "0.1.0"
-description = "A queue management library for CloudSeeder"
+description = "A queue management library for CloudSeeder2"
 authors = [{ name = "GroGBot", email = "grogbot@robotlab-x.com" }]
 license = { file = "LICENSE" }
 readme = "README.md"
 requires-python = ">=3.8"
 
 dependencies = [
-    "boto3",  # For AWS SQS support
-    "azure-servicebus",  # For Azure queue support
+    "boto3",
+    "azure-servicebus",
+    "azure-storage-queue"
 ]
 
 [tool.setuptools]
-packages = ["queues"]
-
-[tool.setuptools.package-data]
-queues = ["*.json"]  # Adjust if you have queue-related data files
+package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+queues = ["*.json"] 
+
 [project.optional-dependencies]
-dev = ["pytest", "black", "mypy"]  # Development dependencies
+dev = ["pytest", "black", "mypy"]

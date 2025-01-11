@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from widget.api import widget as widget_routes
+from widget.api import widget_api as widget_routes
 
 app = FastAPI()
 

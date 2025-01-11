@@ -101,3 +101,9 @@ error.log
 # Lock files
 poetry.lock
 Pipfile.lock
+
+
+# tinydb
+db.json
+
+# apps
