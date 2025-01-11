@@ -2,24 +2,26 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import List
 import uuid
-from database import TinyDBDatabase
-from queues import QueueFactory
+from packages.database import NoSqlDb
+from packages.database import TinyDBDatabase
+from packages.queues import QueueFactory
+
 
 router = APIRouter()
 
 # Initialize the database
 db: NoSqlDb = TinyDBDatabase()
 
-class {AppName}Base(BaseModel):
+class WidgetBase(BaseModel):
     name: str
     description: str
 
-class {AppName}Response({AppName}Base):
+class WidgetResponse(WidgetBase):
     id: str  # Include ID in the response
 
 # Create an item
-@router.post("/{app_name}", response_model={AppName}Response)
-def create_{app_name}(item: {AppName}Base):
+@router.post("/widget", response_model=WidgetResponse)
+def create_widget(item: WidgetBase):
     item_id = str(uuid.uuid4())  # Generate a new UUID
     new_item = item.dict()
     new_item["id"] = item_id  # Store UUID in the database
@@ -27,21 +29,21 @@ def create_{app_name}(item: {AppName}Base):
     return new_item
 
 # Retrieve all items
-@router.get("/{app_name}s", response_model=List[{AppName}Response])
-def get_all_{app_name}s():
+@router.get("/widgets", response_model=List[WidgetResponse])
+def get_all_widgets():
     return db.get_all_items()
 
 # Retrieve a single item
-@router.get("/{app_name}/{id}", response_model={AppName}Response)
-def get_{app_name}(id: str):
+@router.get("/widget/{id}", response_model=WidgetResponse)
+def get_widget(id: str):
     item = db.get_item(id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
     return item
 
 # Update an item (without modifying ID)
-@router.put("/{app_name}/{id}", response_model={AppName}Response)
-def update_{app_name}(id: str, updated_item: {AppName}Base):
+@router.put("/widget/{id}", response_model=WidgetResponse)
+def update_widget(id: str, updated_item: WidgetBase):
     item = db.get_item(id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
@@ -50,8 +52,8 @@ def update_{app_name}(id: str, updated_item: {AppName}Base):
     return db.get_item(id)
 
 # Delete an item
-@router.delete("/{app_name}/{id}")
-def delete_{app_name}(id: str):
+@router.delete("/widget/{id}")
+def delete_widget(id: str):
     item = db.get_item(id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")

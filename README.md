@@ -90,3 +90,18 @@ Contributions are welcome! See the CONTRIBUTING.md file for guidelines.
 
 ## License
 CloudSeeder is licensed under the MIT License. See the LICENSE file for more details.
+
+
+```bash
+cd apps/widget
+python -m venv venv
+source venv/bin/activate 
+pip install -e .
+python -m uvicorn widget.main:app --reload
+
+# in root
+pip install -e packages/database
+pip install -e packages/queues
+
+export PYTHONPATH=$(pwd)
+```

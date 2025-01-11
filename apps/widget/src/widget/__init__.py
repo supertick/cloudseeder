@@ -1,0 +1,1 @@
+"""widget FastAPI application package."""

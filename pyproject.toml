@@ -1,0 +1,6 @@
+[tool.setuptools]
+packages = ["packages", "packages.auth", "packages.database", "packages.queues"]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
