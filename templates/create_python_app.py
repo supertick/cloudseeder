@@ -6,18 +6,22 @@ from pathlib import Path
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), "tpl")
 
 
-def load_template(template_file: str, app_name: str) -> str:
-    """Loads a template file and replaces placeholders with the application name."""
+def load_template(template_file: str, app_name: str, model_name: str, model_name_cap: str) -> str:
+    """Loads a template file and replaces placeholders with the application and model names."""
     template_path = os.path.join(TEMPLATE_DIR, template_file)
     with open(template_path, "r") as f:
         content = f.read()
-    return content.replace("{app_name}", app_name).replace("{AppName}", app_name.capitalize())
+    
+    return (content
+            .replace("{app_name}", app_name)
+            .replace("{model_name}", model_name)
+            .replace("{ModelName}", model_name_cap))
 
 
 def create_fastapi_application(app_name: str, monorepo_root: str, models: dict):
     """
     Creates a structured FastAPI application directory inside the monorepo.
-    Now it generates `{model_name}_api.py` for each model instead of a single `{app_name}_api.py`
+    Now it generates `{model_name}_api.py` for each model using the provided template.
     """
 
     # Define base paths
@@ -87,28 +91,6 @@ def generate_pydantic_model(name, fields):
     return model_str
 
 
-def generate_api_file(name):
-    """Generate a FastAPI router file for a model."""
-    api_content = f"""from fastapi import APIRouter
-from ..models.{name.lower()} import {name.capitalize()}
-
-router = APIRouter()
-
-@router.get("/")
-def get_all():
-    return [{{"message": "List of {name}s"}}]
-
-@router.get("/{name.lower()}_id")
-def get_{name.lower()}({name.lower()}_id: int):
-    return {{"message": "Get a single {name}", "id": {name.lower()}_id}}
-
-@router.post("/")
-def create_{name.lower()}(payload: {name.capitalize()}):
-    return {{"message": "Create {name}", "data": payload}}
-"""
-    return api_content
-
-
 def main(app_name: str, monorepo_root: str):
     # Load YAML
     yaml_path = f"apps/{app_name}.yml"
@@ -129,7 +111,7 @@ def main(app_name: str, monorepo_root: str):
     # Generate Pydantic models and API routes
     for model_name, fields in models.items():
         model_code = generate_pydantic_model(model_name, fields)
-        api_code = generate_api_file(model_name)
+        api_code = load_template("api_content.py", app_name, model_name, model_name.capitalize())
 
         # Save model file
         model_file = models_dir / f"{model_name.lower()}.py"

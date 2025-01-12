@@ -1,12 +1,12 @@
 from pydantic import BaseModel
 
-class {AppName}(BaseModel):
+class {ModelName}(BaseModel):
     name: str
     description: str
 
-# class {AppName}Base(BaseModel):
+# class {ModelName}Base(BaseModel):
 #     name: str
 #     description: str
 
-class {AppName}Response({AppName}):
+class {ModelName}Response({ModelName}):
     id: str  # Include ID in the response
