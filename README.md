@@ -151,6 +151,13 @@ pip install -e .
 python -m uvicorn widget.main:app --reload
 ```
 # scribble
+
+## company
+* id
+* name
+* description
+* users[]
+
 ## users
 * id
 * email
@@ -162,11 +169,21 @@ python -m uvicorn widget.main:app --reload
 * description
 * products[name]
 
+## transcription_request
+* id
+* files[]
+
 ## transcription
 * id
 * type
 * status
+* files_path
 
+## transcription_result
+* id
+* type
+* status
+* files[]
 
 # metalytics
 ## users

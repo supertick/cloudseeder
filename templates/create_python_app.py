@@ -51,7 +51,7 @@ app = FastAPI()
 """
     for model_name in models.keys():
         main_content += f"from .api.{model_name.lower()}_api import router as {model_name.lower()}_router\n"
-        main_content += f"app.include_router({model_name.lower()}_router, prefix='/{model_name.lower()}')\n"
+        main_content += f"app.include_router({model_name.lower()}_router, prefix='/v1', tags=[\"{model_name.replace('_', ' ').title()}\"])\n"
 
     main_file = os.path.join(src_dir, "main.py")
     with open(main_file, "w") as f:
@@ -111,26 +111,33 @@ def main(app_name: str, monorepo_root: str):
     # Generate Pydantic models and API routes
     for model_name, fields in models.items():
         model_code = generate_pydantic_model(model_name, fields)
+        print(f" ========= model_name = {model_name}")
         api_code = load_template("api_content.py", app_name, model_name, model_name.capitalize())
+        api_file = api_dir / f"{model_name.lower()}_api.py"
 
+        replacements = {
+            "{app_name}": app_name,
+            "{model_name}": model_name,
+            "{model-name}": model_name.replace("_", "-"),
+            "{ModelName}": model_name.capitalize(),
+            "{Model Name}": model_name.replace("_", " ").title(),
+            "{AppName}": app_name.capitalize(),
+            "{App Name}": app_name.replace("_", " ").title(),
+        }
+        search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "api_content.py"), replacements, api_file)
         # Save model file
         model_file = models_dir / f"{model_name.lower()}.py"
         with open(model_file, "w") as f:
             f.write(model_code)
 
-        # Save API file
-        api_file = api_dir / f"{model_name.lower()}_api.py"
-        with open(api_file, "w") as f:
-            f.write(api_code)
-
         print(f"✅ Generated model: {model_file}")
         print(f"✅ Generated API: {api_file}")
 
-    replacements = {
-        "{app_name}": app_name,
-        "{AppName}": app_name.capitalize(),
-        "{App Name}": app_name.replace("_", " ").title(),
-    }
+    # replacements = {
+    #     "{app_name}": app_name,
+    #     "{AppName}": app_name.capitalize(),
+    #     "{App Name}": app_name.replace("_", " ").title(),
+    # }
 
     search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "pyproject_content.toml"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}", "pyproject.toml"))
     search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "README.md"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}", "README.md"))

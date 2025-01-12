@@ -16,7 +16,7 @@ router = APIRouter()
 db: NoSqlDb = TinyDBDatabase()
 
 # Create an item
-@router.post("/transcription_result", response_model=Transcription_result)
+@router.post("/transcription-result", response_model=Transcription_result)
 def create_transcription_result(item: Transcription_result):
     logger.info(f"Received request to create: {item}")
     item_id = str(uuid.uuid4())  # Generate a new UUID
@@ -27,13 +27,13 @@ def create_transcription_result(item: Transcription_result):
     return new_item
 
 # Retrieve all items
-@router.get("/transcription_results", response_model=List[Transcription_result])
+@router.get("/transcription-results", response_model=List[Transcription_result])
 def get_all_transcription_results():
     logger.info("Received request to retrieve all transcription_result")
     return db.get_all_items("transcription_result")
 
 # Retrieve a single item
-@router.get("/transcription_result/{id}", response_model=Transcription_result)
+@router.get("/transcription-result/{id}", response_model=Transcription_result)
 def get_transcription_result(id: str):
     logger.info(f"Received request to retrieve transcription_result with id: {id}")
     item = db.get_item("transcription_result", id)
@@ -43,7 +43,7 @@ def get_transcription_result(id: str):
     return item
 
 # Update an item (without modifying ID)
-@router.put("/transcription_result/{id}", response_model=Transcription_result)
+@router.put("/transcription-result/{id}", response_model=Transcription_result)
 def update_transcription_result(id: str, updated_item: Transcription_result):
     item = db.get_item("transcription_result", id)
     logger.info(f"Received request to update transcription_result with id {id}: {updated_item}")
@@ -55,7 +55,7 @@ def update_transcription_result(id: str, updated_item: Transcription_result):
     return db.get_item("transcription_result", id)
 
 # Delete an item
-@router.delete("/transcription_result/{id}")
+@router.delete("/transcription-result/{id}")
 def delete_transcription_result(id: str):
     item = db.get_item("transcription_result", id)
     if not item:
