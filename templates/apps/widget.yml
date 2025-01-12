@@ -4,12 +4,12 @@ app:
       id: int
       name: string
       description: string
-      users: list[user]
+      users: list[str]
 
     user:
       id: int
       email: string
-      roles: list[role]
+      roles: list[str]
 
     role:
       id: int

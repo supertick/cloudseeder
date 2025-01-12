@@ -5,4 +5,4 @@ class Company(BaseModel):
     id: int
     name: str
     description: str
-    users: list[user]
+    users: list[str]

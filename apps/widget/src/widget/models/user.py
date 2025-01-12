@@ -4,4 +4,4 @@ from typing import List, Optional
 class User(BaseModel):
     id: int
     email: str
-    roles: list[role]
+    roles: list[str]
