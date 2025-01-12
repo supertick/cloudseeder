@@ -2,5 +2,5 @@ from pydantic import BaseModel
 from typing import List, Optional
 
 class Transcription_request(BaseModel):
-    id: int
+    id: str
     files: list[str]

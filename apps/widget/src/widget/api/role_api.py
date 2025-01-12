@@ -5,7 +5,7 @@ import uuid
 from database.interface import NoSqlDb
 from database import TinyDBDatabase
 from queues.factory import get_queue_client
-from widget.models.role import Role, RoleResponse
+from widget.models.role import Role, Role
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -16,7 +16,7 @@ router = APIRouter()
 db: NoSqlDb = TinyDBDatabase()
 
 # Create an item
-@router.post("/role", response_model=RoleResponse)
+@router.post("/role", response_model=Role)
 def create_role(item: Role):
     logger.info(f"Received request to create: {item}")
     item_id = str(uuid.uuid4())  # Generate a new UUID
@@ -27,13 +27,13 @@ def create_role(item: Role):
     return new_item
 
 # Retrieve all items
-@router.get("/roles", response_model=List[RoleResponse])
+@router.get("/roles", response_model=List[Role])
 def get_all_roles():
     logger.info("Received request to retrieve all role")
     return db.get_all_items("role")
 
 # Retrieve a single item
-@router.get("/role/{id}", response_model=RoleResponse)
+@router.get("/role/{id}", response_model=Role)
 def get_role(id: str):
     logger.info(f"Received request to retrieve role with id: {id}")
     item = db.get_item("role", id)
@@ -43,7 +43,7 @@ def get_role(id: str):
     return item
 
 # Update an item (without modifying ID)
-@router.put("/role/{id}", response_model=RoleResponse)
+@router.put("/role/{id}", response_model=Role)
 def update_role(id: str, updated_item: Role):
     item = db.get_item("role", id)
     logger.info(f"Received request to update role with id {id}: {updated_item}")

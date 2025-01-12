@@ -5,7 +5,7 @@ import uuid
 from database.interface import NoSqlDb
 from database import TinyDBDatabase
 from queues.factory import get_queue_client
-from widget.models.transcription import Transcription, TranscriptionResponse
+from widget.models.transcription import Transcription, Transcription
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -16,7 +16,7 @@ router = APIRouter()
 db: NoSqlDb = TinyDBDatabase()
 
 # Create an item
-@router.post("/transcription", response_model=TranscriptionResponse)
+@router.post("/transcription", response_model=Transcription)
 def create_transcription(item: Transcription):
     logger.info(f"Received request to create: {item}")
     item_id = str(uuid.uuid4())  # Generate a new UUID
@@ -27,13 +27,13 @@ def create_transcription(item: Transcription):
     return new_item
 
 # Retrieve all items
-@router.get("/transcriptions", response_model=List[TranscriptionResponse])
+@router.get("/transcriptions", response_model=List[Transcription])
 def get_all_transcriptions():
     logger.info("Received request to retrieve all transcription")
     return db.get_all_items("transcription")
 
 # Retrieve a single item
-@router.get("/transcription/{id}", response_model=TranscriptionResponse)
+@router.get("/transcription/{id}", response_model=Transcription)
 def get_transcription(id: str):
     logger.info(f"Received request to retrieve transcription with id: {id}")
     item = db.get_item("transcription", id)
@@ -43,7 +43,7 @@ def get_transcription(id: str):
     return item
 
 # Update an item (without modifying ID)
-@router.put("/transcription/{id}", response_model=TranscriptionResponse)
+@router.put("/transcription/{id}", response_model=Transcription)
 def update_transcription(id: str, updated_item: Transcription):
     item = db.get_item("transcription", id)
     logger.info(f"Received request to update transcription with id {id}: {updated_item}")

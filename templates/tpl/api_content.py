@@ -5,7 +5,7 @@ import uuid
 from database.interface import NoSqlDb
 from database import TinyDBDatabase
 from queues.factory import get_queue_client
-from {app_name}.models.{model_name} import {ModelName}, {ModelName}Response
+from {app_name}.models.{model_name} import {ModelName}, {ModelName}
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -16,7 +16,7 @@ router = APIRouter()
 db: NoSqlDb = TinyDBDatabase()
 
 # Create an item
-@router.post("/{model_name}", response_model={ModelName}Response)
+@router.post("/{model_name}", response_model={ModelName})
 def create_{model_name}(item: {ModelName}):
     logger.info(f"Received request to create: {item}")
     item_id = str(uuid.uuid4())  # Generate a new UUID
@@ -27,13 +27,13 @@ def create_{model_name}(item: {ModelName}):
     return new_item
 
 # Retrieve all items
-@router.get("/{model_name}s", response_model=List[{ModelName}Response])
+@router.get("/{model_name}s", response_model=List[{ModelName}])
 def get_all_{model_name}s():
     logger.info("Received request to retrieve all {model_name}")
     return db.get_all_items("{model_name}")
 
 # Retrieve a single item
-@router.get("/{model_name}/{id}", response_model={ModelName}Response)
+@router.get("/{model_name}/{id}", response_model={ModelName})
 def get_{model_name}(id: str):
     logger.info(f"Received request to retrieve {model_name} with id: {id}")
     item = db.get_item("{model_name}", id)
@@ -43,7 +43,7 @@ def get_{model_name}(id: str):
     return item
 
 # Update an item (without modifying ID)
-@router.put("/{model_name}/{id}", response_model={ModelName}Response)
+@router.put("/{model_name}/{id}", response_model={ModelName})
 def update_{model_name}(id: str, updated_item: {ModelName}):
     item = db.get_item("{model_name}", id)
     logger.info(f"Received request to update {model_name} with id {id}: {updated_item}")

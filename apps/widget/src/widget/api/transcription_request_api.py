@@ -5,7 +5,7 @@ import uuid
 from database.interface import NoSqlDb
 from database import TinyDBDatabase
 from queues.factory import get_queue_client
-from widget.models.transcription_request import Transcription_request, Transcription_requestResponse
+from widget.models.transcription_request import Transcription_request, Transcription_request
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -16,7 +16,7 @@ router = APIRouter()
 db: NoSqlDb = TinyDBDatabase()
 
 # Create an item
-@router.post("/transcription_request", response_model=Transcription_requestResponse)
+@router.post("/transcription_request", response_model=Transcription_request)
 def create_transcription_request(item: Transcription_request):
     logger.info(f"Received request to create: {item}")
     item_id = str(uuid.uuid4())  # Generate a new UUID
@@ -27,13 +27,13 @@ def create_transcription_request(item: Transcription_request):
     return new_item
 
 # Retrieve all items
-@router.get("/transcription_requests", response_model=List[Transcription_requestResponse])
+@router.get("/transcription_requests", response_model=List[Transcription_request])
 def get_all_transcription_requests():
     logger.info("Received request to retrieve all transcription_request")
     return db.get_all_items("transcription_request")
 
 # Retrieve a single item
-@router.get("/transcription_request/{id}", response_model=Transcription_requestResponse)
+@router.get("/transcription_request/{id}", response_model=Transcription_request)
 def get_transcription_request(id: str):
     logger.info(f"Received request to retrieve transcription_request with id: {id}")
     item = db.get_item("transcription_request", id)
@@ -43,7 +43,7 @@ def get_transcription_request(id: str):
     return item
 
 # Update an item (without modifying ID)
-@router.put("/transcription_request/{id}", response_model=Transcription_requestResponse)
+@router.put("/transcription_request/{id}", response_model=Transcription_request)
 def update_transcription_request(id: str, updated_item: Transcription_request):
     item = db.get_item("transcription_request", id)
     logger.info(f"Received request to update transcription_request with id {id}: {updated_item}")
