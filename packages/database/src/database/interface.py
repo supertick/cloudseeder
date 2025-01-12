@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 class NoSqlDb(ABC):
     @abstractmethod
-    def insert_item(self, table: str, item: dict) -> dict:
+    def insert_item(self, table: str, key:str, item: dict) -> dict:
         """Insert an item into the specified table."""
         pass
 

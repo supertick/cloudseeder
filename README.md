@@ -150,6 +150,23 @@ cd apps/widget
 pip install -e .
 python -m uvicorn widget.main:app --reload
 ```
+# scribble
+## users
+* id
+* email
+* roles[]
+
+## roles
+* id
+* name
+* description
+* products[name]
+
+## transcription
+* id
+* type
+* status
+
 
 # metalytics
 ## users
@@ -168,6 +185,12 @@ python -m uvicorn widget.main:app --reload
 * user_id
 * files []
 
+## run_status
+* id
+* start_datetime
+* end_datetime
+* status
+
 ## products
 * id
 * name
@@ -177,3 +200,9 @@ python -m uvicorn widget.main:app --reload
 * users[id]
 * products_success[id]
 * products_fail[id]
+
+
+## configuration
+* port
+* work_dir
+* log_level
