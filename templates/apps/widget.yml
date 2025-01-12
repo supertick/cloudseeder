@@ -1,0 +1,34 @@
+app:
+  models:
+    company:
+      id: int
+      name: string
+      description: string
+      users: list[user]
+
+    user:
+      id: int
+      email: string
+      roles: list[role]
+
+    role:
+      id: int
+      name: string
+      description: string
+      products: list[string]
+
+    transcription_request:
+      id: int
+      files: list[string]
+
+    transcription:
+      id: int
+      type: string
+      status: string
+      files_path: string
+
+    transcription_result:
+      id: int
+      type: string
+      status: string
+      files: list[string]
