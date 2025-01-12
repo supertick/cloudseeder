@@ -59,13 +59,6 @@ app = FastAPI()
 
     print(f"✅ Created FastAPI app structure at {base_dir}")
 
-def create_readme(app_name: str, monorepo_root: str):
-    """Creates a README.md file for the application."""
-    with open(os.path.join(f"{monorepo_root}/apps/{app_name}", "README.md"), "w") as f:
-        read_me_content = load_template("README.md", app_name)
-        f.write(read_me_content)
-        print(f"✅ Created README.md for {app_name}")
-
 
 # Define type mappings from YAML to Python/Pydantic
 TYPE_MAP = {

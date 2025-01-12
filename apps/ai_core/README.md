@@ -1,12 +1,12 @@
-# {App Name} - FastAPI Application
+# Ai Core - FastAPI Application
 
-This is a FastAPI application for `{app_name}`.
+This is a FastAPI application for `ai_core`.
 
 ## 🚀 Installation & Setup
 
 ### Create a Virtual Environment
 ```sh
-cd apps/{app_name}
+cd apps/ai_core
 python -m venv venv
 source venv/bin/activate  # On Windows, use venv\Scripts\activate
 ```
@@ -18,10 +18,10 @@ pip install -e .
 
 ### Run the Application
 ```sh
-python -m uvicorn {app_name}.main:app --reload
+python -m uvicorn ai_core.main:app --reload
 ```
 
-{App Name} Should be available at http://localhost:8000
+Ai Core Should be available at http://localhost:8000
 
 ## 🧪 Testing
 
@@ -32,5 +32,5 @@ pytest
 
 ### Run Tests with Coverage
 ```sh
-pytest --cov={app_name} --cov-report html
+pytest --cov=ai_core --cov-report html
 ```
