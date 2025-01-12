@@ -10,7 +10,9 @@ authors = [{ name = "GroG Bot", email = "grogbot@robotlab-x.com" }]
 dependencies = [
     "fastapi",
     "uvicorn",
-    "pydantic"
+    "pydantic",
+    "pydantic-settings",
+    "python-dotenv"
 ]
 
 [project.optional-dependencies]

@@ -42,7 +42,9 @@ def create_fastapi_application(app_name: str, monorepo_root: str, models: dict):
         with open(os.path.join(directory, "__init__.py"), "w") as f:
             f.write(f'"""{app_name} package."""\n')
 
+
     # Generate main.py
+    api_routes = ""
     main_content = f"""from fastapi import FastAPI
 
 app = FastAPI()
@@ -52,10 +54,22 @@ app = FastAPI()
     for model_name in models.keys():
         main_content += f"from .api.{model_name.lower()}_api import router as {model_name.lower()}_router\n"
         main_content += f"app.include_router({model_name.lower()}_router, prefix='/v1', tags=[\"{model_name.replace('_', ' ').title()}\"])\n"
+        api_routes += f"from .api.{model_name.lower()}_api import router as {model_name.lower()}_router\n"
+        api_routes += f"app.include_router({model_name.lower()}_router, prefix='/v1', tags=[\"{model_name.replace('_', ' ').title()}\"])\n"
 
-    main_file = os.path.join(src_dir, "main.py")
-    with open(main_file, "w") as f:
-        f.write(main_content)
+    # main_file = os.path.join(src_dir, "main.py")
+    # with open(main_file, "w") as f:
+    #     f.write(main_content)
+
+    replacements = {
+        "{app_name}": app_name,
+        "{AppName}": app_name.capitalize(),
+        "{App Name}": app_name.replace("_", " ").title(),
+        "{AppTitle}": app_name.replace("_", " ").title(),
+        "{API_ROUTES}": api_routes,
+    }
+
+    search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "main_content.py"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}/src/{app_name}", "main.py"))
 
     print(f"✅ Created FastAPI app structure at {base_dir}")
 
@@ -133,12 +147,8 @@ def main(app_name: str, monorepo_root: str):
         print(f"✅ Generated model: {model_file}")
         print(f"✅ Generated API: {api_file}")
 
-    # replacements = {
-    #     "{app_name}": app_name,
-    #     "{AppName}": app_name.capitalize(),
-    #     "{App Name}": app_name.replace("_", " ").title(),
-    # }
-
+    
+    search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "config_content.py"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}/src/{app_name}", "config.py"))
     search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "pyproject_content.toml"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}", "pyproject.toml"))
     search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "README.md"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}", "README.md"))
 

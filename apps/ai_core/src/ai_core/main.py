@@ -1,8 +1,21 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from ai_core.config import settings
 
-app = FastAPI()
+print(f"App Setting: {settings}")
 
-# Import and include routers
+app = FastAPI(title="Ai Core", version="0.0.0")
+
+# Allow all CORS for development
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Open to all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
+)
+
+# Include API routes
 from .api.config_api import router as config_router
 app.include_router(config_router, prefix='/v1', tags=["Config"])
 from .api.company_api import router as company_router
@@ -17,3 +30,8 @@ from .api.transcription_api import router as transcription_router
 app.include_router(transcription_router, prefix='/v1', tags=["Transcription"])
 from .api.transcription_result_api import router as transcription_result_router
 app.include_router(transcription_result_router, prefix='/v1', tags=["Transcription Result"])
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)

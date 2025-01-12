@@ -1,8 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from {app_name}.api import {app_name}_api as {app_name}_routes
+from ai_core.config import settings
 
-app = FastAPI()
+print(f"App Setting: {settings}")
+
+app = FastAPI(title="{AppTitle}", version="0.0.0")
 
 # Allow all CORS for development
 app.add_middleware(
@@ -14,7 +16,7 @@ app.add_middleware(
 )
 
 # Include API routes
-app.include_router({app_name}_routes.router, prefix="/v1")
+{API_ROUTES}
 
 if __name__ == "__main__":
     import uvicorn
