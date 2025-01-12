@@ -6,7 +6,7 @@ from pathlib import Path
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), "tpl")
 
 
-def load_template(template_file: str, app_name: str, model_name: str, model_name_cap: str) -> str:
+def load_template(template_file: str, app_name: str = "", model_name: str = "", model_name_cap: str = "") -> str:
     """Loads a template file and replaces placeholders with the application and model names."""
     template_path = os.path.join(TEMPLATE_DIR, template_file)
     with open(template_path, "r") as f:
@@ -58,6 +58,13 @@ app = FastAPI()
         f.write(main_content)
 
     print(f"✅ Created FastAPI app structure at {base_dir}")
+
+def create_readme(app_name: str, monorepo_root: str):
+    """Creates a README.md file for the application."""
+    with open(os.path.join(f"{monorepo_root}/apps/{app_name}", "README.md"), "w") as f:
+        read_me_content = load_template("README.md", app_name)
+        f.write(read_me_content)
+        print(f"✅ Created README.md for {app_name}")
 
 
 # Define type mappings from YAML to Python/Pydantic
@@ -126,15 +133,46 @@ def main(app_name: str, monorepo_root: str):
         print(f"✅ Generated model: {model_file}")
         print(f"✅ Generated API: {api_file}")
 
+    replacements = {
+        "{app_name}": app_name,
+        "{AppName}": app_name.capitalize(),
+        "{App Name}": app_name.replace("_", " ").title(),
+    }
+
+    search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "pyproject_content.toml"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}", "pyproject.toml"))
+    search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "README.md"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}", "README.md"))
+
     # Generate FastAPI application structure
     create_fastapi_application(app_name, monorepo_root, models)
-
+    # create_readme(app_name, monorepo_root)
     print(f"✅ FastAPI application '{app_name}' setup completed!")
+
+
+def search_and_replace(template_file: str, replacements: dict, output_file: str):
+    """
+    Reads a template file, replaces placeholders with corresponding values from a dictionary,
+    and writes the result to an output file.
+
+    :param template_file: Path to the input template file.
+    :param replacements: Dictionary of placeholders and their replacements.
+    :param output_file: Path to the output file.
+    """
+    with open(template_file, "r") as f:
+        content = f.read()
+
+    for key, value in replacements.items():
+        content = content.replace(key, value)
+
+    with open(output_file, "w") as f:
+        f.write(content)
+
+    print(f"✅ Generated file: {output_file}")
+
 
 
 if __name__ == "__main__":
     app_name = input("Enter the FastAPI application name: ").strip()
-    monorepo_root = input("Enter the monorepo root directory (e.g., ~/projects/python-monorepo): ").strip()
+    monorepo_root = input("Enter the monorepo root directory (default: ..): ").strip() or ".."
     monorepo_root = os.path.expanduser(monorepo_root)
 
     main(app_name, monorepo_root)
