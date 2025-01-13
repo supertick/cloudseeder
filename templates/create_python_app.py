@@ -96,7 +96,7 @@ def parse_type(field_type):
 
 def generate_pydantic_model(name, fields):
     """Generate a Pydantic model definition."""
-    model_str = f"from pydantic import BaseModel\nfrom typing import List, Optional\n\n"
+    model_str = f"from pydantic import BaseModel, Field\nfrom typing import List, Optional, Literal\n\n"
     model_str += f"class {name.capitalize()}(BaseModel):\n"
 
     for field_name, field_type in fields.items():

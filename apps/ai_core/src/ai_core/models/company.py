@@ -1,8 +1,8 @@
-from pydantic import BaseModel
-from typing import List, Optional
+from pydantic import BaseModel, Field
+from typing import List, Optional, Literal
 
 class Company(BaseModel):
-    id: Optional[str] = None
+    id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
     name: str
     description: str
     users: list[str]

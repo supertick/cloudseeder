@@ -1,4 +1,5 @@
-from pydantic import BaseModel
+# FIXME - make this an active template
+from pydantic import BaseModel, Field
 from typing import Optional
 
 class {ModelName}(BaseModel):
