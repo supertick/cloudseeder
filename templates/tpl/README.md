@@ -38,7 +38,11 @@ python -m uvicorn {app_name}.main:app --reload
 docker build -t {app_name} -f apps/{app_name}/Dockerfile .
 docker run --rm -p 8000:8000 {app_name}
 
+# interactively
+docker run --rm -it {app_name} /bin/sh
+
 ```
+
 
 ## 🧪 Testing
 

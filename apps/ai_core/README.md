@@ -38,7 +38,11 @@ Ai Core Should be available at http://localhost:8000
 docker build -t ai_core -f apps/ai_core/Dockerfile .
 docker run --rm -p 8000:8000 ai_core
 
+# interactively
+docker run --rm -it ai_core /bin/sh
+
 ```
+
 
 ## 🧪 Testing
 
