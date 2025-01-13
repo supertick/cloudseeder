@@ -6,3 +6,4 @@ class Transcription(BaseModel):
     type: str
     status: str
     files_path: str
+    modified: Optional[int] = Field(None, example=1683123456789)

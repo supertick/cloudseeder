@@ -8,6 +8,7 @@ from database.factory import get_database
 from database import TinyDBDatabase
 from queues.factory import get_queue_client
 from ai_core.models.role import Role, Role
+from typing import Dict
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -17,7 +18,22 @@ router = APIRouter()
 # Inject database dependency dynamically
 def get_db() -> NoSqlDb:
     database_type = settings.database_type  # Read from app config
-    return get_database(database_type)  # Pass to factory
+
+    db_params: Dict[str, str] = {}
+
+    if database_type == "dynamodb":
+        db_params = {
+            "region_name": settings.aws_region,
+            "aws_access_key_id": settings.aws_access_key_id,
+            "aws_secret_access_key": settings.aws_secret_access_key
+        }
+    elif database_type == "tinydb":
+        db_params = {
+           # "table_prefix": settings.table_prefix
+        }
+
+
+    return get_database(database_type, **db_params)  # Pass to factory
 
 
 # Create an item

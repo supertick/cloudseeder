@@ -1,28 +1,71 @@
 import boto3
 from botocore.exceptions import BotoCoreError, ClientError
+from boto3.dynamodb.types import TypeSerializer
 from database.interface import NoSqlDb
-
+import time
+from pydantic import BaseModel, Field
+from typing import Optional, List
 class DynamoDBDatabase(NoSqlDb):
     """Implementation of NoSqlDb using AWS DynamoDB."""
 
-    def __init__(self, table_prefix: str = "", region_name: str = "us-east-1"):
-        """Initialize DynamoDB client and set table prefix (if any)."""
-        self.dynamodb = boto3.resource("dynamodb", region_name=region_name)
+    def __init__(
+        self,
+        table_prefix: str = "",
+        region_name: str = None,
+        aws_access_key_id: str = None,
+        aws_secret_access_key: str = None,
+    ):
+        """Initialize DynamoDB client with optional AWS credentials."""
+        
+        self.dynamodb = boto3.resource(
+            "dynamodb",
+            region_name=region_name,
+            aws_access_key_id=aws_access_key_id,
+            aws_secret_access_key=aws_secret_access_key
+        )
+        
         self.table_prefix = table_prefix
+        self.serializer = TypeSerializer()
 
+        
     def _get_table(self, table: str):
         """Helper function to get a DynamoDB table."""
         return self.dynamodb.Table(f"{self.table_prefix}{table}")
 
-    def insert_item(self, table: str, key: str, item: dict) -> dict:
-        """Insert an item into DynamoDB."""
+    def _serialize_item(self, item: dict) -> dict:
+        """
+        Convert Pydantic model (or dict) into DynamoDB's expected format using TypeSerializer.
+        """
+        serialized_item = {}
+        for k, v in item.items():
+            if k == "id":  # Ensure id is always a string
+                serialized_item[k] = self.serializer.serialize(str(v))  # Convert id explicitly to str
+            else:
+                serialized_item[k] = self.serializer.serialize(v)
+        return serialized_item
+
+    def insert_item(self, table: str, key: str, item: BaseModel) -> dict:
+        """Insert a Pydantic model into DynamoDB using TypeSerializer."""
         try:
-            item["id"] = key  # Ensuring the key is in the item
+
+            print(f"Inserting key {key} item: {item}")
+
             table_ref = self._get_table(table)
-            table_ref.put_item(Item=item)
+
+            if isinstance(item, BaseModel):
+                item = item.dict()  # Convert Pydantic model to dict
+
+            item["id"] = str(key)  # Ensure 'id' is explicitly a string
+
+            # serialized_item = self._serialize_item(item)  # Convert to DynamoDB format
+            serialized_item = item 
+
+            print(f"Serialized item: {serialized_item}")
+            table_ref.put_item(Item=serialized_item)
             return item
         except (BotoCoreError, ClientError) as e:
             raise RuntimeError(f"DynamoDB insert failed: {e}")
+        
 
     def get_item(self, table: str, key: str) -> dict:
         """Retrieve an item by key from DynamoDB."""

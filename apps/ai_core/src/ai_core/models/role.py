@@ -6,3 +6,4 @@ class Role(BaseModel):
     name: str
     description: str
     products: list[str]
+    modified: Optional[int] = Field(None, example=1683123456789)

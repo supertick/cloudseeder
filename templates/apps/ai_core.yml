@@ -10,38 +10,45 @@ app:
       database_type: Literal["tinydb", "dynamodb"] = Field("tinydb", description="Database type", example="dynamodb")
       aws_access_key_id: Optional[str] = Field(None, description="AWS Access Key ID", example="your-access-key")
       aws_secret_access_key: Optional[str] = Field(None, description="AWS Secret Access Key", example="your-secret-key")
-      aws_default_region: Optional[str] = Field(None, description="AWS Default Region", example="us-east-1")
+      aws_region: Optional[str] = Field(None, description="AWS Region", example="us-east-1")
+      modified: Optional[int] = Field(None, example=1683123456789)
 
     company:
       id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
       name: str
       description: str
       users: list[str]
+      modified: Optional[int] = Field(None, example=1683123456789)
 
     user:
       id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
       email: str
       roles: list[str]
+      modified: Optional[int] = Field(None, example=1683123456789)
 
     role:
       id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
       name: str
       description: str
       products: list[str]
+      modified: Optional[int] = Field(None, example=1683123456789)
 
     transcription_request:
       id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
       type: str = Field(None, example="string")
       files: list[str]
+      modified: Optional[int] = Field(None, example=1683123456789)
 
     transcription:
       id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
       type: str
       status: str
       files_path: str
+      modified: Optional[int] = Field(None, example=1683123456789)
 
     transcription_result:
       id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
       type: str
       status: str
       files: list[str]
+      modified: Optional[int] = Field(None, example=1683123456789)
