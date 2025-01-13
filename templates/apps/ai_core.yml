@@ -18,7 +18,7 @@ app:
       name: str
       description: str
       users: list[str]
-      modified: Optional[int] = Field(None, example=1683123456789)
+      modified: "int = Field(default_factory=lambda: int(time.time() * 1000), example=1683123456789)"
 
     user:
       id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")

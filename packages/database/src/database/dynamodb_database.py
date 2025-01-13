@@ -69,6 +69,7 @@ class DynamoDBDatabase(NoSqlDb):
 
     def get_item(self, table: str, key: str) -> dict:
         """Retrieve an item by key from DynamoDB."""
+        print(f"Retrieving item with key {key} from table {table}")
         try:
             table_ref = self._get_table(table)
             response = table_ref.get_item(Key={"id": key})
@@ -90,13 +91,19 @@ class DynamoDBDatabase(NoSqlDb):
         try:
             table_ref = self._get_table(table)
 
+            # Remove 'id' from updates to prevent modification errors
+            updates = {k: v for k, v in updates.items() if k != "id"}
+
+            if not updates:
+                raise ValueError("No valid fields to update. 'id' cannot be modified.")
+
             # Convert updates dictionary into an update expression
             update_expression = "SET " + ", ".join(f"#{k} = :{k}" for k in updates.keys())
             expression_attr_values = {f":{k}": v for k, v in updates.items()}
             expression_attr_names = {f"#{k}": k for k in updates.keys()}
 
             response = table_ref.update_item(
-                Key={"id": key},
+                Key={"id": key},  # Ensure 'id' is used only for lookup
                 UpdateExpression=update_expression,
                 ExpressionAttributeValues=expression_attr_values,
                 ExpressionAttributeNames=expression_attr_names,
