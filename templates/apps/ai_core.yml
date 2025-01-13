@@ -14,7 +14,7 @@ app:
       modified: Optional[int] = Field(None, example=1683123456789)
 
     company:
-      id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
+      id: Optional[str] = Field(None)
       name: str
       description: str
       users: list[str]
