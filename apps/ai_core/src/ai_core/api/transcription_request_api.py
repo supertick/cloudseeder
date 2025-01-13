@@ -14,9 +14,6 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
-# Initialize the database
-db: NoSqlDb = TinyDBDatabase()
-
 # Inject database dependency dynamically
 def get_db() -> NoSqlDb:
     database_type = settings.database_type  # Read from app config
@@ -36,13 +33,13 @@ def create_transcription_request(item: Transcription_request, db: NoSqlDb = Depe
 
 # Retrieve all items
 @router.get("/transcription-requests", response_model=List[Transcription_request])
-def get_all_transcription_requests():
+def get_all_transcription_requests(db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all transcription_request")
     return db.get_all_items("transcription_request")
 
 # Retrieve a single item
 @router.get("/transcription-request/{id}", response_model=Transcription_request)
-def get_transcription_request(id: str):
+def get_transcription_request(id: str, db: NoSqlDb = Depends(get_db)):
     logger.info(f"Received request to retrieve transcription_request with id: {id}")
     item = db.get_item("transcription_request", id)
     if not item:
@@ -52,7 +49,7 @@ def get_transcription_request(id: str):
 
 # Update an item (without modifying ID)
 @router.put("/transcription-request/{id}", response_model=Transcription_request)
-def update_transcription_request(id: str, updated_item: Transcription_request):
+def update_transcription_request(id: str, updated_item: Transcription_request, db: NoSqlDb = Depends(get_db)):
     item = db.get_item("transcription_request", id)
     logger.info(f"Received request to update transcription_request with id {id}: {updated_item}")
     if not item:
@@ -64,7 +61,7 @@ def update_transcription_request(id: str, updated_item: Transcription_request):
 
 # Delete an item
 @router.delete("/transcription-request/{id}")
-def delete_transcription_request(id: str):
+def delete_transcription_request(id: str, db: NoSqlDb = Depends(get_db)):
     item = db.get_item("transcription_request", id)
     if not item:
         logger.warning(f"Transcription_request with id {id} not found")

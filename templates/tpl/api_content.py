@@ -14,9 +14,6 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
-# Initialize the database
-db: NoSqlDb = TinyDBDatabase()
-
 # Inject database dependency dynamically
 def get_db() -> NoSqlDb:
     database_type = settings.database_type  # Read from app config
@@ -36,13 +33,13 @@ def create_{model_name}(item: {ModelName}, db: NoSqlDb = Depends(get_db)):
 
 # Retrieve all items
 @router.get("/{model-name}s", response_model=List[{ModelName}])
-def get_all_{model_name}s():
+def get_all_{model_name}s(db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all {model_name}")
     return db.get_all_items("{model_name}")
 
 # Retrieve a single item
 @router.get("/{model-name}/{id}", response_model={ModelName})
-def get_{model_name}(id: str):
+def get_{model_name}(id: str, db: NoSqlDb = Depends(get_db)):
     logger.info(f"Received request to retrieve {model_name} with id: {id}")
     item = db.get_item("{model_name}", id)
     if not item:
@@ -52,7 +49,7 @@ def get_{model_name}(id: str):
 
 # Update an item (without modifying ID)
 @router.put("/{model-name}/{id}", response_model={ModelName})
-def update_{model_name}(id: str, updated_item: {ModelName}):
+def update_{model_name}(id: str, updated_item: {ModelName}, db: NoSqlDb = Depends(get_db)):
     item = db.get_item("{model_name}", id)
     logger.info(f"Received request to update {model_name} with id {id}: {updated_item}")
     if not item:
@@ -64,7 +61,7 @@ def update_{model_name}(id: str, updated_item: {ModelName}):
 
 # Delete an item
 @router.delete("/{model-name}/{id}")
-def delete_{model_name}(id: str):
+def delete_{model_name}(id: str, db: NoSqlDb = Depends(get_db)):
     item = db.get_item("{model_name}", id)
     if not item:
         logger.warning(f"{ModelName} with id {id} not found")

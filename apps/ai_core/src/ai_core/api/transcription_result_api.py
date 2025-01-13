@@ -14,9 +14,6 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
-# Initialize the database
-db: NoSqlDb = TinyDBDatabase()
-
 # Inject database dependency dynamically
 def get_db() -> NoSqlDb:
     database_type = settings.database_type  # Read from app config
@@ -36,13 +33,13 @@ def create_transcription_result(item: Transcription_result, db: NoSqlDb = Depend
 
 # Retrieve all items
 @router.get("/transcription-results", response_model=List[Transcription_result])
-def get_all_transcription_results():
+def get_all_transcription_results(db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all transcription_result")
     return db.get_all_items("transcription_result")
 
 # Retrieve a single item
 @router.get("/transcription-result/{id}", response_model=Transcription_result)
-def get_transcription_result(id: str):
+def get_transcription_result(id: str, db: NoSqlDb = Depends(get_db)):
     logger.info(f"Received request to retrieve transcription_result with id: {id}")
     item = db.get_item("transcription_result", id)
     if not item:
@@ -52,7 +49,7 @@ def get_transcription_result(id: str):
 
 # Update an item (without modifying ID)
 @router.put("/transcription-result/{id}", response_model=Transcription_result)
-def update_transcription_result(id: str, updated_item: Transcription_result):
+def update_transcription_result(id: str, updated_item: Transcription_result, db: NoSqlDb = Depends(get_db)):
     item = db.get_item("transcription_result", id)
     logger.info(f"Received request to update transcription_result with id {id}: {updated_item}")
     if not item:
@@ -64,7 +61,7 @@ def update_transcription_result(id: str, updated_item: Transcription_result):
 
 # Delete an item
 @router.delete("/transcription-result/{id}")
-def delete_transcription_result(id: str):
+def delete_transcription_result(id: str, db: NoSqlDb = Depends(get_db)):
     item = db.get_item("transcription_result", id)
     if not item:
         logger.warning(f"Transcription_result with id {id} not found")

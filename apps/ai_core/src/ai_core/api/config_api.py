@@ -14,9 +14,6 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
-# Initialize the database
-db: NoSqlDb = TinyDBDatabase()
-
 # Inject database dependency dynamically
 def get_db() -> NoSqlDb:
     database_type = settings.database_type  # Read from app config
@@ -36,13 +33,13 @@ def create_config(item: Config, db: NoSqlDb = Depends(get_db)):
 
 # Retrieve all items
 @router.get("/configs", response_model=List[Config])
-def get_all_configs():
+def get_all_configs(db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all config")
     return db.get_all_items("config")
 
 # Retrieve a single item
 @router.get("/config/{id}", response_model=Config)
-def get_config(id: str):
+def get_config(id: str, db: NoSqlDb = Depends(get_db)):
     logger.info(f"Received request to retrieve config with id: {id}")
     item = db.get_item("config", id)
     if not item:
@@ -52,7 +49,7 @@ def get_config(id: str):
 
 # Update an item (without modifying ID)
 @router.put("/config/{id}", response_model=Config)
-def update_config(id: str, updated_item: Config):
+def update_config(id: str, updated_item: Config, db: NoSqlDb = Depends(get_db)):
     item = db.get_item("config", id)
     logger.info(f"Received request to update config with id {id}: {updated_item}")
     if not item:
@@ -64,7 +61,7 @@ def update_config(id: str, updated_item: Config):
 
 # Delete an item
 @router.delete("/config/{id}")
-def delete_config(id: str):
+def delete_config(id: str, db: NoSqlDb = Depends(get_db)):
     item = db.get_item("config", id)
     if not item:
         logger.warning(f"Config with id {id} not found")

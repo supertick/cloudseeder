@@ -14,9 +14,6 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
-# Initialize the database
-db: NoSqlDb = TinyDBDatabase()
-
 # Inject database dependency dynamically
 def get_db() -> NoSqlDb:
     database_type = settings.database_type  # Read from app config
@@ -36,13 +33,13 @@ def create_user(item: User, db: NoSqlDb = Depends(get_db)):
 
 # Retrieve all items
 @router.get("/users", response_model=List[User])
-def get_all_users():
+def get_all_users(db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all user")
     return db.get_all_items("user")
 
 # Retrieve a single item
 @router.get("/user/{id}", response_model=User)
-def get_user(id: str):
+def get_user(id: str, db: NoSqlDb = Depends(get_db)):
     logger.info(f"Received request to retrieve user with id: {id}")
     item = db.get_item("user", id)
     if not item:
@@ -52,7 +49,7 @@ def get_user(id: str):
 
 # Update an item (without modifying ID)
 @router.put("/user/{id}", response_model=User)
-def update_user(id: str, updated_item: User):
+def update_user(id: str, updated_item: User, db: NoSqlDb = Depends(get_db)):
     item = db.get_item("user", id)
     logger.info(f"Received request to update user with id {id}: {updated_item}")
     if not item:
@@ -64,7 +61,7 @@ def update_user(id: str, updated_item: User):
 
 # Delete an item
 @router.delete("/user/{id}")
-def delete_user(id: str):
+def delete_user(id: str, db: NoSqlDb = Depends(get_db)):
     item = db.get_item("user", id)
     if not item:
         logger.warning(f"User with id {id} not found")

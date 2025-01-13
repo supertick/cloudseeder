@@ -14,9 +14,6 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
-# Initialize the database
-db: NoSqlDb = TinyDBDatabase()
-
 # Inject database dependency dynamically
 def get_db() -> NoSqlDb:
     database_type = settings.database_type  # Read from app config
@@ -36,13 +33,13 @@ def create_company(item: Company, db: NoSqlDb = Depends(get_db)):
 
 # Retrieve all items
 @router.get("/companys", response_model=List[Company])
-def get_all_companys():
+def get_all_companys(db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all company")
     return db.get_all_items("company")
 
 # Retrieve a single item
 @router.get("/company/{id}", response_model=Company)
-def get_company(id: str):
+def get_company(id: str, db: NoSqlDb = Depends(get_db)):
     logger.info(f"Received request to retrieve company with id: {id}")
     item = db.get_item("company", id)
     if not item:
@@ -52,7 +49,7 @@ def get_company(id: str):
 
 # Update an item (without modifying ID)
 @router.put("/company/{id}", response_model=Company)
-def update_company(id: str, updated_item: Company):
+def update_company(id: str, updated_item: Company, db: NoSqlDb = Depends(get_db)):
     item = db.get_item("company", id)
     logger.info(f"Received request to update company with id {id}: {updated_item}")
     if not item:
@@ -64,7 +61,7 @@ def update_company(id: str, updated_item: Company):
 
 # Delete an item
 @router.delete("/company/{id}")
-def delete_company(id: str):
+def delete_company(id: str, db: NoSqlDb = Depends(get_db)):
     item = db.get_item("company", id)
     if not item:
         logger.warning(f"Company with id {id} not found")

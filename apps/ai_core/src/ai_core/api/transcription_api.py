@@ -14,9 +14,6 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
-# Initialize the database
-db: NoSqlDb = TinyDBDatabase()
-
 # Inject database dependency dynamically
 def get_db() -> NoSqlDb:
     database_type = settings.database_type  # Read from app config
@@ -36,13 +33,13 @@ def create_transcription(item: Transcription, db: NoSqlDb = Depends(get_db)):
 
 # Retrieve all items
 @router.get("/transcriptions", response_model=List[Transcription])
-def get_all_transcriptions():
+def get_all_transcriptions(db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all transcription")
     return db.get_all_items("transcription")
 
 # Retrieve a single item
 @router.get("/transcription/{id}", response_model=Transcription)
-def get_transcription(id: str):
+def get_transcription(id: str, db: NoSqlDb = Depends(get_db)):
     logger.info(f"Received request to retrieve transcription with id: {id}")
     item = db.get_item("transcription", id)
     if not item:
@@ -52,7 +49,7 @@ def get_transcription(id: str):
 
 # Update an item (without modifying ID)
 @router.put("/transcription/{id}", response_model=Transcription)
-def update_transcription(id: str, updated_item: Transcription):
+def update_transcription(id: str, updated_item: Transcription, db: NoSqlDb = Depends(get_db)):
     item = db.get_item("transcription", id)
     logger.info(f"Received request to update transcription with id {id}: {updated_item}")
     if not item:
@@ -64,7 +61,7 @@ def update_transcription(id: str, updated_item: Transcription):
 
 # Delete an item
 @router.delete("/transcription/{id}")
-def delete_transcription(id: str):
+def delete_transcription(id: str, db: NoSqlDb = Depends(get_db)):
     item = db.get_item("transcription", id)
     if not item:
         logger.warning(f"Transcription with id {id} not found")

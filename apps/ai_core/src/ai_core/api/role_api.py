@@ -14,9 +14,6 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
-# Initialize the database
-db: NoSqlDb = TinyDBDatabase()
-
 # Inject database dependency dynamically
 def get_db() -> NoSqlDb:
     database_type = settings.database_type  # Read from app config
@@ -36,13 +33,13 @@ def create_role(item: Role, db: NoSqlDb = Depends(get_db)):
 
 # Retrieve all items
 @router.get("/roles", response_model=List[Role])
-def get_all_roles():
+def get_all_roles(db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all role")
     return db.get_all_items("role")
 
 # Retrieve a single item
 @router.get("/role/{id}", response_model=Role)
-def get_role(id: str):
+def get_role(id: str, db: NoSqlDb = Depends(get_db)):
     logger.info(f"Received request to retrieve role with id: {id}")
     item = db.get_item("role", id)
     if not item:
@@ -52,7 +49,7 @@ def get_role(id: str):
 
 # Update an item (without modifying ID)
 @router.put("/role/{id}", response_model=Role)
-def update_role(id: str, updated_item: Role):
+def update_role(id: str, updated_item: Role, db: NoSqlDb = Depends(get_db)):
     item = db.get_item("role", id)
     logger.info(f"Received request to update role with id {id}: {updated_item}")
     if not item:
@@ -64,7 +61,7 @@ def update_role(id: str, updated_item: Role):
 
 # Delete an item
 @router.delete("/role/{id}")
-def delete_role(id: str):
+def delete_role(id: str, db: NoSqlDb = Depends(get_db)):
     item = db.get_item("role", id)
     if not item:
         logger.warning(f"Role with id {id} not found")
