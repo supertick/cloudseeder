@@ -7,3 +7,4 @@ class Config(BaseModel):
     work_dir: str
     log_level: str
     deepgram_api_key: str
+    database_type: str

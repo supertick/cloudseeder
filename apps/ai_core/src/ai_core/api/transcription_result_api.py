@@ -1,8 +1,10 @@
 import logging
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from typing import List
 import uuid
+from ai_core.config import settings 
 from database.interface import NoSqlDb
+from database.factory import get_database
 from database import TinyDBDatabase
 from queues.factory import get_queue_client
 from ai_core.models.transcription_result import Transcription_result, Transcription_result
@@ -15,9 +17,15 @@ router = APIRouter()
 # Initialize the database
 db: NoSqlDb = TinyDBDatabase()
 
+# Inject database dependency dynamically
+def get_db() -> NoSqlDb:
+    database_type = settings.database_type  # Read from app config
+    return get_database(database_type)  # Pass to factory
+
+
 # Create an item
 @router.post("/transcription-result", response_model=Transcription_result)
-def create_transcription_result(item: Transcription_result):
+def create_transcription_result(item: Transcription_result, db: NoSqlDb = Depends(get_db)):
     logger.info(f"Received request to create: {item}")
     item_id = str(uuid.uuid4())  # Generate a new UUID
     new_item = item.dict()

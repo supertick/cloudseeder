@@ -2,42 +2,43 @@ app:
   models:
 
     config:
-      id: string
+      id: str
       port: int
-      work_dir: string
-      log_level: string
-      deepgram_api_key: string
+      work_dir: str
+      log_level: str
+      deepgram_api_key: str
+      database_type: str
 
     company:
-      id: string
-      name: string
-      description: string
+      id: Optional[str] = None
+      name: str
+      description: str
       users: list[str]
 
     user:
-      id: string
-      email: string
+      id: str
+      email: str
       roles: list[str]
 
     role:
-      id: string
-      name: string
-      description: string
-      products: list[string]
+      id: str
+      name: str
+      description: str
+      products: list[str]
 
     transcription_request:
-      id: string
-      type: string
-      files: list[string]
+      id: str
+      type: str
+      files: list[str]
 
     transcription:
-      id: string
-      type: string
-      status: string
-      files_path: string
+      id: str
+      type: str
+      status: str
+      files_path: str
 
     transcription_result:
-      id: string
-      type: string
-      status: string
-      files: list[string]
+      id: str
+      type: str
+      status: str
+      files: list[str]

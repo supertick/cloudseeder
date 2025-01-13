@@ -63,6 +63,7 @@ app = FastAPI()
 
     replacements = {
         "{app_name}": app_name,
+        "{APP_NAME}": app_name.upper(),
         "{AppName}": app_name.capitalize(),
         "{App Name}": app_name.replace("_", " ").title(),
         "{AppTitle}": app_name.replace("_", " ").title(),
@@ -134,6 +135,7 @@ def main(app_name: str, monorepo_root: str):
             "{model_name}": model_name,
             "{model-name}": model_name.replace("_", "-"),
             "{ModelName}": model_name.capitalize(),
+            "{APP_NAME}": app_name.upper(),
             "{Model Name}": model_name.replace("_", " ").title(),
             "{AppName}": app_name.capitalize(),
             "{App Name}": app_name.replace("_", " ").title(),
