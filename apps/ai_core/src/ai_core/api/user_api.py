@@ -1,5 +1,6 @@
 import logging
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Security
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from typing import List
 import uuid
 from ai_core.config import settings 
@@ -9,11 +10,38 @@ from database import TinyDBDatabase
 from queues.factory import get_queue_client
 from ai_core.models.user import User, User
 from typing import Dict
+from auth.factory import get_auth_provider
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
+
+auth = get_auth_provider()
+security = HTTPBearer()
+
+# Authentication dependency - FIXME probably not good to have this replicated in every model
+def get_current_user(
+    credentials: HTTPAuthorizationCredentials = Security(security),
+) -> dict:
+    """Get current authenticated user from token."""
+    token = credentials.credentials
+    user = auth.get_user(token)
+
+    if not user:
+        raise HTTPException(status_code=401, detail="Invalid or expired token")
+
+    return user
+
+# Role-based access control (RBAC) dependency
+def require_role(required_roles: List[str]):
+    """Dependency factory for role-based access control."""
+    def role_checker(user: dict = Depends(get_current_user)):
+        if user.get("role") not in required_roles:
+            raise HTTPException(status_code=403, detail="Access denied: Insufficient permissions")
+        return user
+    return role_checker
+
 
 # Inject database dependency dynamically
 def get_db() -> NoSqlDb:
@@ -50,6 +78,7 @@ def create_user(item: User, db: NoSqlDb = Depends(get_db)):
 # Retrieve all items
 @router.get("/users", response_model=List[User])
 def get_all_users(db: NoSqlDb = Depends(get_db)):
+# def get_all_users(user: dict = Depends(get_current_user), db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all user")
     return db.get_all_items("user")
 

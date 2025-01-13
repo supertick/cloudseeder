@@ -9,7 +9,7 @@ description = "A queue management library for CloudSeeder2"
 authors = [{ name = "GroGBot", email = "grogbot@robotlab-x.com" }]
 license = { file = "LICENSE" }
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 
 dependencies = [
     "boto3",
