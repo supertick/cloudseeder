@@ -3,12 +3,12 @@ from fastapi import APIRouter, HTTPException, Depends, Security
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from typing import List
 import uuid
-from {app_name}.config import settings 
+from mfa_server.config import settings 
 from database.interface import NoSqlDb
 from database.factory import get_database
 from queues.factory import get_queue_client
 from queues.interface import QueueClient
-from {app_name}.models.{model_name} import {ModelName}, {ModelName}
+from mfa_server.models.user import User, User
 from typing import Dict
 from auth.factory import get_auth_provider
 
@@ -80,60 +80,60 @@ def get_queue() -> QueueClient:
            # aws stuff
         }
 
-    return get_queue_client(name="{ModelName}", queue_type="local", **q_params)  # Pass to factory
+    return get_queue_client(name="User", queue_type="local", **q_params)  # Pass to factory
 
 
 
 # Create an item
-@router.post("/{model-name}", response_model={ModelName})
-def create_{model_name}(item: {ModelName}, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue)):
+@router.post("/user", response_model=User)
+def create_user(item: User, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue)):
     logger.info(f"Received request to create: {item}")
     item_id = str(uuid.uuid4())  # Generate a new UUID
     new_item = item.dict()
     new_item["id"] = item_id  # Store UUID in the database
-    db.insert_item("{model_name}", item_id, new_item)
-    logger.info(f"{ModelName} created: {new_item}")
+    db.insert_item("user", item_id, new_item)
+    logger.info(f"User created: {new_item}")
     if q:
         q.send_message(new_item)
-        logger.info(f"Message sent to queue: {ModelName} created: {new_item}")
+        logger.info(f"Message sent to queue: User created: {new_item}")
         logger.info(f"Queue message count: {q.get_message_count()}")
     return new_item
 
 # Retrieve all items
-@router.get("/{model-name}s", response_model=List[{ModelName}])
-def get_all_{model_name}s(db: NoSqlDb = Depends(get_db)):
-# def get_all_{model_name}s(user: dict = Depends(get_current_user), db: NoSqlDb = Depends(get_db)):
-    logger.info("Received request to retrieve all {model_name}")
-    return db.get_all_items("{model_name}")
+@router.get("/users", response_model=List[User])
+def get_all_users(db: NoSqlDb = Depends(get_db)):
+# def get_all_users(user: dict = Depends(get_current_user), db: NoSqlDb = Depends(get_db)):
+    logger.info("Received request to retrieve all user")
+    return db.get_all_items("user")
 
 # Retrieve a single item
-@router.get("/{model-name}/{id}", response_model={ModelName})
-def get_{model_name}(id: str, db: NoSqlDb = Depends(get_db)):
-    logger.info(f"Received request to retrieve {model_name} with id: {id}")
-    item = db.get_item("{model_name}", id)
+@router.get("/user/{id}", response_model=User)
+def get_user(id: str, db: NoSqlDb = Depends(get_db)):
+    logger.info(f"Received request to retrieve user with id: {id}")
+    item = db.get_item("user", id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
-    logger.info(f"Retrieved {model_name}: {item}")
+    logger.info(f"Retrieved user: {item}")
     return item
 
 # Update an item (without modifying ID)
-@router.put("/{model-name}/{id}", response_model={ModelName})
-def update_{model_name}(id: str, updated_item: {ModelName}, db: NoSqlDb = Depends(get_db)):
-    item = db.get_item("{model_name}", id)
-    logger.info(f"Received request to update {model_name} with id {id}: {updated_item}")
+@router.put("/user/{id}", response_model=User)
+def update_user(id: str, updated_item: User, db: NoSqlDb = Depends(get_db)):
+    item = db.get_item("user", id)
+    logger.info(f"Received request to update user with id {id}: {updated_item}")
     if not item:
-        logger.warning(f"{ModelName} with id {id} not found")
+        logger.warning(f"User with id {id} not found")
         raise HTTPException(status_code=404, detail="Item not found")
     
-    db.update_item("{model_name}", id, updated_item.dict())
-    return db.get_item("{model_name}", id)
+    db.update_item("user", id, updated_item.dict())
+    return db.get_item("user", id)
 
 # Delete an item
-@router.delete("/{model-name}/{id}")
-def delete_{model_name}(id: str, db: NoSqlDb = Depends(get_db)):
-    item = db.get_item("{model_name}", id)
+@router.delete("/user/{id}")
+def delete_user(id: str, db: NoSqlDb = Depends(get_db)):
+    item = db.get_item("user", id)
     if not item:
-        logger.warning(f"{ModelName} with id {id} not found")
+        logger.warning(f"User with id {id} not found")
         raise HTTPException(status_code=404, detail="Item not found")
-    db.delete_item("{model_name}", id)
+    db.delete_item("user", id)
     return {"message": "Deleted successfully"}

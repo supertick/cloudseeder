@@ -1,5 +1,5 @@
 from azure.storage.queue import QueueClient as AzureQueue
-from .base import QueueClient
+from .interface import QueueClient
 
 class AzureQueueClient(QueueClient):
     def __init__(self, connection_string, queue_name):

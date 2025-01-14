@@ -1,5 +1,5 @@
 import queue
-from .base import QueueClient
+from .interface import QueueClient
 
 class LocalQueue(QueueClient):
     def __init__(self):
@@ -13,3 +13,6 @@ class LocalQueue(QueueClient):
 
     def delete_message(self, message_id):
         pass  # Not needed for local testing
+
+    def get_message_count(self):
+        return self.q.qsize()

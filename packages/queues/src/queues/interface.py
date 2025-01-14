@@ -14,3 +14,7 @@ class QueueClient(ABC):
     @abstractmethod
     def delete_message(self, message_id):
         pass
+
+    @abstractmethod
+    def get_message_count(self):
+        pass

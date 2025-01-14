@@ -1,5 +1,5 @@
 import boto3
-from .base import QueueClient
+from .interface import QueueClient
 
 class SQSQueue(QueueClient):
     def __init__(self, queue_url):

@@ -107,4 +107,3 @@ Pipfile.lock
 db.json
 
 # apps
-apps/mfa_server
