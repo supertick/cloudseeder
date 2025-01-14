@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends, HTTPException, Security
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials, OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from typing import List, Optional
-from ai_core.config import settings
+from {app_name}.config import settings
 from auth.factory import get_auth_provider
 import jwt as pyjwt 
 import time

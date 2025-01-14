@@ -1,5 +1,5 @@
 from pydantic_settings import BaseSettings
-from ai_core.models.config import Config
+from {app_name}.models.config import Config
 
 class AppSettings(Config, BaseSettings):
     class Config:

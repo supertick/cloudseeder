@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "generator"
+version = "0.1.0"
+description = "A Python library for generator"
+authors = [{ name = "Your Name", email = "your@email.com" }]
+requires-python = ">=3.10"
+
+dependencies = [
+    "pyyaml"
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
