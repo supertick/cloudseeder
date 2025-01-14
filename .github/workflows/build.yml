@@ -16,6 +16,6 @@ jobs:
         with:
           python-version: "3.10"
       - name: Install dependencies
-        run: pip install -e .
+        run: cd templates &&pip install -e .
       # - name: Run tests
       #   run: pytest
