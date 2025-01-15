@@ -66,7 +66,8 @@ def get_queue() -> QueueClient:
 @router.post("/{model-name}", response_model={ModelName})
 def create_{model_name}(item: {ModelName}, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role([]))):
     logger.info(f"Received request to create: {item}")
-    item_id = str(uuid.uuid4())  # Generate a new UUID
+    item_id = item.id if hasattr(item, "id") and item.id else str(uuid.uuid4())
+    logger.info(f"Using item_id: {item_id}")
     new_item = item.model_dump()
     new_item["id"] = item_id  # Store UUID in the database
     # FIXME - if db: ...
