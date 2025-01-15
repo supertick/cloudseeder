@@ -79,15 +79,15 @@ def create_transcription(item: Transcription, db: NoSqlDb = Depends(get_db), q: 
     return new_item
 
 # read - Retrieve all items
-@router.get("/transcriptions", response_model=List[Transcription], user: dict = Depends(require_role([])))
-def get_all_transcriptions(db: NoSqlDb = Depends(get_db)):
+@router.get("/transcriptions", response_model=List[Transcription])
+def get_all_transcriptions(db: NoSqlDb = Depends(get_db), user: dict = Depends(require_role([]))):
 # def get_all_transcriptions(user: dict = Depends(get_current_user), db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all transcription")
     return db.get_all_items("transcription")
 
 # read - Retrieve a single item
-@router.get("/transcription/{id}", response_model=Transcription, user: dict = Depends(require_role([])))
-def get_transcription(id: str, db: NoSqlDb = Depends(get_db)):
+@router.get("/transcription/{id}", response_model=Transcription)
+def get_transcription(id: str, db: NoSqlDb = Depends(get_db), user: dict = Depends(require_role([]))):
     logger.info(f"Received request to retrieve transcription with id: {id}")
     item = db.get_item("transcription", id)
     if not item:

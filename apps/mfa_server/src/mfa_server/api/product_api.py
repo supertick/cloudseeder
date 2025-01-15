@@ -79,15 +79,15 @@ def create_product(item: Product, db: NoSqlDb = Depends(get_db), q: QueueClient 
     return new_item
 
 # read - Retrieve all items
-@router.get("/products", response_model=List[Product], user: dict = Depends(require_role([])))
-def get_all_products(db: NoSqlDb = Depends(get_db)):
+@router.get("/products", response_model=List[Product])
+def get_all_products(db: NoSqlDb = Depends(get_db), user: dict = Depends(require_role([]))):
 # def get_all_products(user: dict = Depends(get_current_user), db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all product")
     return db.get_all_items("product")
 
 # read - Retrieve a single item
-@router.get("/product/{id}", response_model=Product, user: dict = Depends(require_role([])))
-def get_product(id: str, db: NoSqlDb = Depends(get_db)):
+@router.get("/product/{id}", response_model=Product)
+def get_product(id: str, db: NoSqlDb = Depends(get_db), user: dict = Depends(require_role([]))):
     logger.info(f"Received request to retrieve product with id: {id}")
     item = db.get_item("product", id)
     if not item:

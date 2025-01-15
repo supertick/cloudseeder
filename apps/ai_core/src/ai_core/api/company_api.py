@@ -79,15 +79,15 @@ def create_company(item: Company, db: NoSqlDb = Depends(get_db), q: QueueClient 
     return new_item
 
 # read - Retrieve all items
-@router.get("/companys", response_model=List[Company], user: dict = Depends(require_role([])))
-def get_all_companys(db: NoSqlDb = Depends(get_db)):
+@router.get("/companys", response_model=List[Company])
+def get_all_companys(db: NoSqlDb = Depends(get_db), user: dict = Depends(require_role([]))):
 # def get_all_companys(user: dict = Depends(get_current_user), db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all company")
     return db.get_all_items("company")
 
 # read - Retrieve a single item
-@router.get("/company/{id}", response_model=Company, user: dict = Depends(require_role([])))
-def get_company(id: str, db: NoSqlDb = Depends(get_db)):
+@router.get("/company/{id}", response_model=Company)
+def get_company(id: str, db: NoSqlDb = Depends(get_db), user: dict = Depends(require_role([]))):
     logger.info(f"Received request to retrieve company with id: {id}")
     item = db.get_item("company", id)
     if not item:

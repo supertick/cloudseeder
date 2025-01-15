@@ -79,15 +79,15 @@ def create_role(item: Role, db: NoSqlDb = Depends(get_db), q: QueueClient = Depe
     return new_item
 
 # read - Retrieve all items
-@router.get("/roles", response_model=List[Role], user: dict = Depends(require_role([])))
-def get_all_roles(db: NoSqlDb = Depends(get_db)):
+@router.get("/roles", response_model=List[Role])
+def get_all_roles(db: NoSqlDb = Depends(get_db), user: dict = Depends(require_role([]))):
 # def get_all_roles(user: dict = Depends(get_current_user), db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all role")
     return db.get_all_items("role")
 
 # read - Retrieve a single item
-@router.get("/role/{id}", response_model=Role, user: dict = Depends(require_role([])))
-def get_role(id: str, db: NoSqlDb = Depends(get_db)):
+@router.get("/role/{id}", response_model=Role)
+def get_role(id: str, db: NoSqlDb = Depends(get_db), user: dict = Depends(require_role([]))):
     logger.info(f"Received request to retrieve role with id: {id}")
     item = db.get_item("role", id)
     if not item:

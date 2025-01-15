@@ -79,15 +79,15 @@ def create_config(item: Config, db: NoSqlDb = Depends(get_db), q: QueueClient = 
     return new_item
 
 # read - Retrieve all items
-@router.get("/configs", response_model=List[Config], user: dict = Depends(require_role([])))
-def get_all_configs(db: NoSqlDb = Depends(get_db)):
+@router.get("/configs", response_model=List[Config])
+def get_all_configs(db: NoSqlDb = Depends(get_db), user: dict = Depends(require_role([]))):
 # def get_all_configs(user: dict = Depends(get_current_user), db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all config")
     return db.get_all_items("config")
 
 # read - Retrieve a single item
-@router.get("/config/{id}", response_model=Config, user: dict = Depends(require_role([])))
-def get_config(id: str, db: NoSqlDb = Depends(get_db)):
+@router.get("/config/{id}", response_model=Config)
+def get_config(id: str, db: NoSqlDb = Depends(get_db), user: dict = Depends(require_role([]))):
     logger.info(f"Received request to retrieve config with id: {id}")
     item = db.get_item("config", id)
     if not item:

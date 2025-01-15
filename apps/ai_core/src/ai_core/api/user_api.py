@@ -79,15 +79,15 @@ def create_user(item: User, db: NoSqlDb = Depends(get_db), q: QueueClient = Depe
     return new_item
 
 # read - Retrieve all items
-@router.get("/users", response_model=List[User], user: dict = Depends(require_role([])))
-def get_all_users(db: NoSqlDb = Depends(get_db)):
+@router.get("/users", response_model=List[User])
+def get_all_users(db: NoSqlDb = Depends(get_db), user: dict = Depends(require_role([]))):
 # def get_all_users(user: dict = Depends(get_current_user), db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all user")
     return db.get_all_items("user")
 
 # read - Retrieve a single item
-@router.get("/user/{id}", response_model=User, user: dict = Depends(require_role([])))
-def get_user(id: str, db: NoSqlDb = Depends(get_db)):
+@router.get("/user/{id}", response_model=User)
+def get_user(id: str, db: NoSqlDb = Depends(get_db), user: dict = Depends(require_role([]))):
     logger.info(f"Received request to retrieve user with id: {id}")
     item = db.get_item("user", id)
     if not item:

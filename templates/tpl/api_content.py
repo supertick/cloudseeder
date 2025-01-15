@@ -79,15 +79,15 @@ def create_{model_name}(item: {ModelName}, db: NoSqlDb = Depends(get_db), q: Que
     return new_item
 
 # read - Retrieve all items
-@router.get("/{model-name}s", response_model=List[{ModelName}], user: dict = Depends(require_role([])))
-def get_all_{model_name}s(db: NoSqlDb = Depends(get_db)):
+@router.get("/{model-name}s", response_model=List[{ModelName}])
+def get_all_{model_name}s(db: NoSqlDb = Depends(get_db), user: dict = Depends(require_role([]))):
 # def get_all_{model_name}s(user: dict = Depends(get_current_user), db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all {model_name}")
     return db.get_all_items("{model_name}")
 
 # read - Retrieve a single item
-@router.get("/{model-name}/{id}", response_model={ModelName}, user: dict = Depends(require_role([])))
-def get_{model_name}(id: str, db: NoSqlDb = Depends(get_db)):
+@router.get("/{model-name}/{id}", response_model={ModelName})
+def get_{model_name}(id: str, db: NoSqlDb = Depends(get_db), user: dict = Depends(require_role([]))):
     logger.info(f"Received request to retrieve {model_name} with id: {id}")
     item = db.get_item("{model_name}", id)
     if not item:

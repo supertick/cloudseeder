@@ -79,15 +79,15 @@ def create_run_status(item: Run_status, db: NoSqlDb = Depends(get_db), q: QueueC
     return new_item
 
 # read - Retrieve all items
-@router.get("/run-statuss", response_model=List[Run_status], user: dict = Depends(require_role([])))
-def get_all_run_statuss(db: NoSqlDb = Depends(get_db)):
+@router.get("/run-statuss", response_model=List[Run_status])
+def get_all_run_statuss(db: NoSqlDb = Depends(get_db), user: dict = Depends(require_role([]))):
 # def get_all_run_statuss(user: dict = Depends(get_current_user), db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all run_status")
     return db.get_all_items("run_status")
 
 # read - Retrieve a single item
-@router.get("/run-status/{id}", response_model=Run_status, user: dict = Depends(require_role([])))
-def get_run_status(id: str, db: NoSqlDb = Depends(get_db)):
+@router.get("/run-status/{id}", response_model=Run_status)
+def get_run_status(id: str, db: NoSqlDb = Depends(get_db), user: dict = Depends(require_role([]))):
     logger.info(f"Received request to retrieve run_status with id: {id}")
     item = db.get_item("run_status", id)
     if not item:
