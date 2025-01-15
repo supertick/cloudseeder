@@ -23,6 +23,10 @@ app.add_middleware(
     allow_headers=["*"],  # Allow all headers
 )
 
+# private_router = APIRouter(
+#     dependencies=[Depends(require_authentication)]  # Auth required for all private routes
+# )
+
 # Include API routes
 {API_ROUTES}
 

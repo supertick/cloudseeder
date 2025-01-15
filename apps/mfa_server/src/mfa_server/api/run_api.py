@@ -58,17 +58,18 @@ def get_queue() -> QueueClient:
            # aws stuff
         }
 
-    return get_queue_client(name="Run", queue_type="local", **q_params)  # Pass to factory
+    return get_queue_client(name="run", queue_type="local", **q_params)  # Pass to factory
 
 
 
-# Create an item
+# write - Create an item
 @router.post("/run", response_model=Run)
-def create_run(item: Run, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role(["admin"]))):
+def create_run(item: Run, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role([]))):
     logger.info(f"Received request to create: {item}")
     item_id = str(uuid.uuid4())  # Generate a new UUID
-    new_item = item.dict()
+    new_item = item.model_dump()
     new_item["id"] = item_id  # Store UUID in the database
+    # FIXME - if db: ...
     db.insert_item("run", item_id, new_item)
     logger.info(f"Run created: {new_item}")
     if q:
@@ -77,15 +78,15 @@ def create_run(item: Run, db: NoSqlDb = Depends(get_db), q: QueueClient = Depend
         logger.info(f"Queue message count: {q.get_message_count()}")
     return new_item
 
-# Retrieve all items
-@router.get("/runs", response_model=List[Run])
+# read - Retrieve all items
+@router.get("/runs", response_model=List[Run], user: dict = Depends(require_role([])))
 def get_all_runs(db: NoSqlDb = Depends(get_db)):
 # def get_all_runs(user: dict = Depends(get_current_user), db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all run")
     return db.get_all_items("run")
 
-# Retrieve a single item
-@router.get("/run/{id}", response_model=Run)
+# read - Retrieve a single item
+@router.get("/run/{id}", response_model=Run, user: dict = Depends(require_role([])))
 def get_run(id: str, db: NoSqlDb = Depends(get_db)):
     logger.info(f"Received request to retrieve run with id: {id}")
     item = db.get_item("run", id)
@@ -94,21 +95,21 @@ def get_run(id: str, db: NoSqlDb = Depends(get_db)):
     logger.info(f"Retrieved run: {item}")
     return item
 
-# Update an item (without modifying ID)
+# write - Update an item (without modifying ID)
 @router.put("/run/{id}", response_model=Run)
-def update_run(id: str, updated_item: Run, db: NoSqlDb = Depends(get_db)):
+def update_run(id: str, updated_item: Run, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role([]))):
     item = db.get_item("run", id)
     logger.info(f"Received request to update run with id {id}: {updated_item}")
     if not item:
         logger.warning(f"Run with id {id} not found")
         raise HTTPException(status_code=404, detail="Item not found")
     
-    db.update_item("run", id, updated_item.dict())
+    db.update_item("run", id, updated_item.model_dump())
     return db.get_item("run", id)
 
-# Delete an item
+# write - Delete an item
 @router.delete("/run/{id}")
-def delete_run(id: str, db: NoSqlDb = Depends(get_db)):
+def delete_run(id: str, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role([]))):
     item = db.get_item("run", id)
     if not item:
         logger.warning(f"Run with id {id} not found")

@@ -58,17 +58,18 @@ def get_queue() -> QueueClient:
            # aws stuff
         }
 
-    return get_queue_client(name="Transcription", queue_type="local", **q_params)  # Pass to factory
+    return get_queue_client(name="transcription", queue_type="local", **q_params)  # Pass to factory
 
 
 
-# Create an item
+# write - Create an item
 @router.post("/transcription", response_model=Transcription)
-def create_transcription(item: Transcription, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role(["admin"]))):
+def create_transcription(item: Transcription, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role([]))):
     logger.info(f"Received request to create: {item}")
     item_id = str(uuid.uuid4())  # Generate a new UUID
-    new_item = item.dict()
+    new_item = item.model_dump()
     new_item["id"] = item_id  # Store UUID in the database
+    # FIXME - if db: ...
     db.insert_item("transcription", item_id, new_item)
     logger.info(f"Transcription created: {new_item}")
     if q:
@@ -77,15 +78,15 @@ def create_transcription(item: Transcription, db: NoSqlDb = Depends(get_db), q: 
         logger.info(f"Queue message count: {q.get_message_count()}")
     return new_item
 
-# Retrieve all items
-@router.get("/transcriptions", response_model=List[Transcription])
+# read - Retrieve all items
+@router.get("/transcriptions", response_model=List[Transcription], user: dict = Depends(require_role([])))
 def get_all_transcriptions(db: NoSqlDb = Depends(get_db)):
 # def get_all_transcriptions(user: dict = Depends(get_current_user), db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all transcription")
     return db.get_all_items("transcription")
 
-# Retrieve a single item
-@router.get("/transcription/{id}", response_model=Transcription)
+# read - Retrieve a single item
+@router.get("/transcription/{id}", response_model=Transcription, user: dict = Depends(require_role([])))
 def get_transcription(id: str, db: NoSqlDb = Depends(get_db)):
     logger.info(f"Received request to retrieve transcription with id: {id}")
     item = db.get_item("transcription", id)
@@ -94,21 +95,21 @@ def get_transcription(id: str, db: NoSqlDb = Depends(get_db)):
     logger.info(f"Retrieved transcription: {item}")
     return item
 
-# Update an item (without modifying ID)
+# write - Update an item (without modifying ID)
 @router.put("/transcription/{id}", response_model=Transcription)
-def update_transcription(id: str, updated_item: Transcription, db: NoSqlDb = Depends(get_db)):
+def update_transcription(id: str, updated_item: Transcription, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role([]))):
     item = db.get_item("transcription", id)
     logger.info(f"Received request to update transcription with id {id}: {updated_item}")
     if not item:
         logger.warning(f"Transcription with id {id} not found")
         raise HTTPException(status_code=404, detail="Item not found")
     
-    db.update_item("transcription", id, updated_item.dict())
+    db.update_item("transcription", id, updated_item.model_dump())
     return db.get_item("transcription", id)
 
-# Delete an item
+# write - Delete an item
 @router.delete("/transcription/{id}")
-def delete_transcription(id: str, db: NoSqlDb = Depends(get_db)):
+def delete_transcription(id: str, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role([]))):
     item = db.get_item("transcription", id)
     if not item:
         logger.warning(f"Transcription with id {id} not found")

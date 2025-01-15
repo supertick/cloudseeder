@@ -46,6 +46,7 @@ class LocalAuthProvider(AuthProvider):
         return {"username": username, "message": "User registered"}
 
     def authenticate(self, username: str, password: str, in_token: str = None) -> Optional[str]:
+        logger.info(f"authenticate: User {username} password: {password} in_token: {in_token}")
         user = self.users.get(username)
         if user and user["password_hash"] == self._hash_password(password):
             token = str(uuid.uuid4())  # Simple token generation
@@ -60,8 +61,8 @@ class LocalAuthProvider(AuthProvider):
 
     def get_user(self, token: str) -> Optional[dict]:
         for username, data in self.users.items():
-            logger.info(f"get_user: Checking user {username} with token {token} and data {data.get('token')}")
             if data.get("token") == token:
+                logger.info(f"MATCH !!! get_user: User {username} found")
                 return {"username": username}
         return None
 

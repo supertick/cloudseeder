@@ -58,17 +58,18 @@ def get_queue() -> QueueClient:
            # aws stuff
         }
 
-    return get_queue_client(name="{ModelName}", queue_type="local", **q_params)  # Pass to factory
+    return get_queue_client(name="{model_name}", queue_type="local", **q_params)  # Pass to factory
 
 
 
-# Create an item
+# write - Create an item
 @router.post("/{model-name}", response_model={ModelName})
-def create_{model_name}(item: {ModelName}, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role(["admin"]))):
+def create_{model_name}(item: {ModelName}, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role([]))):
     logger.info(f"Received request to create: {item}")
     item_id = str(uuid.uuid4())  # Generate a new UUID
-    new_item = item.dict()
+    new_item = item.model_dump()
     new_item["id"] = item_id  # Store UUID in the database
+    # FIXME - if db: ...
     db.insert_item("{model_name}", item_id, new_item)
     logger.info(f"{ModelName} created: {new_item}")
     if q:
@@ -77,15 +78,15 @@ def create_{model_name}(item: {ModelName}, db: NoSqlDb = Depends(get_db), q: Que
         logger.info(f"Queue message count: {q.get_message_count()}")
     return new_item
 
-# Retrieve all items
-@router.get("/{model-name}s", response_model=List[{ModelName}])
+# read - Retrieve all items
+@router.get("/{model-name}s", response_model=List[{ModelName}], user: dict = Depends(require_role([])))
 def get_all_{model_name}s(db: NoSqlDb = Depends(get_db)):
 # def get_all_{model_name}s(user: dict = Depends(get_current_user), db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all {model_name}")
     return db.get_all_items("{model_name}")
 
-# Retrieve a single item
-@router.get("/{model-name}/{id}", response_model={ModelName})
+# read - Retrieve a single item
+@router.get("/{model-name}/{id}", response_model={ModelName}, user: dict = Depends(require_role([])))
 def get_{model_name}(id: str, db: NoSqlDb = Depends(get_db)):
     logger.info(f"Received request to retrieve {model_name} with id: {id}")
     item = db.get_item("{model_name}", id)
@@ -94,21 +95,21 @@ def get_{model_name}(id: str, db: NoSqlDb = Depends(get_db)):
     logger.info(f"Retrieved {model_name}: {item}")
     return item
 
-# Update an item (without modifying ID)
+# write - Update an item (without modifying ID)
 @router.put("/{model-name}/{id}", response_model={ModelName})
-def update_{model_name}(id: str, updated_item: {ModelName}, db: NoSqlDb = Depends(get_db)):
+def update_{model_name}(id: str, updated_item: {ModelName}, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role([]))):
     item = db.get_item("{model_name}", id)
     logger.info(f"Received request to update {model_name} with id {id}: {updated_item}")
     if not item:
         logger.warning(f"{ModelName} with id {id} not found")
         raise HTTPException(status_code=404, detail="Item not found")
     
-    db.update_item("{model_name}", id, updated_item.dict())
+    db.update_item("{model_name}", id, updated_item.model_dump())
     return db.get_item("{model_name}", id)
 
-# Delete an item
+# write - Delete an item
 @router.delete("/{model-name}/{id}")
-def delete_{model_name}(id: str, db: NoSqlDb = Depends(get_db)):
+def delete_{model_name}(id: str, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role([]))):
     item = db.get_item("{model_name}", id)
     if not item:
         logger.warning(f"{ModelName} with id {id} not found")

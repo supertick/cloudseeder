@@ -1,3 +1,4 @@
+import logging
 from fastapi import FastAPI, Depends, HTTPException, Security
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials, OAuth2PasswordBearer, OAuth2PasswordRequestForm
@@ -7,7 +8,9 @@ from auth.factory import get_auth_provider
 import jwt
 import time
 
-print(f"App Setting: {settings}")
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+logger.info(f"App Setting: {settings}")
 
 app = FastAPI(title="Ai Core", version="0.0.0")
 
@@ -19,6 +22,10 @@ app.add_middleware(
     allow_methods=["*"],  # Allow all HTTP methods
     allow_headers=["*"],  # Allow all headers
 )
+
+# private_router = APIRouter(
+#     dependencies=[Depends(require_authentication)]  # Auth required for all private routes
+# )
 
 # Include API routes
 from .api.config_api import router as config_router
@@ -40,19 +47,6 @@ app.include_router(transcription_result_router, prefix='/v1', tags=["Transcripti
 
 auth = get_auth_provider()
 security = HTTPBearer()
-
-# Authentication dependency
-def get_current_user(
-    credentials: HTTPAuthorizationCredentials = Security(security),
-) -> dict:
-    """Get current authenticated user from token."""
-    token = credentials.credentials
-    user = auth.get_user(token)
-
-    if not user:
-        raise HTTPException(status_code=401, detail="Invalid or expired token")
-
-    return user
 
 # Fake in-memory user database
 fake_users_db = {
@@ -93,6 +87,8 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 @app.post("/token")
 def login(form_data: OAuth2PasswordRequestForm = Depends()):
     """Login route to authenticate users and return a JWT token."""
+    logger.info(f"Received login request: {form_data}")
+
     user = fake_users_db.get(form_data.username)
 
     if not user or user["password"] != form_data.password:
@@ -104,6 +100,8 @@ def login(form_data: OAuth2PasswordRequestForm = Depends()):
         SECRET_KEY,
         algorithm="HS256"
     )
+    logger.info(f"Authenticated user: {user} with token: {token}")
+    provider_token = auth.authenticate(form_data.username, form_data.password, token)
 
     return {"access_token": token, "token_type": "bearer"}
 

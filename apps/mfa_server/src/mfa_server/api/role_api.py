@@ -58,17 +58,18 @@ def get_queue() -> QueueClient:
            # aws stuff
         }
 
-    return get_queue_client(name="Role", queue_type="local", **q_params)  # Pass to factory
+    return get_queue_client(name="role", queue_type="local", **q_params)  # Pass to factory
 
 
 
-# Create an item
+# write - Create an item
 @router.post("/role", response_model=Role)
-def create_role(item: Role, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role(["admin"]))):
+def create_role(item: Role, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role([]))):
     logger.info(f"Received request to create: {item}")
     item_id = str(uuid.uuid4())  # Generate a new UUID
-    new_item = item.dict()
+    new_item = item.model_dump()
     new_item["id"] = item_id  # Store UUID in the database
+    # FIXME - if db: ...
     db.insert_item("role", item_id, new_item)
     logger.info(f"Role created: {new_item}")
     if q:
@@ -77,15 +78,15 @@ def create_role(item: Role, db: NoSqlDb = Depends(get_db), q: QueueClient = Depe
         logger.info(f"Queue message count: {q.get_message_count()}")
     return new_item
 
-# Retrieve all items
-@router.get("/roles", response_model=List[Role])
+# read - Retrieve all items
+@router.get("/roles", response_model=List[Role], user: dict = Depends(require_role([])))
 def get_all_roles(db: NoSqlDb = Depends(get_db)):
 # def get_all_roles(user: dict = Depends(get_current_user), db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all role")
     return db.get_all_items("role")
 
-# Retrieve a single item
-@router.get("/role/{id}", response_model=Role)
+# read - Retrieve a single item
+@router.get("/role/{id}", response_model=Role, user: dict = Depends(require_role([])))
 def get_role(id: str, db: NoSqlDb = Depends(get_db)):
     logger.info(f"Received request to retrieve role with id: {id}")
     item = db.get_item("role", id)
@@ -94,21 +95,21 @@ def get_role(id: str, db: NoSqlDb = Depends(get_db)):
     logger.info(f"Retrieved role: {item}")
     return item
 
-# Update an item (without modifying ID)
+# write - Update an item (without modifying ID)
 @router.put("/role/{id}", response_model=Role)
-def update_role(id: str, updated_item: Role, db: NoSqlDb = Depends(get_db)):
+def update_role(id: str, updated_item: Role, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role([]))):
     item = db.get_item("role", id)
     logger.info(f"Received request to update role with id {id}: {updated_item}")
     if not item:
         logger.warning(f"Role with id {id} not found")
         raise HTTPException(status_code=404, detail="Item not found")
     
-    db.update_item("role", id, updated_item.dict())
+    db.update_item("role", id, updated_item.model_dump())
     return db.get_item("role", id)
 
-# Delete an item
+# write - Delete an item
 @router.delete("/role/{id}")
-def delete_role(id: str, db: NoSqlDb = Depends(get_db)):
+def delete_role(id: str, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role([]))):
     item = db.get_item("role", id)
     if not item:
         logger.warning(f"Role with id {id} not found")

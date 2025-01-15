@@ -24,9 +24,19 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Security(securi
 
 def require_role(required_roles: list):
     """Dependency factory for role-based access control."""
+    logger.info(f"Creating role checker for required roles: {required_roles}")
+
     def role_checker(user: dict = Depends(get_current_user)):
+        logger.info(f"Checking user roles: {user}")
         user_roles = user.get("role", [])
 
+        # Allow access if no roles are required
+        # if not required_roles:
+        #     return user
+
+        if "admin" in user_roles:
+            return user
+                
         if not any(role in user_roles for role in required_roles):
             raise HTTPException(status_code=403, detail="Access denied: Insufficient permissions")
         

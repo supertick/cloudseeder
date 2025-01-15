@@ -58,17 +58,18 @@ def get_queue() -> QueueClient:
            # aws stuff
         }
 
-    return get_queue_client(name="Company", queue_type="local", **q_params)  # Pass to factory
+    return get_queue_client(name="company", queue_type="local", **q_params)  # Pass to factory
 
 
 
-# Create an item
+# write - Create an item
 @router.post("/company", response_model=Company)
-def create_company(item: Company, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role(["admin"]))):
+def create_company(item: Company, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role([]))):
     logger.info(f"Received request to create: {item}")
     item_id = str(uuid.uuid4())  # Generate a new UUID
-    new_item = item.dict()
+    new_item = item.model_dump()
     new_item["id"] = item_id  # Store UUID in the database
+    # FIXME - if db: ...
     db.insert_item("company", item_id, new_item)
     logger.info(f"Company created: {new_item}")
     if q:
@@ -77,15 +78,15 @@ def create_company(item: Company, db: NoSqlDb = Depends(get_db), q: QueueClient 
         logger.info(f"Queue message count: {q.get_message_count()}")
     return new_item
 
-# Retrieve all items
-@router.get("/companys", response_model=List[Company])
+# read - Retrieve all items
+@router.get("/companys", response_model=List[Company], user: dict = Depends(require_role([])))
 def get_all_companys(db: NoSqlDb = Depends(get_db)):
 # def get_all_companys(user: dict = Depends(get_current_user), db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all company")
     return db.get_all_items("company")
 
-# Retrieve a single item
-@router.get("/company/{id}", response_model=Company)
+# read - Retrieve a single item
+@router.get("/company/{id}", response_model=Company, user: dict = Depends(require_role([])))
 def get_company(id: str, db: NoSqlDb = Depends(get_db)):
     logger.info(f"Received request to retrieve company with id: {id}")
     item = db.get_item("company", id)
@@ -94,21 +95,21 @@ def get_company(id: str, db: NoSqlDb = Depends(get_db)):
     logger.info(f"Retrieved company: {item}")
     return item
 
-# Update an item (without modifying ID)
+# write - Update an item (without modifying ID)
 @router.put("/company/{id}", response_model=Company)
-def update_company(id: str, updated_item: Company, db: NoSqlDb = Depends(get_db)):
+def update_company(id: str, updated_item: Company, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role([]))):
     item = db.get_item("company", id)
     logger.info(f"Received request to update company with id {id}: {updated_item}")
     if not item:
         logger.warning(f"Company with id {id} not found")
         raise HTTPException(status_code=404, detail="Item not found")
     
-    db.update_item("company", id, updated_item.dict())
+    db.update_item("company", id, updated_item.model_dump())
     return db.get_item("company", id)
 
-# Delete an item
+# write - Delete an item
 @router.delete("/company/{id}")
-def delete_company(id: str, db: NoSqlDb = Depends(get_db)):
+def delete_company(id: str, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role([]))):
     item = db.get_item("company", id)
     if not item:
         logger.warning(f"Company with id {id} not found")
