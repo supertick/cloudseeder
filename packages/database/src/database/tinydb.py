@@ -20,7 +20,7 @@ class CustomDB(TinyDB):
     table_class = CustomTable
 
 class TinyDBDatabase(NoSqlDb):
-    def __init__(self, base_dir: str = "databases"):
+    def __init__(self, base_dir: str = os.path.join("data", "databases")):
         self.base_dir = base_dir
         os.makedirs(self.base_dir, exist_ok=True)
         logger.info(f"TinyDB base directory set to: {self.base_dir}")
