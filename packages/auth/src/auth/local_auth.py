@@ -6,6 +6,7 @@ import jwt
 from datetime import datetime, timedelta
 from typing import Optional
 from .interface import AuthProvider
+from threading import Lock
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -14,11 +15,24 @@ USER_DATA_FILE = os.path.join("data", "local_auth_store.json")
 JWT_SECRET_KEY = "your_secret_key"  # Replace with a secure key
 JWT_EXPIRATION_MINUTES = 60  # Token expiration time
 
+
 class LocalAuthProvider(AuthProvider):
     """Local authentication provider (persists user data to a JSON file, uses JWT for tokens)."""
 
-    def __init__(self):
-        self.users = {}  # In-memory store: {username: {password_hash, token}}
+    _instance = None
+    _lock = Lock()
+
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            with cls._lock:
+                if not cls._instance:  # Double-checked locking
+                    cls._instance = super(LocalAuthProvider, cls).__new__(cls, *args, **kwargs)
+                    cls._instance._initialize()  # Initialize singleton instance
+        return cls._instance
+
+    def _initialize(self):
+        """Custom initialization for singleton."""
+        self.users = {}
         self._load_users()
 
     def _hash_password(self, password: str) -> str:
@@ -47,11 +61,7 @@ class LocalAuthProvider(AuthProvider):
             "exp": datetime.utcnow() + timedelta(minutes=JWT_EXPIRATION_MINUTES),
         }
         token = jwt.encode(payload, JWT_SECRET_KEY, algorithm="HS256")
-        # Decode to string to ensure consistency
-        if isinstance(token, bytes):
-            token = token.decode("utf-8")
-        return token    
-
+        return token if isinstance(token, str) else token.decode("utf-8")
 
     def _verify_jwt(self, token: str) -> Optional[dict]:
         """Verify a JWT and return its payload if valid."""
@@ -76,16 +86,6 @@ class LocalAuthProvider(AuthProvider):
         logger.info(f"Authenticating user: {username}")
         user = self.users.get(username)
         if user and user["password_hash"] == self._hash_password(password):
-
-            # TODO - Roles encoded into JWT
-            # # Generate JWT token
-            # token = jwt.encode(
-            #     {"sub": user["username"], "role": user["role"], "exp": time.time() + 3600},
-            #     SECRET_KEY,
-            #     algorithm="HS256"
-            # )
-            # logger.info(f"Authenticated user: {user} with token: {token}")
-
             token = self._generate_jwt(username)
             self.users[username]["token"] = token
             self._save_users()
@@ -94,19 +94,15 @@ class LocalAuthProvider(AuthProvider):
 
     def get_user(self, token: str) -> Optional[dict]:
         payload = self._verify_jwt(token)
-        logger.info(f"get_user: =====Token: {token} payload: {payload}")
         if payload:
             username = payload.get("sub")
             stored_token = self.users.get(username, {}).get("token")
             logger.info(f"get_user: stored_token: {stored_token}, provided_token: {token}")
             if username in self.users and stored_token == token:
-                logger.info(f"User {username} found with valid token")
                 return {"username": username}
         return None
 
-
     def refresh_token(self, refresh_token: str) -> Optional[str]:
-        """Generate a new token if the refresh token is valid."""
         payload = self._verify_jwt(refresh_token)
         if payload:
             username = payload.get("sub")
