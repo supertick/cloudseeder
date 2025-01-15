@@ -6,12 +6,13 @@ import uuid
 from ai_core.config import settings 
 from database.interface import NoSqlDb
 from database.factory import get_database
-from database import TinyDBDatabase
 from queues.factory import get_queue_client
+from queues.interface import QueueClient
 from ai_core.models.company import Company, Company
 from typing import Dict
 from auth.factory import get_auth_provider
-
+from ..auth_util import get_current_user, require_role
+    
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -19,29 +20,6 @@ router = APIRouter()
 
 auth = get_auth_provider()
 security = HTTPBearer()
-
-# Authentication dependency - FIXME probably not good to have this replicated in every model
-def get_current_user(
-    credentials: HTTPAuthorizationCredentials = Security(security),
-) -> dict:
-    """Get current authenticated user from token."""
-    token = credentials.credentials
-    user = auth.get_user(token)
-
-    if not user:
-        raise HTTPException(status_code=401, detail="Invalid or expired token")
-
-    return user
-
-# Role-based access control (RBAC) dependency
-def require_role(required_roles: List[str]):
-    """Dependency factory for role-based access control."""
-    def role_checker(user: dict = Depends(get_current_user)):
-        if user.get("role") not in required_roles:
-            raise HTTPException(status_code=403, detail="Access denied: Insufficient permissions")
-        return user
-    return role_checker
-
 
 # Inject database dependency dynamically
 def get_db() -> NoSqlDb:
@@ -64,15 +42,39 @@ def get_db() -> NoSqlDb:
     return get_database(database_type, **db_params)  # Pass to factory
 
 
+# Inject database dependency dynamically
+def get_queue() -> QueueClient:
+    queue_type = settings.queue_type  # Read from app config
+
+    q_params: Dict[str, str] = {}
+
+    if not queue_type:
+        return None
+
+    if queue_type == "local":
+        q_params = {}
+    elif queue_type == "sqs":
+        q_params = {
+           # aws stuff
+        }
+
+    return get_queue_client(name="Company", queue_type="local", **q_params)  # Pass to factory
+
+
+
 # Create an item
 @router.post("/company", response_model=Company)
-def create_company(item: Company, db: NoSqlDb = Depends(get_db)):
+def create_company(item: Company, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role(["admin"]))):
     logger.info(f"Received request to create: {item}")
     item_id = str(uuid.uuid4())  # Generate a new UUID
     new_item = item.dict()
     new_item["id"] = item_id  # Store UUID in the database
     db.insert_item("company", item_id, new_item)
     logger.info(f"Company created: {new_item}")
+    if q:
+        q.send_message(new_item)
+        logger.info(f"Message sent to queue: Company created: {new_item}")
+        logger.info(f"Queue message count: {q.get_message_count()}")
     return new_item
 
 # Retrieve all items

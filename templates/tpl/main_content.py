@@ -1,13 +1,16 @@
+import logging
 from fastapi import FastAPI, Depends, HTTPException, Security
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials, OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from typing import List, Optional
 from {app_name}.config import settings
 from auth.factory import get_auth_provider
-import jwt as pyjwt 
+import jwt
 import time
 
-print(f"App Setting: {settings}")
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+logger.info(f"App Setting: {settings}")
 
 app = FastAPI(title="{AppTitle}", version="0.0.0")
 
@@ -27,26 +30,34 @@ app.add_middleware(
 auth = get_auth_provider()
 security = HTTPBearer()
 
-# Authentication dependency
-def get_current_user(
-    credentials: HTTPAuthorizationCredentials = Security(security),
-) -> dict:
-    """Get current authenticated user from token."""
-    token = credentials.credentials
-    user = auth.get_user(token)
-
-    if not user:
-        raise HTTPException(status_code=401, detail="Invalid or expired token")
-
-    return user
-
 # Fake in-memory user database
 fake_users_db = {
     "admin": {
         "username": "admin",
         "password": "secret",
-        "role": "admin"
+        "role": ["admin", "toolkit"]
+    },
+    "mary@company1.com": {
+        "username": "mary@company1.com",
+        "password": "secret",
+        "role": ["company1_admin", "company1_user"]
+    },
+    "bob@company1.com": {
+        "username": "bob@company1.com",
+        "password": "secret",
+        "role": ["company1_user"]
+    },
+    "anika@company2.com": {
+        "username": "anika@company2.com",
+        "password": "secret",
+        "role": ["company2_admin", "company1_user"]
+    },
+    "chandra@company2.com": {
+        "username": "chandra@company2.com",
+        "password": "secret",
+        "role": ["company2_user"]
     }
+
 }
 
 # Secret key for signing JWT tokens
@@ -58,17 +69,21 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 @app.post("/token")
 def login(form_data: OAuth2PasswordRequestForm = Depends()):
     """Login route to authenticate users and return a JWT token."""
+    logger.info(f"Received login request: {form_data}")
+
     user = fake_users_db.get(form_data.username)
 
     if not user or user["password"] != form_data.password:
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
     # Generate JWT token
-    token = pyjwt.encode(
+    token = jwt.encode(
         {"sub": user["username"], "role": user["role"], "exp": time.time() + 3600},
         SECRET_KEY,
         algorithm="HS256"
     )
+    logger.info(f"Authenticated user: {user} with token: {token}")
+    provider_token = auth.authenticate(form_data.username, form_data.password, token)
 
     return {"access_token": token, "token_type": "bearer"}
 

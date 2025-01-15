@@ -11,7 +11,8 @@ from queues.interface import QueueClient
 from mfa_server.models.product import Product, Product
 from typing import Dict
 from auth.factory import get_auth_provider
-
+from ..auth_util import get_current_user, require_role
+    
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -19,29 +20,6 @@ router = APIRouter()
 
 auth = get_auth_provider()
 security = HTTPBearer()
-
-# Authentication dependency - FIXME probably not good to have this replicated in every model
-def get_current_user(
-    credentials: HTTPAuthorizationCredentials = Security(security),
-) -> dict:
-    """Get current authenticated user from token."""
-    token = credentials.credentials
-    user = auth.get_user(token)
-
-    if not user:
-        raise HTTPException(status_code=401, detail="Invalid or expired token")
-
-    return user
-
-# Role-based access control (RBAC) dependency
-def require_role(required_roles: List[str]):
-    """Dependency factory for role-based access control."""
-    def role_checker(user: dict = Depends(get_current_user)):
-        if user.get("role") not in required_roles:
-            raise HTTPException(status_code=403, detail="Access denied: Insufficient permissions")
-        return user
-    return role_checker
-
 
 # Inject database dependency dynamically
 def get_db() -> NoSqlDb:
@@ -86,7 +64,7 @@ def get_queue() -> QueueClient:
 
 # Create an item
 @router.post("/product", response_model=Product)
-def create_product(item: Product, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue)):
+def create_product(item: Product, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role(["admin"]))):
     logger.info(f"Received request to create: {item}")
     item_id = str(uuid.uuid4())  # Generate a new UUID
     new_item = item.dict()

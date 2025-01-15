@@ -153,7 +153,9 @@ def main(app_name: str, monorepo_root: str):
     search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "config_content.py"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}/src/{app_name}", "config.py"))
     search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "pyproject_content.toml"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}", "pyproject.toml"))
     search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "README.md"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}", "README.md"))
+    search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "_gitignore"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}", ".gitignore"))
     search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "Dockerfile"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}", "Dockerfile"))
+    search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "auth_util.py"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}/src/{app_name}", "auth_util.py"))
 
     # Generate FastAPI application structure
     create_fastapi_application(app_name, monorepo_root, models)
@@ -170,6 +172,10 @@ def search_and_replace(template_file: str, replacements: dict, output_file: str)
     :param replacements: Dictionary of placeholders and their replacements.
     :param output_file: Path to the output file.
     """
+
+    # Ensure the parent directory of the output file exists
+    os.makedirs(os.path.dirname(output_file), exist_ok=True)
+
     with open(template_file, "r") as f:
         content = f.read()
 

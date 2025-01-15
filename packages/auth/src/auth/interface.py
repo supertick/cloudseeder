@@ -10,7 +10,7 @@ class AuthProvider(ABC):
         pass
 
     @abstractmethod
-    def authenticate(self, username: str, password: str) -> Optional[str]:
+    def authenticate(self, username: str, password: str, in_token: str = None) -> Optional[str]:
         """Authenticate a user and return a token if successful."""
         pass
 

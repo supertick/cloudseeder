@@ -4,7 +4,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials, OAuth2Pas
 from typing import List, Optional
 from ai_core.config import settings
 from auth.factory import get_auth_provider
-import jwt as pyjwt 
+import jwt
 import time
 
 print(f"App Setting: {settings}")
@@ -59,8 +59,29 @@ fake_users_db = {
     "admin": {
         "username": "admin",
         "password": "secret",
-        "role": "admin"
+        "role": ["admin", "toolkit"]
+    },
+    "mary@company1.com": {
+        "username": "mary@company1.com",
+        "password": "secret",
+        "role": ["company1_admin", "company1_user"]
+    },
+    "bob@company1.com": {
+        "username": "bob@company1.com",
+        "password": "secret",
+        "role": ["company1_user"]
+    },
+    "anika@company2.com": {
+        "username": "anika@company2.com",
+        "password": "secret",
+        "role": ["company2_admin", "company1_user"]
+    },
+    "chandra@company2.com": {
+        "username": "chandra@company2.com",
+        "password": "secret",
+        "role": ["company2_user"]
     }
+
 }
 
 # Secret key for signing JWT tokens
@@ -78,7 +99,7 @@ def login(form_data: OAuth2PasswordRequestForm = Depends()):
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
     # Generate JWT token
-    token = pyjwt.encode(
+    token = jwt.encode(
         {"sub": user["username"], "role": user["role"], "exp": time.time() + 3600},
         SECRET_KEY,
         algorithm="HS256"
