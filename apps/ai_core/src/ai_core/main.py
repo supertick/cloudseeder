@@ -43,8 +43,11 @@ app.include_router(transcription_router, prefix='/v1', tags=["Transcription"])
 from .api.transcription_result_api import router as transcription_result_router
 app.include_router(transcription_result_router, prefix='/v1', tags=["Transcription Result"])
 
+
+
 auth = get_auth_provider()
 security = HTTPBearer()
+
 
 # Secret key for signing JWT tokens
 SECRET_KEY = "mysecretkey"
@@ -57,10 +60,10 @@ def login(form_data: OAuth2PasswordRequestForm = Depends()):
     """Login route to authenticate users and return a JWT token."""
     logger.info(f"Received login request: {form_data}")
 
-    if not user or user["password"] != form_data.password:
-        raise HTTPException(status_code=401, detail="Invalid credentials")
-
     token = auth.authenticate(form_data.username, form_data.password)
+
+    if not token:
+        raise HTTPException(status_code=401, detail="Invalid credentials")
 
     return {"access_token": token, "token_type": "bearer"}
 
