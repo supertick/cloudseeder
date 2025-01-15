@@ -33,7 +33,23 @@ class LocalAuthProvider(AuthProvider):
     def _initialize(self):
         """Custom initialization for singleton."""
         self.users = {}
-        self._load_users()
+        if not os.path.exists(USER_DATA_FILE):
+            # Ensure the directory exists
+            if not os.path.exists(os.path.dirname(USER_DATA_FILE)):
+                os.makedirs(os.path.dirname(USER_DATA_FILE))
+            
+            # Auto Create the file with an admin user - TODO - should probably generate a random password
+            # and save it out to a file locally
+            logger.info("USER_DATA_FILE not found. Creating a new one with an admin user.")
+            admin_password_hash = self._hash_password("secret")
+            self.users["admin"] = {
+                "password_hash": admin_password_hash,
+                "token": None
+            }
+            self._save_users()
+        else:
+            self._load_users()
+
 
     def _hash_password(self, password: str) -> str:
         return hashlib.sha256(password.encode()).hexdigest()

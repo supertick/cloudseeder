@@ -46,35 +46,6 @@ app.include_router(run_status_router, prefix='/v1', tags=["Run Status"])
 auth = get_auth_provider()
 security = HTTPBearer()
 
-# Fake in-memory user database
-fake_users_db = {
-    "admin": {
-        "username": "admin",
-        "password": "secret",
-        "role": ["admin", "toolkit"]
-    },
-    "mary@company1.com": {
-        "username": "mary@company1.com",
-        "password": "secret",
-        "role": ["company1_admin", "company1_user"]
-    },
-    "bob@company1.com": {
-        "username": "bob@company1.com",
-        "password": "secret",
-        "role": ["company1_user"]
-    },
-    "anika@company2.com": {
-        "username": "anika@company2.com",
-        "password": "secret",
-        "role": ["company2_admin", "company1_user"]
-    },
-    "chandra@company2.com": {
-        "username": "chandra@company2.com",
-        "password": "secret",
-        "role": ["company2_user"]
-    }
-
-}
 
 # Secret key for signing JWT tokens
 SECRET_KEY = "mysecretkey"
@@ -87,12 +58,10 @@ def login(form_data: OAuth2PasswordRequestForm = Depends()):
     """Login route to authenticate users and return a JWT token."""
     logger.info(f"Received login request: {form_data}")
 
-    user = fake_users_db.get(form_data.username)
-
-    if not user or user["password"] != form_data.password:
-        raise HTTPException(status_code=401, detail="Invalid credentials")
-
     token = auth.authenticate(form_data.username, form_data.password)
+
+    if not token:
+        raise HTTPException(status_code=401, detail="Invalid credentials")
 
     return {"access_token": token, "token_type": "bearer"}
 
