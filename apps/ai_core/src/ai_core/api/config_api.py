@@ -11,7 +11,7 @@ from queues.interface import QueueClient
 from ai_core.models.config import Config, Config
 from typing import Dict
 from auth.factory import get_auth_provider
-from ..auth_util import get_current_user, require_role
+from ..auth_util import require_role
     
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -81,7 +81,6 @@ def create_config(item: Config, db: NoSqlDb = Depends(get_db), q: QueueClient = 
 # read - Retrieve all items
 @router.get("/configs", response_model=List[Config])
 def get_all_configs(db: NoSqlDb = Depends(get_db), user: dict = Depends(require_role([]))):
-# def get_all_configs(user: dict = Depends(get_current_user), db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all config")
     return db.get_all_items("config")
 

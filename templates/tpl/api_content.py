@@ -11,7 +11,7 @@ from queues.interface import QueueClient
 from {app_name}.models.{model_name} import {ModelName}, {ModelName}
 from typing import Dict
 from auth.factory import get_auth_provider
-from ..auth_util import get_current_user, require_role
+from ..auth_util import require_role
     
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -81,7 +81,6 @@ def create_{model_name}(item: {ModelName}, db: NoSqlDb = Depends(get_db), q: Que
 # read - Retrieve all items
 @router.get("/{model-name}s", response_model=List[{ModelName}])
 def get_all_{model_name}s(db: NoSqlDb = Depends(get_db), user: dict = Depends(require_role([]))):
-# def get_all_{model_name}s(user: dict = Depends(get_current_user), db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all {model_name}")
     return db.get_all_items("{model_name}")
 

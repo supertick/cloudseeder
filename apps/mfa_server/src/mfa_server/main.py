@@ -92,14 +92,7 @@ def login(form_data: OAuth2PasswordRequestForm = Depends()):
     if not user or user["password"] != form_data.password:
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
-    # Generate JWT token
-    token = jwt.encode(
-        {"sub": user["username"], "role": user["role"], "exp": time.time() + 3600},
-        SECRET_KEY,
-        algorithm="HS256"
-    )
-    logger.info(f"Authenticated user: {user} with token: {token}")
-    provider_token = auth.authenticate(form_data.username, form_data.password, token)
+    token = auth.authenticate(form_data.username, form_data.password)
 
     return {"access_token": token, "token_type": "bearer"}
 

@@ -11,7 +11,7 @@ from queues.interface import QueueClient
 from mfa_server.models.user import User, User
 from typing import Dict
 from auth.factory import get_auth_provider
-from ..auth_util import get_current_user, require_role
+from ..auth_util import require_role
     
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -81,7 +81,6 @@ def create_user(item: User, db: NoSqlDb = Depends(get_db), q: QueueClient = Depe
 # read - Retrieve all items
 @router.get("/users", response_model=List[User])
 def get_all_users(db: NoSqlDb = Depends(get_db), user: dict = Depends(require_role([]))):
-# def get_all_users(user: dict = Depends(get_current_user), db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all user")
     return db.get_all_items("user")
 

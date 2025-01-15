@@ -11,7 +11,7 @@ from queues.interface import QueueClient
 from ai_core.models.company import Company, Company
 from typing import Dict
 from auth.factory import get_auth_provider
-from ..auth_util import get_current_user, require_role
+from ..auth_util import require_role
     
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -81,7 +81,6 @@ def create_company(item: Company, db: NoSqlDb = Depends(get_db), q: QueueClient 
 # read - Retrieve all items
 @router.get("/companys", response_model=List[Company])
 def get_all_companys(db: NoSqlDb = Depends(get_db), user: dict = Depends(require_role([]))):
-# def get_all_companys(user: dict = Depends(get_current_user), db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all company")
     return db.get_all_items("company")
 

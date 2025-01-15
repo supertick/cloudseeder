@@ -11,7 +11,7 @@ from queues.interface import QueueClient
 from ai_core.models.transcription_request import Transcription_request, Transcription_request
 from typing import Dict
 from auth.factory import get_auth_provider
-from ..auth_util import get_current_user, require_role
+from ..auth_util import require_role
     
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -81,7 +81,6 @@ def create_transcription_request(item: Transcription_request, db: NoSqlDb = Depe
 # read - Retrieve all items
 @router.get("/transcription-requests", response_model=List[Transcription_request])
 def get_all_transcription_requests(db: NoSqlDb = Depends(get_db), user: dict = Depends(require_role([]))):
-# def get_all_transcription_requests(user: dict = Depends(get_current_user), db: NoSqlDb = Depends(get_db)):
     logger.info("Received request to retrieve all transcription_request")
     return db.get_all_items("transcription_request")
 

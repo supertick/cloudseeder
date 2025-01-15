@@ -1,18 +1,21 @@
 import logging
 import hashlib
-import uuid
 import json
 import os
+import jwt
+from datetime import datetime, timedelta
 from typing import Optional
 from .interface import AuthProvider
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-USER_DATA_FILE = os.path.join("data","local_auth_store.json")
+USER_DATA_FILE = os.path.join("data", "local_auth_store.json")
+JWT_SECRET_KEY = "your_secret_key"  # Replace with a secure key
+JWT_EXPIRATION_MINUTES = 60  # Token expiration time
 
 class LocalAuthProvider(AuthProvider):
-    """Local authentication provider (persists user data to a JSON file)."""
+    """Local authentication provider (persists user data to a JSON file, uses JWT for tokens)."""
 
     def __init__(self):
         self.users = {}  # In-memory store: {username: {password_hash, token}}
@@ -37,6 +40,30 @@ class LocalAuthProvider(AuthProvider):
                 except json.JSONDecodeError:
                     self.users = {}
 
+    def _generate_jwt(self, username: str) -> str:
+        """Generate a JWT for the given username."""
+        payload = {
+            "sub": username,
+            "exp": datetime.utcnow() + timedelta(minutes=JWT_EXPIRATION_MINUTES),
+        }
+        token = jwt.encode(payload, JWT_SECRET_KEY, algorithm="HS256")
+        # Decode to string to ensure consistency
+        if isinstance(token, bytes):
+            token = token.decode("utf-8")
+        return token    
+
+
+    def _verify_jwt(self, token: str) -> Optional[dict]:
+        """Verify a JWT and return its payload if valid."""
+        try:
+            payload = jwt.decode(token, JWT_SECRET_KEY, algorithms=["HS256"])
+            return payload
+        except jwt.ExpiredSignatureError:
+            logger.warning("JWT has expired")
+        except jwt.InvalidTokenError:
+            logger.warning("Invalid JWT")
+        return None
+
     def register_user(self, username: str, password: str) -> dict:
         if username in self.users:
             raise ValueError("User already exists")
@@ -45,40 +72,56 @@ class LocalAuthProvider(AuthProvider):
         self._save_users()
         return {"username": username, "message": "User registered"}
 
-    def authenticate(self, username: str, password: str, in_token: str = None) -> Optional[str]:
-        logger.info(f"authenticate: User {username} password: {password} in_token: {in_token}")
+    def authenticate(self, username: str, password: str) -> Optional[str]:
+        logger.info(f"Authenticating user: {username}")
         user = self.users.get(username)
         if user and user["password_hash"] == self._hash_password(password):
-            token = str(uuid.uuid4())  # Simple token generation
-            logger.info(f"authenticate: User {username} token: {token} in_token: {in_token}")
-            if (in_token):
-                self.users[username]["token"] = in_token
-            else:
-                self.users[username]["token"] = token
+
+            # TODO - Roles encoded into JWT
+            # # Generate JWT token
+            # token = jwt.encode(
+            #     {"sub": user["username"], "role": user["role"], "exp": time.time() + 3600},
+            #     SECRET_KEY,
+            #     algorithm="HS256"
+            # )
+            # logger.info(f"Authenticated user: {user} with token: {token}")
+
+            token = self._generate_jwt(username)
+            self.users[username]["token"] = token
             self._save_users()
             return token
         return None
 
     def get_user(self, token: str) -> Optional[dict]:
-        for username, data in self.users.items():
-            if data.get("token") == token:
-                logger.info(f"MATCH !!! get_user: User {username} found")
+        payload = self._verify_jwt(token)
+        logger.info(f"get_user: =====Token: {token} payload: {payload}")
+        if payload:
+            username = payload.get("sub")
+            stored_token = self.users.get(username, {}).get("token")
+            logger.info(f"get_user: stored_token: {stored_token}, provided_token: {token}")
+            if username in self.users and stored_token == token:
+                logger.info(f"User {username} found with valid token")
                 return {"username": username}
         return None
 
+
     def refresh_token(self, refresh_token: str) -> Optional[str]:
-        """Local implementation doesn't use refresh tokens, just return a new token."""
-        for username, data in self.users.items():
-            if data.get("token") == refresh_token:
-                new_token = str(uuid.uuid4())
+        """Generate a new token if the refresh token is valid."""
+        payload = self._verify_jwt(refresh_token)
+        if payload:
+            username = payload.get("sub")
+            if username in self.users:
+                new_token = self._generate_jwt(username)
                 self.users[username]["token"] = new_token
                 self._save_users()
                 return new_token
         return None
 
     def logout(self, token: str) -> bool:
-        for username, data in self.users.items():
-            if data.get("token") == token:
+        payload = self._verify_jwt(token)
+        if payload:
+            username = payload.get("sub")
+            if username in self.users:
                 self.users[username]["token"] = None
                 self._save_users()
                 return True
