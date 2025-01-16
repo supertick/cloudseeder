@@ -3,7 +3,8 @@ from typing import List, Optional, Literal
 import time
 
 class User(BaseModel):
-    id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
+    id: Optional[str] = Field(None, example="admin@scribble.ai")
+    full_name: Optional[str] = Field(None, example="John Doe")
+    password_hash: Optional[str] = Field(None, example="secret")
     email: str
     roles: list[str]
-    modified: Optional[int] = Field(None, example=1683123456789)

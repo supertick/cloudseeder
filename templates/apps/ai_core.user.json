@@ -1,0 +1,33 @@
+{
+  "_default": {
+    "john@pdxinhomecare.com": {
+      "id": "john@pdxinhomecare.com",
+      "full_name": "John Scalzi",
+      "email": "john@pdxinhomecare.com",
+      "password_hash": "2bb80d537b1da3e38bd30361aa855686bde0eacd7162fef6a25fe97bf527a25b",
+      "roles": ["provider"]
+    },
+    "mary@pdxinhomecare.com": {
+      "id": "mary@pdxinhomecare.com",
+      "full_name": "Mary Schaffer",
+      "email": "mary@pdxinhomecare.com",
+      "password_hash": "2bb80d537b1da3e38bd30361aa855686bde0eacd7162fef6a25fe97bf527a25b",
+      "roles": ["provider"]
+    },
+    "mike@familyresourcehomecare.com": {
+      "id": "mike@familyresourcehomecare.com",
+      "full_name": "Mike Porter",
+      "email": "mike@familyresourcehomecare.com",
+      "password_hash": "2bb80d537b1da3e38bd30361aa855686bde0eacd7162fef6a25fe97bf527a25b",
+      "roles": ["provider"]
+    },  
+    "admin@scribble.ai": {
+      "id": "admin@scribble.ai",
+      "full_name": "Sandeep Banga",
+      "email": "admin@scribble.ai",
+      "password_hash": "2bb80d537b1da3e38bd30361aa855686bde0eacd7162fef6a25fe97bf527a25b",
+      "roles": ["admin"],
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBzY3JpYmJsZS5haSIsImV4cCI6MTczNjk4OTgyOH0.Ufr-KYpBGSSUCwLHJEO1tMmTgZes43kgFqvMGMj-fU8"
+    }
+  }
+}

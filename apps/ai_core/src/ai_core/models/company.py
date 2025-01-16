@@ -7,4 +7,3 @@ class Company(BaseModel):
     name: str
     description: str
     users: list[str]
-    modified: int = Field(default_factory=lambda: int(time.time() * 1000), example=1683123456789)

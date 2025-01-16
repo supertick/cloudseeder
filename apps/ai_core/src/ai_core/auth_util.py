@@ -28,7 +28,7 @@ def require_role(required_roles: list):
 
     def role_checker(user: dict = Depends(get_current_user)):
         logger.info(f"Checking user roles: {user}")
-        user_roles = user.get("role", [])
+        user_roles = user.get("roles", [])
 
         # Allow access if no roles are required
         if not required_roles:

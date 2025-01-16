@@ -9,7 +9,7 @@ class Config(BaseModel):
     log_level: str
     deepgram_api_key: str
     database_type: Literal["tinydb", "dynamodb"] = Field("tinydb", description="Database type", example="dynamodb")
+    queue_type: Literal["local", "noop"] = Field("tinydb", description="Queue type", example="local")
     aws_access_key_id: Optional[str] = Field(None, description="AWS Access Key ID", example="your-access-key")
     aws_secret_access_key: Optional[str] = Field(None, description="AWS Secret Access Key", example="your-secret-key")
     aws_region: Optional[str] = Field(None, description="AWS Region", example="us-east-1")
-    modified: Optional[int] = Field(None, example=1683123456789)

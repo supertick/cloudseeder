@@ -75,33 +75,15 @@ app = FastAPI()
     print(f"✅ Created FastAPI app structure at {base_dir}")
 
 
-# Define type mappings from YAML to Python/Pydantic
-TYPE_MAP = {
-    "int": "int",
-    "string": "str",
-    "list[string]": "list[str]",
-    "list[int]": "list[int]",
-}
-
-
-def parse_type(field_type):
-    """Convert YAML types to Python/Pydantic types."""
-    if field_type in TYPE_MAP:
-        return TYPE_MAP[field_type]
-    elif field_type.startswith("list["):
-        inner_type = field_type[5:-1]
-        return f"list[{parse_type(inner_type)}]"
-    return field_type  # Assume it's another model reference
-
-
 def generate_pydantic_model(name, fields):
     """Generate a Pydantic model definition."""
     model_str = f"from pydantic import BaseModel, Field\nfrom typing import List, Optional, Literal\nimport time\n\n"
     model_str += f"class {name.capitalize()}(BaseModel):\n"
 
     for field_name, field_type in fields.items():
-        python_type = parse_type(field_type)
-        model_str += f"    {field_name}: {python_type}\n"
+        # Skip fields that start with an underscore
+        if not field_name.startswith("_"):
+            model_str += f"    {field_name}: {field_type}\n"
 
     return model_str
 

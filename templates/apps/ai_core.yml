@@ -1,6 +1,9 @@
 app:
-  models:
 
+# todo one to many methods
+# one to many roles
+
+  models:
     config:
       id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
       port: int
@@ -8,47 +11,40 @@ app:
       log_level: str
       deepgram_api_key: str
       database_type: Literal["tinydb", "dynamodb"] = Field("tinydb", description="Database type", example="dynamodb")
+      queue_type: Literal["local", "noop"] = Field("tinydb", description="Queue type", example="local")
       aws_access_key_id: Optional[str] = Field(None, description="AWS Access Key ID", example="your-access-key")
       aws_secret_access_key: Optional[str] = Field(None, description="AWS Secret Access Key", example="your-secret-key")
       aws_region: Optional[str] = Field(None, description="AWS Region", example="us-east-1")
-      modified: Optional[int] = Field(None, example=1683123456789)
 
     company:
       id: Optional[str] = Field(None)
       name: str
       description: str
       users: list[str]
-      modified: "int = Field(default_factory=lambda: int(time.time() * 1000), example=1683123456789)"
 
     user:
-      id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
+      _roles: ["admin"]
+      id: Optional[str] = Field(None, example="admin@scribble.ai")
+      full_name: Optional[str] = Field(None, example="John Doe")
+      password_hash: Optional[str] = Field(None, example="secret")
       email: str
       roles: list[str]
-      modified: Optional[int] = Field(None, example=1683123456789)
-
-    role:
-      id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
-      name: str
-      description: str
-      products: list[str]
-      modified: Optional[int] = Field(None, example=1683123456789)
 
     transcription_request:
       id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
       type: str = Field(None, example="string")
       files: list[str]
-      modified: Optional[int] = Field(None, example=1683123456789)
 
     transcription:
       id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
       type: str
       status: str
       files_path: str
-      modified: Optional[int] = Field(None, example=1683123456789)
 
     transcription_result:
       id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
       type: str
       status: str
       files: list[str]
-      modified: Optional[int] = Field(None, example=1683123456789)
+
+#       modified: Optional[int] = Field(None, example=1683123456789)

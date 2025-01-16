@@ -7,4 +7,3 @@ class Transcription_result(BaseModel):
     type: str
     status: str
     files: list[str]
-    modified: Optional[int] = Field(None, example=1683123456789)
