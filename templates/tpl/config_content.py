@@ -1,6 +1,8 @@
 from pydantic_settings import BaseSettings
 from {app_name}.models.config import Config
+from dotenv import load_dotenv
 
+load_dotenv(".env")
 class AppSettings(Config, BaseSettings):
     class Config:
         env_prefix = "{APP_NAME}_"  # Looks for env variables like AI_CORE_PORT
