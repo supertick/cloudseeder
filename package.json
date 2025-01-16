@@ -1,8 +1,10 @@
 {
     "private": true,
     "workspaces": [
-      "apps/*",
-      "libs/*"
-    ]
-  }
-  
+        "apps/*",
+        "libs/*"
+    ],
+    "dependencies": {
+        "react-router-dom": "^7.1.1"
+    }
+}

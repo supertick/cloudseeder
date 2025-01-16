@@ -23,7 +23,12 @@ app:
       users: list[str]
 
     user:
-      _roles: ["admin"]
+      _method_map:
+        "post /v1/user": ["admin"]
+        "get /v1/users": []
+        "get /v1/user/{id}": []
+        "put /v1/user/{id}": ["admin"]
+        "delete /v1/user/{id}": ["admin"]
       id: Optional[str] = Field(None, example="admin@scribble.ai")
       full_name: Optional[str] = Field(None, example="John Doe")
       password_hash: Optional[str] = Field(None, example="secret")
