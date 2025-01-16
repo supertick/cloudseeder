@@ -144,14 +144,7 @@ function LoginAndUsers() {
           <Typography variant="h4" component="h1" gutterBottom>
             Welcome, {user?.email}
           </Typography>
-          <Button
-            variant="outlined"
-            color="secondary"
-            onClick={handleLogout}
-            sx={{ mb: 2 }}
-          >
-            Logout
-          </Button>
+    
           <Typography variant="h4" component="h1" gutterBottom>
             User List
           </Typography>
