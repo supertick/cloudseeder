@@ -10,6 +10,7 @@ import { UserProvider } from './UserContext'
 import { MFALiteProvider } from './MFALiteContext'
 import './custom-styles.css'
 import UserProductAccess from './UserProductAccess'
+import Login from './Login'
 
 
 function App({ signOut }) {
@@ -25,6 +26,7 @@ function App({ signOut }) {
             <Route path="/mfalite" element={<MFALite signOut={signOut} />} />
             <Route path="/cloneselectmfa" element={<CloneSelectMFA signOut={signOut} />} />
             <Route path="/file" element={<SimpleFileUpload signOut={signOut} />} />
+            <Route path="/login" element={<Login />} /> {/* Catch-all route for 404s */}
             <Route path="*" element={<NotFoundPage />} /> {/* Catch-all route for 404s */}
           </Routes>
         </Router>

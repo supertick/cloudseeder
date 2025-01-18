@@ -10,6 +10,11 @@ const handleError = (error) => {
   throw error; // Re-throw the error so it can be handled further if needed
 };
 
+const logRequest = (method, url, options) => {
+  console.info(`HTTP ${method} Request to: ${BASE_URL}${url}`);
+  console.info('Options:', options);
+};
+
 const apiClient = {
   setToken(token) {
     jwtToken = token;
@@ -20,14 +25,17 @@ const apiClient = {
   },
 
   async get(url) {
+    const options = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(jwtToken && { Authorization: `Bearer ${jwtToken}` }),
+      },
+    };
+    logRequest('GET', url, options);
+
     try {
-      const response = await fetch(`${BASE_URL}${url}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(jwtToken && { Authorization: `Bearer ${jwtToken}` }),
-        },
-      });
+      const response = await fetch(`${BASE_URL}${url}`, options);
 
       if (!response.ok) {
         throw new Error(`GET request failed with status ${response.status}`);
@@ -40,15 +48,18 @@ const apiClient = {
   },
 
   async post(url, data) {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(jwtToken && { Authorization: `Bearer ${jwtToken}` }),
+      },
+      body: JSON.stringify(data),
+    };
+    logRequest('POST', url, options);
+
     try {
-      const response = await fetch(`${BASE_URL}${url}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(jwtToken && { Authorization: `Bearer ${jwtToken}` }),
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(`${BASE_URL}${url}`, options);
 
       if (!response.ok) {
         throw new Error(`POST request failed with status ${response.status}`);
@@ -61,15 +72,18 @@ const apiClient = {
   },
 
   async put(url, data) {
+    const options = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(jwtToken && { Authorization: `Bearer ${jwtToken}` }),
+      },
+      body: JSON.stringify(data),
+    };
+    logRequest('PUT', url, options);
+
     try {
-      const response = await fetch(`${BASE_URL}${url}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(jwtToken && { Authorization: `Bearer ${jwtToken}` }),
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(`${BASE_URL}${url}`, options);
 
       if (!response.ok) {
         throw new Error(`PUT request failed with status ${response.status}`);
@@ -82,14 +96,17 @@ const apiClient = {
   },
 
   async delete(url) {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(jwtToken && { Authorization: `Bearer ${jwtToken}` }),
+      },
+    };
+    logRequest('DELETE', url, options);
+
     try {
-      const response = await fetch(`${BASE_URL}${url}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(jwtToken && { Authorization: `Bearer ${jwtToken}` }),
-        },
-      });
+      const response = await fetch(`${BASE_URL}${url}`, options);
 
       if (!response.ok) {
         throw new Error(`DELETE request failed with status ${response.status}`);
@@ -102,14 +119,17 @@ const apiClient = {
   },
 
   async head(url) {
+    const options = {
+      method: 'HEAD',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(jwtToken && { Authorization: `Bearer ${jwtToken}` }),
+      },
+    };
+    logRequest('HEAD', url, options);
+
     try {
-      const response = await fetch(`${BASE_URL}${url}`, {
-        method: 'HEAD',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(jwtToken && { Authorization: `Bearer ${jwtToken}` }),
-        },
-      });
+      const response = await fetch(`${BASE_URL}${url}`, options);
 
       if (!response.ok) {
         throw new Error(`HEAD request failed with status ${response.status}`);

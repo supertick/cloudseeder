@@ -48,18 +48,19 @@ export default function ReportTable() {
   // }, [userInfo, setReports])
 
   const fetchReports = async () => {
-    const response = await apiClient.get('/reports')
+    const response = await apiClient.get('/run-statuss')
     setReports(response)
   }
 
   useEffect(() => {
+    fetchReports()
     if (userInfo?.signInDetails?.loginId) {
       fetchReports()
       
       const interval = setInterval(fetchReports, 5000)
       return () => clearInterval(interval)
     }
-  }, [userInfo, fetchReports])
+  }, [])
 
   const handleDownload = async (filename) => {
     try {
@@ -172,7 +173,7 @@ export default function ReportTable() {
               </TableRow>
             ) : (
               sortedReports.map((report) => (
-                <TableRow key={report.report}>
+                <TableRow key={report.id}>
                   <TableCell>
                     {(report.report.endsWith('.xlsx') || report.report.endsWith('.xls')) && (
                       <img src="/processing.gif" alt="report" width="30" />

@@ -229,6 +229,9 @@ There are certain patterns which exist for any application.
 Configuration
 Authentication
 Authorization
+Storage
+File Access
+Serialization
 Database
 Queues - ability to call custom code in an async or blocking manner
 Error Handling

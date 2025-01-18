@@ -41,7 +41,8 @@ export default function TopMenuBar() {
         <Logo src="/Metalytics-Logo_light.webp" alt="logo" />
       </Link>
       <UserInfo>
-        <UserName>{useUser?.username}</UserName>
+        <UserName>{JSON.stringify(userInfo)}</UserName>
+        <UserName>{userInfo?.username}</UserName>
         <IconButton onClick={signOut} color="inherit">
           <LogoutIcon />
         </IconButton>

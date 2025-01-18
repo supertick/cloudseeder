@@ -14,6 +14,7 @@ export const UserProvider = ({ children }) => {
 
         const userInfo = {
           username: 'admin@scribble.ai',
+          email: 'admin@scribble.ai',
           signInDetails: {
             signInUserSession: {
               accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBzY3JpYmJsZS5haSIsImV4cCI6MTczNjk4OTgyOH0.Ufr-KYpBGSSUCwLHJEO1tMmTgZes43kgFqvMGMj-fU8',  
@@ -45,11 +46,11 @@ export const UserProvider = ({ children }) => {
           idToken: session.tokens.idToken,
           accessToken: session.tokens.accessToken,
           // Add the initial run state variables
-          runMFALite: false,
-          runCloneSelectMFA: false,
-          runTimeSegmentedMFA: false,
-          runBioInterpreter: false,
-          runCoreMFAtoMFALite: false,
+          runMFALite: true,
+          runCloneSelectMFA: true,
+          runTimeSegmentedMFA: true,
+          runBioInterpreter: true,
+          runCoreMFAtoMFALite: true,
           ...dynamicGroups,
         })
         console.log(userInfo)

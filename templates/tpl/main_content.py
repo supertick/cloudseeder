@@ -66,7 +66,7 @@ SECRET_KEY = "mysecretkey"
 # OAuth2 scheme for protecting API routes
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-@app.post("/login")
+@app.post("/v1/login")
 def login(form_data: OAuth2PasswordRequestForm = Depends()):
     """Login route to authenticate users and return a JWT token."""
     logger.info(f"Received login request: {form_data}")
