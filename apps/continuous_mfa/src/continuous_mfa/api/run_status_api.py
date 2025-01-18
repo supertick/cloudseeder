@@ -11,8 +11,8 @@ from queues.interface import QueueClient
 from continuous_mfa.models.run_status import Run_status, Run_status
 from typing import Dict
 from auth.factory import get_auth_provider
-from ..auth_util import require_role
-    
+from ..auth_util import require_role, no_role_required
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -64,7 +64,10 @@ def get_queue() -> QueueClient:
 
 # write - Create an item
 @router.post("/run-status", response_model=Run_status)
-def create_run_status(item: Run_status, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role([]))):
+def create_run_status(item: Run_status, 
+                        db: NoSqlDb = Depends(get_db), 
+                        q: QueueClient = Depends(get_queue), 
+                        user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     logger.info(f"Received request to create: {item}")
     item_id = item.id if hasattr(item, "id") and item.id else str(uuid.uuid4())
     logger.info(f"Using item_id: {item_id}")
@@ -81,13 +84,16 @@ def create_run_status(item: Run_status, db: NoSqlDb = Depends(get_db), q: QueueC
 
 # read - Retrieve all items
 @router.get("/run-statuss", response_model=List[Run_status])
-def get_all_run_statuss(db: NoSqlDb = Depends(get_db), user: dict = Depends(require_role([]))):
+def get_all_run_statuss(db: NoSqlDb = Depends(get_db), 
+                        user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     logger.info("Received request to retrieve all run_status")
     return db.get_all_items("run_status")
 
 # read - Retrieve a single item
 @router.get("/run-status/{id}", response_model=Run_status)
-def get_run_status(id: str, db: NoSqlDb = Depends(get_db), user: dict = Depends(require_role([]))):
+def get_run_status(id: str, 
+                     db: NoSqlDb = Depends(get_db), 
+                     user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     logger.info(f"Received request to retrieve run_status with id: {id}")
     item = db.get_item("run_status", id)
     if not item:
@@ -97,7 +103,10 @@ def get_run_status(id: str, db: NoSqlDb = Depends(get_db), user: dict = Depends(
 
 # write - Update an item (without modifying ID)
 @router.put("/run-status/{id}", response_model=Run_status)
-def update_run_status(id: str, updated_item: Run_status, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role([]))):
+def update_run_status(id: str, 
+                        updated_item: Run_status, db: NoSqlDb = Depends(get_db), 
+                        q: QueueClient = Depends(get_queue), 
+                        user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     item = db.get_item("run_status", id)
     logger.info(f"Received request to update run_status with id {id}: {updated_item}")
     if not item:
@@ -109,7 +118,10 @@ def update_run_status(id: str, updated_item: Run_status, db: NoSqlDb = Depends(g
 
 # write - Delete an item
 @router.delete("/run-status/{id}")
-def delete_run_status(id: str, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role([]))):
+def delete_run_status(id: str, 
+                        db: NoSqlDb = Depends(get_db), 
+                        q: QueueClient = Depends(get_queue), 
+                        user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     item = db.get_item("run_status", id)
     if not item:
         logger.warning(f"Run_status with id {id} not found")

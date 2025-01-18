@@ -1,6 +1,8 @@
 import logging
-from fastapi import FastAPI, Depends, HTTPException, Security
+from fastapi import FastAPI, Request, Depends, HTTPException, Security
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.exceptions import RequestValidationError
+from .error_util import log_exception, create_error_response
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials, OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from typing import List, Optional
 from continuous_mfa.config import settings
@@ -13,6 +15,29 @@ logger = logging.getLogger(__name__)
 logger.info(f"App Setting: {settings}")
 
 app = FastAPI(title="Continuous Mfa", version="0.0.0")
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    """Handles all uncaught exceptions."""
+    log_exception(exc)
+    # Include the exception's message in the response for debugging
+    return create_error_response(
+        detail=f"An unexpected error occurred: {str(exc)}",
+        status_code=500
+    )
+
+@app.exception_handler(HTTPException)
+async def http_exception_handler(request: Request, exc: HTTPException):
+    """Handles HTTP exceptions."""
+    log_exception(exc)
+    return create_error_response(detail=exc.detail, status_code=exc.status_code)
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    """Handles validation errors."""
+    log_exception(exc)
+    return create_error_response(detail="Invalid request data.", status_code=422)
+
 
 # Allow all CORS for development
 app.add_middleware(

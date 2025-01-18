@@ -2,10 +2,7 @@ import logging
 from fastapi import Depends, HTTPException, Security
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from auth.factory import get_auth_provider
-import os
 
-# Read configuration
-AUTH_ENABLED = False # os.getenv("AUTH_ENABLED", "true").lower() == "true"
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
