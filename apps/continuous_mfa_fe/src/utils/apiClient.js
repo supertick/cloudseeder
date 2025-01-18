@@ -4,7 +4,7 @@ let jwtToken = null;
 
 const handleError = (error) => {
   console.error('API Client Error:', error);
-  alert(`An error occurred: ${error.message}`);
+  // alert(`An error occurred: ${error.message}`);
   throw error; // Re-throw the error so it can be handled further if needed
 };
 

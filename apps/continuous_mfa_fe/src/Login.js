@@ -7,35 +7,40 @@ import {
   Button,
   Grid,
   Link,
+  Alert,
 } from '@mui/material';
-import { useUser } from './UserContext';
 import apiClient from './utils/apiClient';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState(''); // State to manage error messages
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
-    console.log('Email:', email);
-    console.log('Password:', password);
 
-    const response = apiClient.postForm('/login', {
-      email: email,
-      username: email,
-      password: password,
-    });
+    try {
+      const response = await apiClient.postForm('/login', {
+        email: email,
+        username: email,
+        password: password,
+      });
 
-    if (response.status === 200) {
-      // User logged in successfully
-      console.log('User logged in successfully with token:', response.data);
-      // Update the user context with the new user data
-      // useUser.setState({ userInfo: response.data });
-    } else {
-      // Handle login failure
-      console.error('Login failed:', response.data);
+      if (response) {
+        // Assuming successful login returns a token or user data
+        console.log('User logged in successfully:', response);
+
+        // Clear any previous error messages
+        setErrorMessage('');
+
+        // Perform actions for successful login, e.g., redirect or update context
+        // Example: useUser.setState({ userInfo: response.data });
+      }
+    } catch (error) {
+      // Set a user-friendly error message
+      setErrorMessage('Invalid email or password. Please try again.');
+      console.error('Login failed:', error);
     }
-    // Add your authentication logic here
   };
 
   return (
@@ -52,6 +57,11 @@ const Login = () => {
           Login
         </Typography>
         <Box component="form" onSubmit={handleLogin} noValidate sx={{ mt: 3 }}>
+          {errorMessage && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {errorMessage}
+            </Alert>
+          )}
           <TextField
             margin="normal"
             required
