@@ -20,7 +20,7 @@ const Login = () => {
     console.log('Email:', email);
     console.log('Password:', password);
 
-    const response = apiClient.post('/login', {
+    const response = apiClient.postForm('/login', {
       email: email,
       username: email,
       password: password,

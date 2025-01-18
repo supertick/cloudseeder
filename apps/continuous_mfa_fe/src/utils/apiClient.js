@@ -1,5 +1,3 @@
-// apiClient.js
-
 const BASE_URL = process.env.REACT_APP_API_BASE_URL || `${window.location.origin}/v1`;
 
 let jwtToken = null;
@@ -63,6 +61,36 @@ const apiClient = {
 
       if (!response.ok) {
         throw new Error(`POST request failed with status ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      handleError(error);
+    }
+  },
+
+  async postForm(url, data) {
+    // Convert the data object to URL-encoded format
+    const formData = new URLSearchParams();
+    Object.entries(data).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        ...(jwtToken && { Authorization: `Bearer ${jwtToken}` }),
+      },
+      body: formData.toString(),
+    };
+    logRequest('POST (Form)', url, options);
+
+    try {
+      const response = await fetch(`${BASE_URL}${url}`, options);
+
+      if (!response.ok) {
+        throw new Error(`POST (Form) request failed with status ${response.status}`);
       }
 
       return await response.json();
