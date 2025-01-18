@@ -223,3 +223,18 @@ python -m uvicorn widget.main:app --reload
 * port
 * work_dir
 * log_level
+
+
+There are certain patterns which exist for any application.
+Configuration
+Authentication
+Authorization
+Database
+Queues - ability to call custom code in an async or blocking manner
+Error Handling
+Debug Mode
+Even the UI follows a similar pattern - e.g. a login page, a registration page, and a dashboard page.
+
+The ability standardize these patterns across the application gives us a lot of flexibility and allows us to focus on the core functionality of the application.
+The "boilerplate" can be improved and generated if there are clear divisions between the generated application and the core business logic.
+Interfaces can be created for the configuration, database, queues, and authentication.

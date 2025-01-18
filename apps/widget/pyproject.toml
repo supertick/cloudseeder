@@ -7,10 +7,15 @@ name = "widget"
 version = "0.1.0"
 description = "A FastAPI application in a monorepo"
 authors = [{ name = "GroG Bot", email = "grogbot@robotlab-x.com" }]
+requires-python = ">=3.10"
 dependencies = [
     "fastapi",
     "uvicorn",
-    "pydantic"
+    "pydantic",
+    "pydantic-settings",
+    "python-dotenv",
+    "python-multipart",
+    "PyJWT"
 ]
 
 [project.optional-dependencies]

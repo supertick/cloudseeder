@@ -41,10 +41,10 @@ class LocalAuthProvider(AuthProvider):
             
             # Auto Create the file with an admin user
             logger.info("USER_DATA_FILE not found. Creating a new one with an admin user.")
-            admin_password_hash = self._hash_password("secret")
-            self.users["_default"]["admin@scribble.ai"] = {
-                "id": "admin@scribble.ai",
-                "email": "admin@scribble.ai",
+            admin_password_hash = self._hash_password("borkborkbork123")
+            self.users["_default"]["admin@generator.ai"] = {
+                "id": "admin@generator.ai",
+                "email": "admin@generator.ai",
                 "password_hash": admin_password_hash,
                 "roles": ["admin"],
                 "modified": int(datetime.utcnow().timestamp() * 1000),

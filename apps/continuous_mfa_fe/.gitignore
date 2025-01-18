@@ -1,0 +1,67 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Amplify
+amplify/#current-cloud-backend
+amplify/.config/local-env-info.json
+amplify/.config/local-aws-info.json
+amplify/.config/local-*
+amplify/backend/amplify-meta.json
+amplify/backend/awscloudformation/
+amplify/#amplify-env-logger.json
+amplify/mock-data
+amplify/mock-api-responses
+amplify/backend/.temp
+amplify/team-provider-info.json
+
+# AWS SDK credentials
+.aws/
+
+# Amplify CLI files
+amplify/.amplifyrc
+amplify/hooks/
+
+# Generated AWS-Exports file
+src/aws-exports.js
+src/aws-exports.ts
+
+# IDE specific files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+build/
+
+#amplify-do-not-edit-begin
+amplify/\#current-cloud-backend
+amplify/.config/local-*
+amplify/logs
+amplify/mock-data
+amplify/mock-api-resources
+amplify/backend/amplify-meta.json
+amplify/backend/.temp
+build/
+dist/
+node_modules/
+aws-exports.js
+awsconfiguration.json
+amplifyconfiguration.json
+amplifyconfiguration.dart
+amplify-build-config.json
+amplify-gradle-config.json
+amplifytools.xcconfig
+.secret-*
+**.sample
+#amplify-do-not-edit-end

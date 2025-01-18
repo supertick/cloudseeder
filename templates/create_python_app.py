@@ -139,6 +139,7 @@ def main(app_name: str, monorepo_root: str):
     search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "_gitignore"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}", ".gitignore"))
     search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "Dockerfile"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}", "Dockerfile"))
     search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "auth_util.py"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}/src/{app_name}", "auth_util.py"))
+    search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "error_util_content.py"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}/src/{app_name}", "error_util.py"))
 
     # Generate FastAPI application structure
     create_fastapi_application(app_name, monorepo_root, models)
@@ -169,7 +170,6 @@ def search_and_replace(template_file: str, replacements: dict, output_file: str)
         f.write(content)
 
     print(f"✅ Generated file: {output_file}")
-
 
 
 if __name__ == "__main__":

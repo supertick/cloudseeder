@@ -1,34 +1,52 @@
 app:
   models:
+
+    config:
+      id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
+      # REQUIRED CONFIGURATION
+      auth_enabled: Optional[bool] = Field(False, description="Enable authentication", example=True)
+      database_type: Literal["tinydb", "dynamodb"] = Field("tinydb", description="Database type", example="dynamodb")
+      debug: Optional[bool] = Field(True, description="Enable debug mode", example=True)
+      # need blocking or async queues
+      queue_type: Literal["local", "sqs"] = Field("local", description="Database type", example="local")
+
+      # COMMON CONFIGURATION
+      port: Optional[int] = Field(None, example=8000)
+      log_level: Optional[str] = Field(None, example="info")
+
+      aws_access_key_id: Optional[str] = Field(None, description="AWS Access Key ID", example="your-access-key")
+      aws_secret_access_key: Optional[str] = Field(None, description="AWS Secret Access Key", example="your-secret-key")
+      aws_region: Optional[str] = Field(None, description="AWS Region", example="us-east-1")
+
     company:
-      id: string
-      name: string
-      description: string
+      id: str
+      name: str
+      description: str
       users: list[str]
 
     user:
-      id: string
-      email: string
+      id: str
+      email: str
       roles: list[str]
 
     role:
-      id: string
-      name: string
-      description: string
-      products: list[string]
+      id: str
+      name: str
+      description: str
+      products: list[str]
 
     transcription_request:
-      id: string
-      files: list[string]
+      id: str
+      files: list[str]
 
     transcription:
-      id: string
-      type: string
-      status: string
-      files_path: string
+      id: str
+      type: str
+      status: str
+      files_path: str
 
     transcription_result:
-      id: string
-      type: string
-      status: string
-      files: list[string]
+      id: str
+      type: str
+      status: str
+      files: list[str]

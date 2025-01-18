@@ -11,8 +11,8 @@ from queues.interface import QueueClient
 from {app_name}.models.{model_name} import {ModelName}, {ModelName}
 from typing import Dict
 from auth.factory import get_auth_provider
-from ..auth_util import require_role
-    
+from ..auth_util import require_role, no_role_required
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -64,7 +64,10 @@ def get_queue() -> QueueClient:
 
 # write - Create an item
 @router.post("/{model-name}", response_model={ModelName})
-def create_{model_name}(item: {ModelName}, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role([]))):
+def create_{model_name}(item: {ModelName}, 
+                        db: NoSqlDb = Depends(get_db), 
+                        q: QueueClient = Depends(get_queue), 
+                        user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     logger.info(f"Received request to create: {item}")
     item_id = item.id if hasattr(item, "id") and item.id else str(uuid.uuid4())
     logger.info(f"Using item_id: {item_id}")
@@ -81,13 +84,16 @@ def create_{model_name}(item: {ModelName}, db: NoSqlDb = Depends(get_db), q: Que
 
 # read - Retrieve all items
 @router.get("/{model-name}s", response_model=List[{ModelName}])
-def get_all_{model_name}s(db: NoSqlDb = Depends(get_db), user: dict = Depends(require_role([]))):
+def get_all_{model_name}s(db: NoSqlDb = Depends(get_db), 
+                        user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     logger.info("Received request to retrieve all {model_name}")
     return db.get_all_items("{model_name}")
 
 # read - Retrieve a single item
 @router.get("/{model-name}/{id}", response_model={ModelName})
-def get_{model_name}(id: str, db: NoSqlDb = Depends(get_db), user: dict = Depends(require_role([]))):
+def get_{model_name}(id: str, 
+                     db: NoSqlDb = Depends(get_db), 
+                     user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     logger.info(f"Received request to retrieve {model_name} with id: {id}")
     item = db.get_item("{model_name}", id)
     if not item:
@@ -97,7 +103,10 @@ def get_{model_name}(id: str, db: NoSqlDb = Depends(get_db), user: dict = Depend
 
 # write - Update an item (without modifying ID)
 @router.put("/{model-name}/{id}", response_model={ModelName})
-def update_{model_name}(id: str, updated_item: {ModelName}, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role([]))):
+def update_{model_name}(id: str, 
+                        updated_item: {ModelName}, db: NoSqlDb = Depends(get_db), 
+                        q: QueueClient = Depends(get_queue), 
+                        user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     item = db.get_item("{model_name}", id)
     logger.info(f"Received request to update {model_name} with id {id}: {updated_item}")
     if not item:
@@ -109,7 +118,10 @@ def update_{model_name}(id: str, updated_item: {ModelName}, db: NoSqlDb = Depend
 
 # write - Delete an item
 @router.delete("/{model-name}/{id}")
-def delete_{model_name}(id: str, db: NoSqlDb = Depends(get_db), q: QueueClient = Depends(get_queue), user: dict = Depends(require_role([]))):
+def delete_{model_name}(id: str, 
+                        db: NoSqlDb = Depends(get_db), 
+                        q: QueueClient = Depends(get_queue), 
+                        user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     item = db.get_item("{model_name}", id)
     if not item:
         logger.warning(f"{ModelName} with id {id} not found")

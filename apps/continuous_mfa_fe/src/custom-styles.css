@@ -1,0 +1,60 @@
+/* src/custom-styles.css */
+
+/* Global styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f4f8;
+    color: #333;
+  }
+  
+  /* Customizing Amplify Auth UI */
+  .amplify-authenticator {
+    max-width: 400px;
+    margin: 100px auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .amplify-button {
+    background-color: #2f3f5c !important;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white !important;
+    border-radius: 5px;
+  }
+  
+  .amplify-button:hover {
+    background-color: #25344b !important;
+  }
+  
+  .amplify-input {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .amplify-input-label {
+    color: #333;
+  }
+  
+  .amplify-container {
+    background-color: #f7fafc;
+  }
+  
+  .amplify-form-section-header {
+    color: #2f3f5c;
+    font-weight: bold;
+    font-size: 24px;
+  }
+  
+  .amplify-alert {
+    background-color: #ffebee;
+    color: #b71c1c;
+    border: 1px solid #b71c1c;
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+  
