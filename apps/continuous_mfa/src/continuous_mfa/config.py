@@ -1,9 +1,11 @@
 from pydantic_settings import BaseSettings
-from mfa_server.models.config import Config
+from continuous_mfa.models.config import Config
+from dotenv import load_dotenv
 
+load_dotenv(".env")
 class AppSettings(Config, BaseSettings):
     class Config:
-        env_prefix = "MFA_SERVER_"  # Looks for env variables like AI_CORE_PORT
+        env_prefix = "CONTINUOUS_MFA_"  # Looks for env variables like AI_CORE_PORT
         env_file = ".env"  # Optional: Load from .env file
 
     def to_config(self) -> Config:

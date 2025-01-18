@@ -9,15 +9,15 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy the mfa_server application
-COPY apps/mfa_server /app/apps/mfa_server
+# Copy the continuous_mfa application
+COPY apps/continuous_mfa /app/apps/continuous_mfa
 
 # Copy shared packages
 COPY packages/auth /app/packages/auth
 COPY packages/database /app/packages/database
 COPY packages/queues /app/packages/queues
 
-RUN pip install -e apps/mfa_server \
+RUN pip install -e apps/continuous_mfa \
     && pip install -e packages/auth \
     && pip install -e packages/database \
     && pip install -e packages/queues
@@ -27,10 +27,10 @@ EXPOSE 8000
 
 # Set environment variables (optional fallback values)
 # FIXME - dynamically pull config elements from tpl definition
-ENV MFA_SERVER_PORT=8000
-ENV MFA_SERVER_WORK_DIR="/work"
-ENV MFA_SERVER_LOG_LEVEL="info"
-ENV MFA_SERVER_DEEPGRAM_API_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+ENV CONTINUOUS_MFA_PORT=8000
+ENV CONTINUOUS_MFA_WORK_DIR="/work"
+ENV CONTINUOUS_MFA_LOG_LEVEL="info"
+ENV CONTINUOUS_MFA_DEEPGRAM_API_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
 # Command to run the FastAPI application
-CMD ["uvicorn", "mfa_server.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "continuous_mfa.main:app", "--host", "0.0.0.0", "--port", "8000"]

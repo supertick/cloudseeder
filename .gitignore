@@ -76,6 +76,7 @@ Desktop.ini
 .env.production
 .env.test
 .env.*.local
+.env.*
 
 # AWS credential files
 .aws/

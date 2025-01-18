@@ -1,12 +1,12 @@
-# Mfa Server - FastAPI Application
+# Continuous Mfa - FastAPI Application
 
-This is a FastAPI application for `mfa_server`.
+This is a FastAPI application for `continuous_mfa`.
 
 ## 🚀 Installation & Setup
 
 ### Create a Virtual Environment
 ```sh
-cd apps/mfa_server
+cd apps/continuous_mfa
 python -m venv venv
 source venv/bin/activate  # On Windows, use venv\Scripts\activate
 ```
@@ -26,20 +26,20 @@ pip install -e .
 
 ### Run the Application on Bare Metal
 ```sh
-cd apps/mfa_server
-python -m uvicorn mfa_server.main:app --reload
+cd apps/continuous_mfa
+python -m uvicorn continuous_mfa.main:app --reload
 ```
 
-Mfa Server Should be available at http://localhost:8000
+Continuous Mfa Should be available at http://localhost:8000
 
 ### Run the Application in Docker
 ```sh
 # run this from above the apps directory
-docker build -t mfa_server -f apps/mfa_server/Dockerfile .
-docker run --rm -p 8000:8000 mfa_server
+docker build -t continuous_mfa -f apps/continuous_mfa/Dockerfile .
+docker run --rm -p 8000:8000 continuous_mfa
 
 # interactively
-docker run --rm -it mfa_server /bin/sh
+docker run --rm -it continuous_mfa /bin/sh
 
 ```
 
@@ -53,5 +53,5 @@ pytest
 
 ### Run Tests with Coverage
 ```sh
-pytest --cov=mfa_server --cov-report html
+pytest --cov=continuous_mfa --cov-report html
 ```

@@ -3,7 +3,7 @@ from fastapi import FastAPI, Depends, HTTPException, Security
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials, OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from typing import List, Optional
-from mfa_server.config import settings
+from continuous_mfa.config import settings
 from auth.factory import get_auth_provider
 import jwt
 import time
@@ -12,7 +12,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 logger.info(f"App Setting: {settings}")
 
-app = FastAPI(title="Mfa Server", version="0.0.0")
+app = FastAPI(title="Continuous Mfa", version="0.0.0")
 
 # Allow all CORS for development
 app.add_middleware(

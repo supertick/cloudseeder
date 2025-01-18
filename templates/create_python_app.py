@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import argparse
 import yaml
 import os
 from pathlib import Path
@@ -172,8 +173,21 @@ def search_and_replace(template_file: str, replacements: dict, output_file: str)
 
 
 if __name__ == "__main__":
-    app_name = input("Enter the FastAPI application name: ").strip()
-    monorepo_root = input("Enter the monorepo root directory (default: ..): ").strip() or ".."
-    monorepo_root = os.path.expanduser(monorepo_root)
-
+    parser = argparse.ArgumentParser(description="Create a FastAPI application.")
+    parser.add_argument(
+        "--app_name",
+        required=True,
+        help="The name of the FastAPI application to create."
+    )
+    parser.add_argument(
+        "--monorepo_root",
+        default="..",
+        help="The root directory of the monorepo (default: ..)."
+    )
+    
+    args = parser.parse_args()
+    
+    app_name = args.app_name.strip()
+    monorepo_root = os.path.expanduser(args.monorepo_root.strip())
+    
     main(app_name, monorepo_root)
