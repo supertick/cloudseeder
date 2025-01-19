@@ -1,6 +1,4 @@
-import React from 'react';
-import TopMenuBar from './TopMenuBar';
-import { useUser } from './UserContext';
+import React, { useEffect, useState } from "react";
 import {
   Paper,
   Table,
@@ -9,55 +7,101 @@ import {
   TableRow,
   TableCell,
   Avatar,
-} from '@mui/material';
-import PersonIcon from '@mui/icons-material/Person';
-
-const mockUserData = [
-  { fullName: 'John Doe', lastLoggedIn: '2025-01-15 08:45 AM', errors: 1, success: 45, role: 'Admin' },
-  { fullName: 'Jane Smith', lastLoggedIn: '2025-01-14 06:30 PM', errors: 0, success: 32, role: 'User' },
-  { fullName: 'Alice Johnson', lastLoggedIn: '2025-01-13 01:15 PM', errors: 2, success: 58, role: 'User' },
-  { fullName: 'Robert Brown', lastLoggedIn: '2025-01-12 10:05 AM', errors: 3, success: 20, role: 'User' },
-  { fullName: 'Emily Davis', lastLoggedIn: '2025-01-11 07:25 PM', errors: 0, success: 67, role: 'User' },
-];
+  IconButton,
+  Tooltip,
+  Button,
+  Box,
+} from "@mui/material";
+import PersonIcon from "@mui/icons-material/Person";
+import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import TopMenuBar from "./TopMenuBar";
+import { useUser } from "./UserContext";
+import apiClient from "./utils/apiClient";
+import Footer from "./Footer";
 
 export default function Admin() {
-  const { userInfo } = useUser();
+  const { userInfo } = useUser(); // Access logged-in user info from context
+  const [users, setUsers] = useState([]); // State to store users
+
+  // Fetch user data from the API
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await apiClient.get("/users");
+        if (response) {
+          setUsers(response);
+        }
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  const handleAddUser = () => {
+    // Logic for adding a new user
+    console.log("Add user button clicked");
+  };
+
+  const handleEditUser = (userId) => {
+    // Logic for editing a user
+    console.log("Edit user:", userId);
+  };
+
+  const handleDeleteUser = (userId) => {
+    // Logic for deleting a user
+    console.log("Delete user:", userId);
+  };
 
   return (
     <div
       style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        backgroundColor: '#b3e5fc',
-        backgroundImage: 'url(/freeze_data.png)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        paddingTop: '50px',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        backgroundColor: "#b3e5fc",
+        backgroundImage: "url(/freeze_data.png)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        paddingTop: "50px",
       }}
     >
       <TopMenuBar />
       <div
         style={{
-          textAlign: 'center',
-          backgroundColor: 'rgba(255, 255, 255, 0.8)',
-          padding: '20px',
-          borderRadius: '10px',
-          width: '90%',
-          maxWidth: '1200px',
-          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+          textAlign: "center",
+          backgroundColor: "rgba(255, 255, 255, 0.8)",
+          padding: "20px",
+          borderRadius: "10px",
+          width: "90%",
+          maxWidth: "1200px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
         }}
       >
-        <h1>Admin</h1>
         <h2>User List</h2>
+        {/* Add User Button */}
+        <Box display="flex" justifyContent="flex-end" mb={2}>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<AddIcon />}
+            onClick={handleAddUser}
+          >
+            Add User
+          </Button>
+        </Box>
+
         {/* MUI Paper Table */}
         <Paper
           style={{
-            margin: '20px auto',
-            padding: '20px',
-            boxShadow: 'none',
-            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+            margin: "20px auto",
+            padding: "20px",
+            boxShadow: "none",
+            backgroundColor: "rgba(255, 255, 255, 0.9)",
           }}
         >
           <Table>
@@ -70,36 +114,55 @@ export default function Admin() {
                 <TableCell>Role</TableCell>
                 <TableCell>Errors</TableCell>
                 <TableCell>Success</TableCell>
+                <TableCell>Actions</TableCell> {/* New column for edit/delete */}
               </TableRow>
             </TableHead>
             <TableBody>
-              {mockUserData.map((user, index) => {
-                const email = `${user.fullName.toLowerCase().replace(' ', '.')}@metalyticsbio.com`;
-                return (
-                  <TableRow key={index}>
-                    <TableCell>
-                      <Avatar>
-                        <PersonIcon /> {/* Blank person icon */}
-                      </Avatar>
-                    </TableCell>
-                    <TableCell>
-                      <a href={`mailto:${email}`} style={{ textDecoration: 'none', color: '#1976d2' }}>
-                        {email}
-                      </a>
-                    </TableCell>
-                    <TableCell>{user.fullName}</TableCell>
-                    <TableCell>{user.lastLoggedIn}</TableCell>
-                    <TableCell>{user.role}</TableCell>
-                    <TableCell>{user.errors}</TableCell>
-                    <TableCell>{user.success}</TableCell>
-                  </TableRow>
-                );
-              })}
+              {users.map((user) => (
+                <TableRow key={user.id}>
+                  <TableCell>
+                    <Avatar>
+                      <PersonIcon /> {/* Blank person icon */}
+                    </Avatar>
+                  </TableCell>
+                  <TableCell>
+                    <a
+                      href={`mailto:${user.email}`}
+                      style={{ textDecoration: "none", color: "#1976d2" }}
+                    >
+                      {user.email}
+                    </a>
+                  </TableCell>
+                  <TableCell>{user.fullname}</TableCell>
+                  <TableCell>{user.last_login}</TableCell>
+                  <TableCell>{user.role}</TableCell>
+                  <TableCell>{user.errors}</TableCell>
+                  <TableCell>{user.success}</TableCell>
+                  <TableCell>
+                    <Tooltip title="Edit User">
+                      <IconButton
+                        color="primary"
+                        onClick={() => handleEditUser(user.id)}
+                      >
+                        <EditIcon />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete User">
+                      <IconButton
+                        color="secondary"
+                        onClick={() => handleDeleteUser(user.id)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Tooltip>
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </Paper>
-        <p>Version 0.0.7</p>
       </div>
+      <Footer />
     </div>
   );
 }
