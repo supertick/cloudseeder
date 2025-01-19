@@ -19,8 +19,11 @@ app:
       aws_secret_access_key: Optional[str] = Field(None, description="AWS Secret Access Key", example="your-secret-key")
       aws_region: Optional[str] = Field(None, description="AWS Region", example="us-east-1")
 
+      version: Optional[str] = Field("0.0.0", example="0.1.0")
+
     user:
       id: Optional[str] = Field(None, example="john@company1.com")
+      fullname: Optional[str] = Field(None, example="John Doe")
       email: Optional[str] = Field(None, example="john@company1.com")
       password_hash: Optional[str] = Field(None, example="secret")
       roles: Optional[list[str]] = Field(None, example=["admin"])

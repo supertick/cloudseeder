@@ -14,3 +14,4 @@ class Config(BaseModel):
     aws_access_key_id: Optional[str] = Field(None, description="AWS Access Key ID", example="your-access-key")
     aws_secret_access_key: Optional[str] = Field(None, description="AWS Secret Access Key", example="your-secret-key")
     aws_region: Optional[str] = Field(None, description="AWS Region", example="us-east-1")
+    version: Optional[str] = Field("0.0.0", example="0.1.0")

@@ -4,6 +4,7 @@ import time
 
 class User(BaseModel):
     id: Optional[str] = Field(None, example="john@company1.com")
+    fullname: Optional[str] = Field(None, example="John Doe")
     email: Optional[str] = Field(None, example="john@company1.com")
     password_hash: Optional[str] = Field(None, example="secret")
     roles: Optional[list[str]] = Field(None, example=["admin"])

@@ -11,11 +11,12 @@ import { MFALiteProvider } from './MFALiteContext'
 import './custom-styles.css'
 import UserProductAccess from './UserProductAccess'
 import Login from './Login'
-
+import { AppProvider } from "./AppContext";
 
 function App({ signOut }) {
   return (
     <UserProvider>
+      <AppProvider>
       <MFALiteProvider>
         <Router>
           <Routes>
@@ -31,6 +32,7 @@ function App({ signOut }) {
           </Routes>
         </Router>
       </MFALiteProvider>
+      </AppProvider>
     </UserProvider>
   );
 }

@@ -48,7 +48,7 @@ export default function ReportTable() {
   // }, [userInfo, setReports])
 
   const fetchReports = async () => {
-    const response = await apiClient.get('/run-statuss')
+    const response = await apiClient.get('/reports')
     setReports(response)
   }
 
