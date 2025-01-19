@@ -17,6 +17,10 @@ import {
   DialogContentText,
   DialogTitle,
   TextField,
+  Select,
+  MenuItem,
+  Checkbox,
+  ListItemText,
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import AddIcon from "@mui/icons-material/Add";
@@ -26,14 +30,15 @@ import TopMenuBar from "./TopMenuBar";
 import apiClient from "./utils/apiClient";
 import Footer from "./Footer";
 
-export default function Admin() {
-  const [users, setUsers] = useState([]); // State to store users
-  const [deleteUserId, setDeleteUserId] = useState(null); // Store the user ID to delete
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false); // Control delete dialog visibility
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false); // Control edit dialog visibility
-  const [editingUser, setEditingUser] = useState(null); // Store the user being edited
+const VALID_ROLES = ["admin", "user", "editor", "viewer"]; // Define valid roles
 
-  // Fetch user data from the API
+export default function Admin() {
+  const [users, setUsers] = useState([]);
+  const [deleteUserId, setDeleteUserId] = useState(null);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [editingUser, setEditingUser] = useState(null);
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -50,7 +55,6 @@ export default function Admin() {
   }, []);
 
   const handleAddUser = () => {
-    // Logic for adding a new user
     console.log("Add user button clicked");
   };
 
@@ -77,7 +81,6 @@ export default function Admin() {
   const handleDeleteUser = async () => {
     try {
       await apiClient.delete(`/user/${deleteUserId}`);
-      // Update the user list after deletion
       setUsers((prevUsers) => prevUsers.filter((user) => user.id !== deleteUserId));
       handleCloseDeleteDialog();
     } catch (error) {
@@ -88,7 +91,6 @@ export default function Admin() {
   const handleSaveEdit = async () => {
     try {
       await apiClient.put(`/user/${editingUser.id}`, editingUser);
-      // Update the user list with the edited user
       setUsers((prevUsers) =>
         prevUsers.map((user) =>
           user.id === editingUser.id ? editingUser : user
@@ -133,8 +135,7 @@ export default function Admin() {
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
         }}
       >
-        <h2>Users</h2>
-        {/* Add User Button */}
+        <h2><PersonIcon />Users</h2>
         <Box display="flex" justifyContent="flex-end" mb={2}>
           <Button
             variant="contained"
@@ -173,7 +174,7 @@ export default function Admin() {
                 <TableRow key={user.id}>
                   <TableCell>
                     <Avatar>
-                      <PersonIcon /> {/* Blank person icon */}
+                      <PersonIcon />
                     </Avatar>
                   </TableCell>
                   <TableCell>
@@ -186,7 +187,7 @@ export default function Admin() {
                   </TableCell>
                   <TableCell>{user.fullname}</TableCell>
                   <TableCell>{user.last_login}</TableCell>
-                  <TableCell>{user.roles}</TableCell>
+                  <TableCell>{user.roles.join(", ")}</TableCell>
                   <TableCell>{user.errors}</TableCell>
                   <TableCell>{user.success}</TableCell>
                   <TableCell>
@@ -264,13 +265,23 @@ export default function Admin() {
               handleEditFieldChange("fullname", e.target.value)
             }
           />
-          <TextField
+          <Select
             label="Roles"
-            value={editingUser?.roles || ""}
+            multiple
+            value={editingUser?.roles || []}
+            onChange={(e) =>
+              handleEditFieldChange("roles", e.target.value)
+            }
             fullWidth
-            margin="normal"
-            onChange={(e) => handleEditFieldChange("roles", e.target.value)}
-          />
+            renderValue={(selected) => selected.join(", ")}
+          >
+            {VALID_ROLES.map((role) => (
+              <MenuItem key={role} value={role}>
+                <Checkbox checked={editingUser?.roles?.includes(role)} />
+                <ListItemText primary={role} />
+              </MenuItem>
+            ))}
+          </Select>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseEditDialog} color="primary">

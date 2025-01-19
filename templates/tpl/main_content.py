@@ -43,10 +43,10 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
 # Allow all CORS for development
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Open to all origins
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],  # Allow all HTTP methods
-    allow_headers=["*"],  # Allow all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # private_router = APIRouter(
