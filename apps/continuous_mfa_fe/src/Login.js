@@ -46,79 +46,65 @@ const Login = () => {
 
   return (
     <div
-    style={{
-      display: "flex",
-      flexDirection: "column", // Adjust for header on top
-      height: "100vh",
-      backgroundColor: "#b3e5fc",
-      backgroundImage: "url(/freeze_data.png)",
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-    }}
-  >
-    {/* Header Section */}
-    <div
       style={{
-        backgroundColor: "rgb(47, 63, 92)",
-        color: "white",
-        textAlign: "center",
-        padding: "20px 0",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        backgroundColor: "#b3e5fc",
+        backgroundImage: "url(/freeze_data.png)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        paddingTop: "50px",
       }}
     >
-      <Typography variant="h6" component="div">
-        Continuous MFA
-      </Typography>
-    </div>
-
-    {/* Main Content */}
-    <Container component="main" maxWidth="xs" style={{ paddingTop: "20px" }}>        <Paper
+      <Container component="main" maxWidth="xs">
+        <Paper
           style={{
             margin: "20px auto",
-            padding: "20px",
-            boxShadow: "none",
             borderRadius: "16px",
+            overflow: "hidden", // Ensure the header styles don't bleed
+            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
           }}
           elevation={10}
         >
+          {/* Dialog Header */}
           <Box
-            sx={{
-              marginTop: 8,
+            style={{
+              backgroundColor: "rgb(47, 63, 92)", // Header background
+              color: "white", // Header text color
+              padding: "16px",
               display: "flex",
-              flexDirection: "column",
               alignItems: "center",
+              justifyContent: "center", // Center the content horizontally
+              gap: "10px", // Space between the logo and text
             }}
           >
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                marginBottom: 2, // Add spacing below the header
+            <img
+              src="/Metalytics-Logo_light.webp"
+              alt="Metalytics Logo"
+              style={{
+                height: "40px", // Adjust as needed
               }}
-            >
-              <img
-                src="/Metalytics-Logo_light.webp"
-                alt="Metalytics Logo"
-                style={{
-                  height: "40px", // Adjust as needed
-                  marginRight: "10px", // Add space between logo and text
-                  color: "#1976d2", // Set the logo color
-                }}
-              />
-              <Typography component="h1" variant="h5">
-                Continuous MFA
-              </Typography>
-            </Box>
-            <Box
-              component="form"
-              onSubmit={handleLogin}
-              noValidate
-              sx={{ mt: 3 }}
-            >
-              {errorMessage && (
-                <Alert severity="error" sx={{ mb: 2 }}>
-                  {errorMessage}
-                </Alert>
-              )}
+            />
+            <Typography component="h1" variant="h6">
+              Continuous MFA Login
+            </Typography>
+          </Box>
+  
+          {/* Form */}
+          <Box
+            style={{
+              padding: "20px",
+              backgroundColor: "rgb(252, 254, 255)", // Background color for the form
+            }}
+          >
+            {errorMessage && (
+              <Alert severity="error" sx={{ mb: 2 }}>
+                {errorMessage}
+              </Alert>
+            )}
+            <Box component="form" onSubmit={handleLogin} noValidate>
               <TextField
                 margin="normal"
                 required
@@ -147,11 +133,10 @@ const Login = () => {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 3, mb: 2, backgroundColor: "rgb(47, 63, 92)" }}
               >
                 Login
               </Button>
-              {/* 
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">
@@ -164,13 +149,13 @@ const Login = () => {
                   </Link>
                 </Grid>
               </Grid>
-              */}
             </Box>
           </Box>
         </Paper>
       </Container>
     </div>
   );
+    
 };
 
 export default Login;
