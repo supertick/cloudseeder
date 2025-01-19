@@ -37,6 +37,8 @@ export default function Admin() {
   const [deleteUserId, setDeleteUserId] = useState(null);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false); // Add dialog state
+  const [newUser, setNewUser] = useState({ email: "", fullname: "", roles: [] }); // State for new user
   const [editingUser, setEditingUser] = useState(null);
 
   useEffect(() => {
@@ -55,7 +57,30 @@ export default function Admin() {
   }, []);
 
   const handleAddUser = () => {
-    console.log("Add user button clicked");
+    setNewUser({ email: "", fullname: "", roles: [] }); // Reset new user form
+    setIsAddDialogOpen(true);
+  };
+
+  const handleCloseAddDialog = () => {
+    setNewUser({ email: "", fullname: "", roles: [] }); // Clear form
+    setIsAddDialogOpen(false);
+  };
+
+  const handleSaveAdd = async () => {
+    try {
+      const response = await apiClient.post("/user", newUser);
+      setUsers((prevUsers) => [...prevUsers, response]);
+      handleCloseAddDialog();
+    } catch (error) {
+      console.error("Error adding user:", error);
+    }
+  };
+
+  const handleNewUserFieldChange = (field, value) => {
+    setNewUser((prevUser) => ({
+      ...prevUser,
+      [field]: value,
+    }));
   };
 
   const handleEditUser = (user) => {
@@ -135,7 +160,10 @@ export default function Admin() {
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
         }}
       >
-        <h2><PersonIcon />Users</h2>
+        <h2>
+          <PersonIcon />
+          Users
+        </h2>
         <Box display="flex" justifyContent="flex-end" mb={2}>
           <Button
             variant="contained"
@@ -148,14 +176,7 @@ export default function Admin() {
         </Box>
 
         {/* MUI Paper Table */}
-        <Paper
-          style={{
-            margin: "20px auto",
-            padding: "20px",
-            boxShadow: "none",
-            backgroundColor: "rgba(255, 255, 255, 0.9)",
-          }}
-        >
+        <Paper>
           <Table>
             <TableHead>
               <TableRow>
@@ -214,7 +235,6 @@ export default function Admin() {
           </Table>
         </Paper>
       </div>
-
       {/* Delete Confirmation Dialog */}
       <Dialog
         open={isDeleteDialogOpen}
@@ -288,6 +308,56 @@ export default function Admin() {
             Cancel
           </Button>
           <Button onClick={handleSaveEdit} color="secondary" autoFocus>
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {/* Add User Dialog */}
+      <Dialog
+        open={isAddDialogOpen}
+        onClose={handleCloseAddDialog}
+        aria-labelledby="add-user-dialog-title"
+        aria-describedby="add-user-dialog-description"
+      >
+        <DialogTitle id="add-user-dialog-title">Add New User</DialogTitle>
+        <DialogContent>
+          <TextField
+            label="Email"
+            value={newUser.email}
+            fullWidth
+            margin="normal"
+            onChange={(e) => handleNewUserFieldChange("email", e.target.value)}
+          />
+          <TextField
+            label="Full Name"
+            value={newUser.fullname}
+            fullWidth
+            margin="normal"
+            onChange={(e) =>
+              handleNewUserFieldChange("fullname", e.target.value)
+            }
+          />
+          <Select
+            label="Roles"
+            multiple
+            value={newUser.roles}
+            onChange={(e) => handleNewUserFieldChange("roles", e.target.value)}
+            fullWidth
+            renderValue={(selected) => selected.join(", ")}
+          >
+            {VALID_ROLES.map((role) => (
+              <MenuItem key={role} value={role}>
+                <Checkbox checked={newUser.roles.includes(role)} />
+                <ListItemText primary={role} />
+              </MenuItem>
+            ))}
+          </Select>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseAddDialog} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleSaveAdd} color="secondary" autoFocus>
             Save
           </Button>
         </DialogActions>

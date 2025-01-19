@@ -2,9 +2,9 @@ from pydantic import BaseModel, Field
 from typing import List, Optional, Literal
 import time
 
-class Role(BaseModel):
+class User_product_access(BaseModel):
     id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
-    name: str
-    description: str
-    products: list[str]
-    modified: Optional[int] = Field(None, example=1683123456789)
+    user_id: str
+    product_id: str
+    access: bool
+    hidden: bool

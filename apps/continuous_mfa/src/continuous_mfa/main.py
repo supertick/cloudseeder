@@ -43,10 +43,10 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
 # Allow all CORS for development
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Open to all origins
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],  # Allow all HTTP methods
-    allow_headers=["*"],  # Allow all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # private_router = APIRouter(
@@ -58,8 +58,8 @@ from .api.config_api import router as config_router
 app.include_router(config_router, prefix='/v1', tags=["Config"])
 from .api.user_api import router as user_router
 app.include_router(user_router, prefix='/v1', tags=["User"])
-from .api.role_api import router as role_router
-app.include_router(role_router, prefix='/v1', tags=["Role"])
+from .api.user_product_access_api import router as user_product_access_router
+app.include_router(user_product_access_router, prefix='/v1', tags=["User Product Access"])
 from .api.product_api import router as product_router
 app.include_router(product_router, prefix='/v1', tags=["Product"])
 from .api.run_api import router as run_router

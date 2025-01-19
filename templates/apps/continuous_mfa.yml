@@ -30,16 +30,23 @@ app:
       last_login: Optional[int] = Field(None, example=1683123456789)
       modified: Optional[int] = Field(None, example=1683123456789)
 
-    role:
+    # role:
+    #   id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
+    #   name: str
+    #   description: str
+    #   products: list[str]
+    #   modified: Optional[int] = Field(None, example=1683123456789)
+
+    user_product_access:
       id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
-      name: str
-      description: str
-      products: list[str]
-      modified: Optional[int] = Field(None, example=1683123456789)
+      user_id: str
+      product_id: str
+      access: bool
+      hidden: bool
 
     product:
-      id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
-      title: str
+      id: Optional[str] = Field(None, example="BMSMFALite")
+      title: Optional[str] = Field(None, example="BMS MFALite")
       description: Optional[str] = Field(None, example="BMS MFALite")
 
     run:
