@@ -22,6 +22,7 @@ import {
   Checkbox,
   ListItemText,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
@@ -38,7 +39,11 @@ export default function Users() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false); // Add dialog state
-  const [newUser, setNewUser] = useState({ email: "", fullname: "", roles: [] }); // State for new user
+  const [newUser, setNewUser] = useState({
+    email: "",
+    fullname: "",
+    roles: [],
+  }); // State for new user
   const [editingUser, setEditingUser] = useState(null);
 
   useEffect(() => {
@@ -106,7 +111,9 @@ export default function Users() {
   const handleDeleteUser = async () => {
     try {
       await apiClient.delete(`/user/${deleteUserId}`);
-      setUsers((prevUsers) => prevUsers.filter((user) => user.id !== deleteUserId));
+      setUsers((prevUsers) =>
+        prevUsers.filter((user) => user.id !== deleteUserId)
+      );
       handleCloseDeleteDialog();
     } catch (error) {
       console.error("Error deleting user:", error);
@@ -160,7 +167,6 @@ export default function Users() {
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
         }}
       >
-
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           <PersonIcon style={{ fontSize: 40, color: "#2F3F5C" }} />
           <h1 style={{ color: "#2F3F5C", margin: 0 }}>Users</h1>
@@ -201,13 +207,13 @@ export default function Users() {
                     </Avatar>
                   </TableCell>
                   <TableCell>
-                    <a
-                      href={`mailto:${user.email}`}
-                      style={{ textDecoration: "none", color: "#1976d2" }}
+                    <Link
+                      to={`/user/${user.id}`} // Route to user/{id}
+                      style={{ textDecoration: "none", color: "#1976d2" }} // Style like a link
                     >
                       {user.email}
-                    </a>
-                  </TableCell>
+                    </Link>
+                  </TableCell>{" "}
                   <TableCell>{user.fullname}</TableCell>
                   <TableCell>{user.last_login}</TableCell>
                   <TableCell>{user.roles.join(", ")}</TableCell>
@@ -282,17 +288,13 @@ export default function Users() {
             value={editingUser?.fullname || ""}
             fullWidth
             margin="normal"
-            onChange={(e) =>
-              handleEditFieldChange("fullname", e.target.value)
-            }
+            onChange={(e) => handleEditFieldChange("fullname", e.target.value)}
           />
           <Select
             label="Roles"
             multiple
             value={editingUser?.roles || []}
-            onChange={(e) =>
-              handleEditFieldChange("roles", e.target.value)
-            }
+            onChange={(e) => handleEditFieldChange("roles", e.target.value)}
             fullWidth
             renderValue={(selected) => selected.join(", ")}
           >

@@ -8,3 +8,5 @@ class User_product_access(BaseModel):
     product_id: Optional[str] = Field(None, example="CloneSelectMFA")
     access: Optional[bool] = Field(False, example=False)
     enabled: Optional[bool] = Field(False, example=False)
+    success: Optional[int] = Field(0, example=0)
+    errors: Optional[int] = Field(0, example=0)

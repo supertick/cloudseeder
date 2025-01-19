@@ -38,6 +38,7 @@ export default function User() {
   const { id } = useParams();
 
   const [user, setUser] = useState(null);
+  const [products, setProducts] = useState([]);
   const [userProductAccess, setUserProductAccess] = useState([]);
   const [deleteUserId, setDeleteUserId] = useState(null);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -61,6 +62,21 @@ export default function User() {
     fetchUserProductAccess();
   }, []);
 
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await apiClient.get("/products");
+        if (response) {
+          setProducts(response);
+        }
+      } catch (error) {
+        console.error("Error fetching userProductAccess:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -369,9 +385,9 @@ export default function User() {
             fullWidth
             renderValue={(selected) => selected.join(", ")}
           >
-            {VALID_ROLES.map((role) => (
+            {products.map((role) => (
               <MenuItem key={role} value={role}>
-                <Checkbox checked={newUser.roles.includes(role)} />
+                <Checkbox checked={products.includes(role)} />
                 <ListItemText primary={role} />
               </MenuItem>
             ))}
