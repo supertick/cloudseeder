@@ -11,19 +11,24 @@ import {
   Tooltip,
   Button,
   Box,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import TopMenuBar from "./TopMenuBar";
-import { useUser } from "./UserContext";
 import apiClient from "./utils/apiClient";
 import Footer from "./Footer";
 
 export default function Admin() {
-  const { userInfo } = useUser(); // Access logged-in user info from context
   const [users, setUsers] = useState([]); // State to store users
+  const [deleteUserId, setDeleteUserId] = useState(null); // Store the user ID to delete
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false); // Control delete dialog visibility
 
   // Fetch user data from the API
   useEffect(() => {
@@ -51,9 +56,25 @@ export default function Admin() {
     console.log("Edit user:", userId);
   };
 
-  const handleDeleteUser = (userId) => {
-    // Logic for deleting a user
-    console.log("Delete user:", userId);
+  const handleOpenDeleteDialog = (userId) => {
+    setDeleteUserId(userId);
+    setIsDeleteDialogOpen(true);
+  };
+
+  const handleCloseDeleteDialog = () => {
+    setDeleteUserId(null);
+    setIsDeleteDialogOpen(false);
+  };
+
+  const handleDeleteUser = async () => {
+    try {
+      await apiClient.delete(`/user/${deleteUserId}`);
+      // Update the user list after deletion
+      setUsers((prevUsers) => prevUsers.filter((user) => user.id !== deleteUserId));
+      handleCloseDeleteDialog();
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
   };
 
   return (
@@ -82,7 +103,7 @@ export default function Admin() {
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
         }}
       >
-        <h2>User List</h2>
+        <h2>Users</h2>
         {/* Add User Button */}
         <Box display="flex" justifyContent="flex-end" mb={2}>
           <Button
@@ -111,10 +132,10 @@ export default function Admin() {
                 <TableCell>Email</TableCell>
                 <TableCell>Full Name</TableCell>
                 <TableCell>Last Logged In</TableCell>
-                <TableCell>Role</TableCell>
+                <TableCell>Roles</TableCell>
                 <TableCell>Errors</TableCell>
                 <TableCell>Success</TableCell>
-                <TableCell>Actions</TableCell> {/* New column for edit/delete */}
+                <TableCell>Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -135,7 +156,7 @@ export default function Admin() {
                   </TableCell>
                   <TableCell>{user.fullname}</TableCell>
                   <TableCell>{user.last_login}</TableCell>
-                  <TableCell>{user.role}</TableCell>
+                  <TableCell>{user.roles}</TableCell>
                   <TableCell>{user.errors}</TableCell>
                   <TableCell>{user.success}</TableCell>
                   <TableCell>
@@ -150,7 +171,7 @@ export default function Admin() {
                     <Tooltip title="Delete User">
                       <IconButton
                         color="secondary"
-                        onClick={() => handleDeleteUser(user.id)}
+                        onClick={() => handleOpenDeleteDialog(user.id)}
                       >
                         <DeleteIcon />
                       </IconButton>
@@ -162,6 +183,32 @@ export default function Admin() {
           </Table>
         </Paper>
       </div>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog
+        open={isDeleteDialogOpen}
+        onClose={handleCloseDeleteDialog}
+        aria-labelledby="delete-user-dialog-title"
+        aria-describedby="delete-user-dialog-description"
+      >
+        <DialogTitle id="delete-user-dialog-title">
+          {"Delete User?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="delete-user-dialog-description">
+            Are you sure you want to delete user with ID {deleteUserId}?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDeleteDialog} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleDeleteUser} color="secondary" autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       <Footer />
     </div>
   );
