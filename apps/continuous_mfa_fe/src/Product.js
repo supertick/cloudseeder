@@ -29,107 +29,114 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import TopMenuBar from "./TopMenuBar";
 import apiClient from "./utils/apiClient";
 import Footer from "./Footer";
+import AppsIcon from "@mui/icons-material/Apps";
 
-const VALID_ROLES = ["admin", "user", "editor", "viewer"]; // Define valid roles
+const VALID_ROLES = ["admin", "product", "editor", "viewer"]; // Define valid roles
 
-export default function Admin() {
-  const [users, setUsers] = useState([]);
-  const [deleteUserId, setDeleteUserId] = useState(null);
+export default function Product() {
+  const [products, setProducts] = useState([]);
+  const [deleteProductId, setDeleteProductId] = useState(null);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false); // Add dialog state
-  const [newUser, setNewUser] = useState({ email: "", fullname: "", roles: [] }); // State for new user
-  const [editingUser, setEditingUser] = useState(null);
+  const [newProduct, setNewProduct] = useState({
+    email: "",
+    fullname: "",
+    roles: [],
+  }); // State for new product
+  const [editingProduct, setEditingProduct] = useState(null);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchProducts = async () => {
       try {
-        const response = await apiClient.get("/users");
+        const response = await apiClient.get("/products");
         if (response) {
-          setUsers(response);
+          setProducts(response);
         }
       } catch (error) {
-        console.error("Error fetching users:", error);
+        console.error("Error fetching products:", error);
       }
     };
 
-    fetchUsers();
+    fetchProducts();
   }, []);
 
-  const handleAddUser = () => {
-    setNewUser({ email: "", fullname: "", roles: [] }); // Reset new user form
+  const handleAddProduct = () => {
+    setNewProduct({ email: "", fullname: "", roles: [] }); // Reset new product form
     setIsAddDialogOpen(true);
   };
 
   const handleCloseAddDialog = () => {
-    setNewUser({ email: "", fullname: "", roles: [] }); // Clear form
+    setNewProduct({ email: "", fullname: "", roles: [] }); // Clear form
     setIsAddDialogOpen(false);
   };
 
   const handleSaveAdd = async () => {
     try {
-      const response = await apiClient.post("/user", newUser);
-      setUsers((prevUsers) => [...prevUsers, response]);
+      const response = await apiClient.post("/product", newProduct);
+      setProducts((prevProducts) => [...prevProducts, response]);
       handleCloseAddDialog();
     } catch (error) {
-      console.error("Error adding user:", error);
+      console.error("Error adding product:", error);
     }
   };
 
-  const handleNewUserFieldChange = (field, value) => {
-    setNewUser((prevUser) => ({
-      ...prevUser,
+  const handleNewProductFieldChange = (field, value) => {
+    setNewProduct((prevProduct) => ({
+      ...prevProduct,
       [field]: value,
     }));
   };
 
-  const handleEditUser = (user) => {
-    setEditingUser(user);
+  const handleEditProduct = (product) => {
+    setEditingProduct(product);
     setIsEditDialogOpen(true);
   };
 
   const handleCloseEditDialog = () => {
-    setEditingUser(null);
+    setEditingProduct(null);
     setIsEditDialogOpen(false);
   };
 
-  const handleOpenDeleteDialog = (userId) => {
-    setDeleteUserId(userId);
+  const handleOpenDeleteDialog = (productId) => {
+    setDeleteProductId(productId);
     setIsDeleteDialogOpen(true);
   };
 
   const handleCloseDeleteDialog = () => {
-    setDeleteUserId(null);
+    setDeleteProductId(null);
     setIsDeleteDialogOpen(false);
   };
 
-  const handleDeleteUser = async () => {
+  const handleDeleteProduct = async () => {
     try {
-      await apiClient.delete(`/user/${deleteUserId}`);
-      setUsers((prevUsers) => prevUsers.filter((user) => user.id !== deleteUserId));
+      await apiClient.delete(`/product/${deleteProductId}`);
+      setProducts((prevProducts) =>
+        prevProducts.filter((product) => product.id !== deleteProductId)
+      );
       handleCloseDeleteDialog();
     } catch (error) {
-      console.error("Error deleting user:", error);
+      console.error("Error deleting product:", error);
     }
   };
 
   const handleSaveEdit = async () => {
     try {
-      await apiClient.put(`/user/${editingUser.id}`, editingUser);
-      setUsers((prevUsers) =>
-        prevUsers.map((user) =>
-          user.id === editingUser.id ? editingUser : user
+      await apiClient.put(`/product/${editingProduct.id}`, editingProduct);
+      setProducts((prevProducts) =>
+        prevProducts.map((product) =>
+          product.id === editingProduct.id ? editingProduct : product
         )
       );
       handleCloseEditDialog();
     } catch (error) {
-      console.error("Error updating user:", error);
+      console.error("Error updating product:", error);
     }
   };
 
   const handleEditFieldChange = (field, value) => {
-    setEditingUser((prevUser) => ({
-      ...prevUser,
+    setEditingProduct((prevProduct) => ({
+      ...prevProduct,
       [field]: value,
     }));
   };
@@ -160,20 +167,18 @@ export default function Admin() {
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
         }}
       >
-
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <PersonIcon style={{ fontSize: 40, color: "#2F3F5C" }} />
-          <h1 style={{ color: "#2F3F5C", margin: 0 }}>Users</h1>
+          <AppsIcon style={{ fontSize: 40, color: "#2F3F5C" }} />
+          <h1 style={{ color: "#2F3F5C", margin: 0 }}>Products</h1>
         </div>
-
         <Box display="flex" justifyContent="flex-end" mb={2}>
           <Button
             variant="contained"
             color="primary"
             startIcon={<AddIcon />}
-            onClick={handleAddUser}
+            onClick={handleAddProduct}
           >
-            Add User
+            Add Product
           </Button>
         </Box>
 
@@ -182,50 +187,31 @@ export default function Admin() {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Profile</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Full Name</TableCell>
-                <TableCell>Last Logged In</TableCell>
-                <TableCell>Roles</TableCell>
-                <TableCell>Errors</TableCell>
-                <TableCell>Success</TableCell>
+                <TableCell>Id</TableCell>
+                <TableCell>Title</TableCell>
+                <TableCell>Description</TableCell>
                 <TableCell>Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {users.map((user) => (
-                <TableRow key={user.id}>
+              {products.map((product) => (
+                <TableRow key={product.id}>
+                  <TableCell>{product.id}</TableCell>
+                  <TableCell>{product.title}</TableCell>
+                  <TableCell>{product.description}</TableCell>
                   <TableCell>
-                    <Avatar>
-                      <PersonIcon />
-                    </Avatar>
-                  </TableCell>
-                  <TableCell>
-                    <a
-                      href={`mailto:${user.email}`}
-                      style={{ textDecoration: "none", color: "#1976d2" }}
-                    >
-                      {user.email}
-                    </a>
-                  </TableCell>
-                  <TableCell>{user.fullname}</TableCell>
-                  <TableCell>{user.last_login}</TableCell>
-                  <TableCell>{user.roles.join(", ")}</TableCell>
-                  <TableCell>{user.errors}</TableCell>
-                  <TableCell>{user.success}</TableCell>
-                  <TableCell>
-                    <Tooltip title="Edit User">
+                    <Tooltip title="Edit Product">
                       <IconButton
                         color="primary"
-                        onClick={() => handleEditUser(user)}
+                        onClick={() => handleEditProduct(product)}
                       >
                         <EditIcon />
                       </IconButton>
                     </Tooltip>
-                    <Tooltip title="Delete User">
+                    <Tooltip title="Delete Product">
                       <IconButton
                         color="secondary"
-                        onClick={() => handleOpenDeleteDialog(user.id)}
+                        onClick={() => handleOpenDeleteDialog(product.id)}
                       >
                         <DeleteIcon />
                       </IconButton>
@@ -241,65 +227,61 @@ export default function Admin() {
       <Dialog
         open={isDeleteDialogOpen}
         onClose={handleCloseDeleteDialog}
-        aria-labelledby="delete-user-dialog-title"
-        aria-describedby="delete-user-dialog-description"
+        aria-labelledby="delete-product-dialog-title"
+        aria-describedby="delete-product-dialog-description"
       >
-        <DialogTitle id="delete-user-dialog-title">
-          {"Delete User?"}
+        <DialogTitle id="delete-product-dialog-title">
+          {"Delete Product?"}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="delete-user-dialog-description">
-            Are you sure you want to delete user with ID {deleteUserId}?
+          <DialogContentText id="delete-product-dialog-description">
+            Are you sure you want to delete product with ID {deleteProductId}?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDeleteDialog} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleDeleteUser} color="secondary" autoFocus>
+          <Button onClick={handleDeleteProduct} color="secondary" autoFocus>
             Yes
           </Button>
         </DialogActions>
       </Dialog>
 
-      {/* Edit User Dialog */}
+      {/* Edit Product Dialog */}
       <Dialog
         open={isEditDialogOpen}
         onClose={handleCloseEditDialog}
-        aria-labelledby="edit-user-dialog-title"
-        aria-describedby="edit-user-dialog-description"
+        aria-labelledby="edit-product-dialog-title"
+        aria-describedby="edit-product-dialog-description"
       >
-        <DialogTitle id="edit-user-dialog-title">Edit User</DialogTitle>
+        <DialogTitle id="edit-product-dialog-title">Edit Product</DialogTitle>
         <DialogContent>
           <TextField
             label="Email"
-            value={editingUser?.email || ""}
+            value={editingProduct?.email || ""}
             fullWidth
             margin="normal"
             disabled
           />
           <TextField
             label="Full Name"
-            value={editingUser?.fullname || ""}
+            value={editingProduct?.fullname || ""}
             fullWidth
             margin="normal"
-            onChange={(e) =>
-              handleEditFieldChange("fullname", e.target.value)
-            }
+            onChange={(e) => handleEditFieldChange("fullname", e.target.value)}
           />
           <Select
             label="Roles"
             multiple
-            value={editingUser?.roles || []}
-            onChange={(e) =>
-              handleEditFieldChange("roles", e.target.value)
-            }
+            value={editingProduct?.roles || []}
+            onChange={(e) => handleEditFieldChange("roles", e.target.value)}
             fullWidth
             renderValue={(selected) => selected.join(", ")}
           >
             {VALID_ROLES.map((role) => (
               <MenuItem key={role} value={role}>
-                <Checkbox checked={editingUser?.roles?.includes(role)} />
+                <Checkbox checked={editingProduct?.roles?.includes(role)} />
                 <ListItemText primary={role} />
               </MenuItem>
             ))}
@@ -314,42 +296,46 @@ export default function Admin() {
           </Button>
         </DialogActions>
       </Dialog>
-      {/* Add User Dialog */}
+      {/* Add Product Dialog */}
       <Dialog
         open={isAddDialogOpen}
         onClose={handleCloseAddDialog}
-        aria-labelledby="add-user-dialog-title"
-        aria-describedby="add-user-dialog-description"
+        aria-labelledby="add-product-dialog-title"
+        aria-describedby="add-product-dialog-description"
       >
-        <DialogTitle id="add-user-dialog-title">Add New User</DialogTitle>
+        <DialogTitle id="add-product-dialog-title">Add New Product</DialogTitle>
         <DialogContent>
           <TextField
             label="Email"
-            value={newUser.email}
-            fullWidth
-            margin="normal"
-            onChange={(e) => handleNewUserFieldChange("email", e.target.value)}
-          />
-          <TextField
-            label="Full Name"
-            value={newUser.fullname}
+            value={newProduct.email}
             fullWidth
             margin="normal"
             onChange={(e) =>
-              handleNewUserFieldChange("fullname", e.target.value)
+              handleNewProductFieldChange("email", e.target.value)
+            }
+          />
+          <TextField
+            label="Full Name"
+            value={newProduct.fullname}
+            fullWidth
+            margin="normal"
+            onChange={(e) =>
+              handleNewProductFieldChange("fullname", e.target.value)
             }
           />
           <Select
             label="Roles"
             multiple
-            value={newUser.roles}
-            onChange={(e) => handleNewUserFieldChange("roles", e.target.value)}
+            value={newProduct.roles}
+            onChange={(e) =>
+              handleNewProductFieldChange("roles", e.target.value)
+            }
             fullWidth
             renderValue={(selected) => selected.join(", ")}
           >
             {VALID_ROLES.map((role) => (
               <MenuItem key={role} value={role}>
-                <Checkbox checked={newUser.roles.includes(role)} />
+                <Checkbox checked={newProduct.roles.includes(role)} />
                 <ListItemText primary={role} />
               </MenuItem>
             ))}

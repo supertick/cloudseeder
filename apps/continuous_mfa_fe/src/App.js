@@ -12,6 +12,7 @@ import './custom-styles.css'
 import UserProductAccess from './UserProductAccess'
 import Login from './Login'
 import { AppProvider } from "./AppContext";
+import Product from './Product'
 
 function App({ signOut }) {
   return (
@@ -22,7 +23,8 @@ function App({ signOut }) {
           <Routes>
             <Route path="/" element={<Home />} /> {/* Set Home as the default */}
             <Route path="/home" element={<Home />} />
-            <Route path="/admin" element={<Admin />} />
+            <Route path="/users" element={<Admin />} />
+            <Route path="/products" element={<Product />} />
             <Route path="/adminproducts" element={<UserProductAccess />} />
             <Route path="/mfalite" element={<MFALite signOut={signOut} />} />
             <Route path="/cloneselectmfa" element={<CloneSelectMFA signOut={signOut} />} />
