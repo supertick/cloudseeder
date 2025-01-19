@@ -43,9 +43,9 @@ export default function User() {
   const [userProductAccess, setUserProductAccess] = useState([]);
   const [deleteUserId, setDeleteUserId] = useState(null);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false); // Add dialog state
   const [newAccess, setNewAccess] = useState({
+    id: "",
     user_id: "",
     product_id: "",
     access: false,
@@ -111,6 +111,8 @@ export default function User() {
 
   const handleSaveAdd = async () => {
     try {
+      newAccess.id = user.id + "-" + newAccess.product_id;
+      newAccess.user_id = user.id;
       const response = await apiClient.post("/user-product-access", newAccess);
       setUserProductAccess((prevUserProductAccess) => [
         ...prevUserProductAccess,
@@ -158,12 +160,14 @@ export default function User() {
         record.id === id ? { ...record, [field]: !record[field] } : record
       )
     );
-
-    // Find the specific record to send updated value to the server
+  
+    // Find the specific record and merge the changes
     const updatedRecord = userProductAccess.find((record) => record.id === id);
     if (updatedRecord) {
+      const updatedData = { ...updatedRecord, [field]: !updatedRecord[field] }; // Merge changes
+  
       apiClient
-        .put(`/user-product-access/${id}`, { [field]: !updatedRecord[field] })
+        .put(`/user-product-access/${id}`, updatedData) // Send the full updated record
         .then(() => {
           console.log(`Updated ${field} for record ID ${id}`);
         })
@@ -172,6 +176,7 @@ export default function User() {
         });
     }
   };
+  
 
   return (
     <div
@@ -315,16 +320,6 @@ export default function User() {
       >
         <DialogTitle id="add-user-dialog-title">Add Product Access</DialogTitle>
         <DialogContent>
-          <TextField
-            label="Email"
-            value={user?.id}
-            fullWidth
-            margin="normal"
-            onChange={(e) =>
-              handleNewAccessFieldChange("user_id", e.target.value)
-            }
-            style={{ display: "none" }}
-          />
           <Select
             label="Roles"
             value={newAccess.product_id || ""} // Ensure a default value
