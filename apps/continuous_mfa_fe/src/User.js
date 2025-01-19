@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   Paper,
   Table,
+  Switch,
   TableHead,
   TableBody,
   TableRow,
@@ -22,9 +23,9 @@ import {
   Checkbox,
   ListItemText,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
 import AddIcon from "@mui/icons-material/Add";
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import TopMenuBar from "./TopMenuBar";
 import apiClient from "./utils/apiClient";
@@ -44,8 +45,14 @@ export default function User() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false); // Add dialog state
-  const [newUser, setNewUser] = useState({ email: "", fullname: "", roles: [] }); // State for new user
-  const [editingUser, setEditingUser] = useState(null);
+  const [newAccess, setNewAccess] = useState({
+    user_id: "",
+    product_id: "",
+    access: false,
+    enabled: false
+  }); 
+
+  const [editingAccess, setEditingAccess] = useState(null);
 
   useEffect(() => {
     const fetchUserProductAccess = async () => {
@@ -61,7 +68,6 @@ export default function User() {
 
     fetchUserProductAccess();
   }, []);
-
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -93,42 +99,43 @@ export default function User() {
     fetchUser();
   }, []);
 
-
-
   const handleAddUser = () => {
-    setNewUser({ email: "", fullname: "", roles: [] }); // Reset new user form
+    setNewAccess({ email: "", fullname: "", roles: [] }); // Reset new user form
     setIsAddDialogOpen(true);
   };
 
   const handleCloseAddDialog = () => {
-    setNewUser({ email: "", fullname: "", roles: [] }); // Clear form
+    setNewAccess({ email: "", fullname: "", roles: [] }); // Clear form
     setIsAddDialogOpen(false);
   };
 
   const handleSaveAdd = async () => {
     try {
-      const response = await apiClient.post("/user", newUser);
-      setUserProductAccess((prevUserProductAccess) => [...prevUserProductAccess, response]);
+      const response = await apiClient.post("/user-product-access", newAccess);
+      setUserProductAccess((prevUserProductAccess) => [
+        ...prevUserProductAccess,
+        response,
+      ]);
       handleCloseAddDialog();
     } catch (error) {
       console.error("Error adding user:", error);
     }
   };
 
-  const handleNewUserFieldChange = (field, value) => {
-    setNewUser((prevUser) => ({
+  const handleNewAccessFieldChange = (field, value) => {
+    setNewAccess((prevUser) => ({
       ...prevUser,
       [field]: value,
     }));
   };
 
   const handleEditUser = (user) => {
-    setEditingUser(user);
+    setEditingAccess(user);
     setIsEditDialogOpen(true);
   };
 
   const handleCloseEditDialog = () => {
-    setEditingUser(null);
+    setEditingAccess(null);
     setIsEditDialogOpen(false);
   };
 
@@ -145,7 +152,9 @@ export default function User() {
   const handleDeleteUser = async () => {
     try {
       await apiClient.delete(`/user/${deleteUserId}`);
-      setUserProductAccess((prevUserProductAccess) => prevUserProductAccess.filter((user) => user.id !== deleteUserId));
+      setUserProductAccess((prevUserProductAccess) =>
+        prevUserProductAccess.filter((user) => user.id !== deleteUserId)
+      );
       handleCloseDeleteDialog();
     } catch (error) {
       console.error("Error deleting user:", error);
@@ -154,10 +163,10 @@ export default function User() {
 
   const handleSaveEdit = async () => {
     try {
-      await apiClient.put(`/user/${editingUser.id}`, editingUser);
+      await apiClient.put(`/user/${editingAccess.id}`, editingAccess);
       setUserProductAccess((prevUserProductAccess) =>
         prevUserProductAccess.map((user) =>
-          user.id === editingUser.id ? editingUser : user
+          user.id === editingAccess.id ? editingAccess : user
         )
       );
       handleCloseEditDialog();
@@ -167,10 +176,31 @@ export default function User() {
   };
 
   const handleEditFieldChange = (field, value) => {
-    setEditingUser((prevUser) => ({
+    setEditingAccess((prevUser) => ({
       ...prevUser,
       [field]: value,
     }));
+  };
+
+  const handleToggle = (id, field) => {
+    setUserProductAccess((prevRecords) =>
+      prevRecords.map((record) =>
+        record.id === id ? { ...record, [field]: !record[field] } : record
+      )
+    );
+
+    // Find the specific record to send updated value to the server
+    const updatedRecord = userProductAccess.find((record) => record.id === id);
+    if (updatedRecord) {
+      apiClient
+        .put(`/user-product-access/${id}`, { [field]: !updatedRecord[field] })
+        .then(() => {
+          console.log(`Updated ${field} for record ID ${id}`);
+        })
+        .catch((error) => {
+          console.error(`Error updating ${field} for record ID ${id}:`, error);
+        });
+    }
   };
 
   return (
@@ -199,14 +229,13 @@ export default function User() {
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
         }}
       >
-
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           <PersonIcon style={{ fontSize: 40, color: "#2F3F5C" }} />
           <h1 style={{ color: "#2F3F5C", margin: 0 }}>User {user?.fullname}</h1>
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        {user?.email}
+          {user?.email}
         </div>
 
         <Box display="flex" justifyContent="flex-end" mb={2}>
@@ -228,42 +257,48 @@ export default function User() {
                 <TableCell></TableCell>
                 <TableCell>Product</TableCell>
                 <TableCell>Access</TableCell>
-                <TableCell>Disabled</TableCell>
+                <TableCell>Enabled</TableCell>
                 <TableCell>Errors</TableCell>
                 <TableCell>Success</TableCell>
                 <TableCell>Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {userProductAccess.map((user) => (
-                <TableRow key={user.id}>
+              {userProductAccess.map((record) => (
+                <TableRow key={record.id}>
                   <TableCell>
                     <AppsIcon style={{ fontSize: 40, color: "#2F3F5C" }} />
                   </TableCell>
                   <TableCell>
-                    <a
-                      href={`mailto:${user.product_id}`}
+                    <Link
+                      to={`/products`} // Link to product details
                       style={{ textDecoration: "none", color: "#1976d2" }}
                     >
-                      {user.product_id}
-                    </a>
+                      {record.product_id}
+                    </Link>
                   </TableCell>
-                  <TableCell>{user.fullname}</TableCell>
-                  <TableCell>{user.last_login}</TableCell>
-                  <TableCell>{user.errors}</TableCell>
-                  <TableCell>{user.success}</TableCell>
+                  {/* Toggle for "access" */}
                   <TableCell>
-                    <Tooltip title="Edit User">
+                    <Switch
+                      checked={record.access}
+                      onChange={() => handleToggle(record.id, "access")}
+                      color="primary"
+                    />
+                  </TableCell>
+                  {/* Toggle for "enabled" */}
+                  <TableCell>
+                    <Switch
+                      checked={record.enabled}
+                      onChange={() => handleToggle(record.id, "enabled")}
+                      color="primary"
+                    />
+                  </TableCell>
+                  <TableCell>{record.errors}</TableCell>
+                  <TableCell>{record.success}</TableCell>
+                  <TableCell>
+                    <Tooltip title="Delete Access">
                       <IconButton
-                        color="primary"
-                        onClick={() => handleEditUser(user)}
-                      >
-                        <EditIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Delete User">
-                      <IconButton
-                        onClick={() => handleOpenDeleteDialog(user.id)}
+                        onClick={() => handleOpenDeleteDialog(record.id)}
                       >
                         <DeleteIcon />
                       </IconButton>
@@ -300,58 +335,7 @@ export default function User() {
         </DialogActions>
       </Dialog>
 
-      {/* Edit User Dialog */}
-      <Dialog
-        open={isEditDialogOpen}
-        onClose={handleCloseEditDialog}
-        aria-labelledby="edit-user-dialog-title"
-        aria-describedby="edit-user-dialog-description"
-      >
-        <DialogTitle id="edit-user-dialog-title">Edit User</DialogTitle>
-        <DialogContent>
-          <TextField
-            label="Email"
-            value={editingUser?.email || ""}
-            fullWidth
-            margin="normal"
-            disabled
-          />
-          <TextField
-            label="Full Name"
-            value={editingUser?.fullname || ""}
-            fullWidth
-            margin="normal"
-            onChange={(e) =>
-              handleEditFieldChange("fullname", e.target.value)
-            }
-          />
-          <Select
-            label="Roles"
-            multiple
-            value={editingUser?.roles || []}
-            onChange={(e) =>
-              handleEditFieldChange("roles", e.target.value)
-            }
-            fullWidth
-            renderValue={(selected) => selected.join(", ")}
-          >
-            {VALID_ROLES.map((role) => (
-              <MenuItem key={role} value={role}>
-                <Checkbox checked={editingUser?.roles?.includes(role)} />
-                <ListItemText primary={role} />
-              </MenuItem>
-            ))}
-          </Select>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseEditDialog} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleSaveEdit} color="secondary" autoFocus>
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
+
       {/* Add User Dialog */}
       <Dialog
         open={isAddDialogOpen}
@@ -359,36 +343,30 @@ export default function User() {
         aria-labelledby="add-user-dialog-title"
         aria-describedby="add-user-dialog-description"
       >
-        <DialogTitle id="add-user-dialog-title">Add New User</DialogTitle>
+        <DialogTitle id="add-user-dialog-title">Add Product Access</DialogTitle>
         <DialogContent>
           <TextField
             label="Email"
-            value={newUser.email}
-            fullWidth
-            margin="normal"
-            onChange={(e) => handleNewUserFieldChange("email", e.target.value)}
-          />
-          <TextField
-            label="Full Name"
-            value={newUser.fullname}
+            value={user?.id}
             fullWidth
             margin="normal"
             onChange={(e) =>
-              handleNewUserFieldChange("fullname", e.target.value)
+              handleNewAccessFieldChange("user_id", e.target.value)
             }
+            style={{ display: "none" }}
           />
           <Select
             label="Roles"
-            multiple
-            value={newUser.roles}
-            onChange={(e) => handleNewUserFieldChange("roles", e.target.value)}
+            value={newAccess.roles || ""} // Ensure a default value
+            onChange={(e) =>
+              handleNewAccessFieldChange("product_id", e.target.value)
+            }
             fullWidth
-            renderValue={(selected) => selected.join(", ")}
           >
-            {products.map((role) => (
-              <MenuItem key={role} value={role}>
-                <Checkbox checked={products.includes(role)} />
-                <ListItemText primary={role} />
+            {products.map((product) => (
+              <MenuItem key={product.id} value={product.id}>
+                {product.id}{" "}
+                {/* Adjust field name as needed */}
               </MenuItem>
             ))}
           </Select>
