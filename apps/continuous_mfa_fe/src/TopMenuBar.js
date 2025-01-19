@@ -3,7 +3,7 @@ import { styled } from '@mui/system'
 import { Link } from 'react-router-dom'
 import IconButton from '@mui/material/IconButton'
 import LogoutIcon from '@mui/icons-material/Logout'
-import { useUser } from './UserContext' // assuming UserContext.js is in the same directory
+import { useUser } from './UserContext'
 
 const TopMenuBarContainer = styled('div')({
   width: '100%',
@@ -42,7 +42,7 @@ export default function TopMenuBar() {
       </Link>
       <UserInfo>
         <UserName>{JSON.stringify(userInfo)}</UserName>
-        <UserName>{userInfo?.username}</UserName>
+        <UserName>{userInfo?.email}</UserName>
         <IconButton onClick={signOut} color="inherit">
           <LogoutIcon />
         </IconButton>

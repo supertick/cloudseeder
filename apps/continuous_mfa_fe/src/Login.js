@@ -10,12 +10,16 @@ import {
   Paper,
   Alert,
 } from "@mui/material";
+import {jwtDecode } from "jwt-decode"; // Import jwt-decode
+import { useUser } from "./UserContext"; // Import useUser
 import apiClient from "./utils/apiClient";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // State to manage error messages
+
+  const { setUserInfo } = useUser(); // Access setUserInfo from UserContext
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -27,15 +31,19 @@ const Login = () => {
         password: password,
       });
 
-      if (response) {
-        // Assuming successful login returns a token or user data
-        console.log("User logged in successfully:", response);
+      if (response && response.access_token) {
+        // Decode the JWT to extract the user information
+        const decodedToken = jwtDecode(response.access_token);
+        const user = decodedToken.user;
+
+        // Update the user context with the decoded user information
+        setUserInfo(user);
 
         // Clear any previous error messages
         setErrorMessage("");
 
-        // Perform actions for successful login, e.g., redirect or update context
-        // Example: useUser.setState({ userInfo: response.data });
+        // Optionally, redirect to another page or perform additional actions
+        console.log("User logged in successfully:", user);
       }
     } catch (error) {
       // Set a user-friendly error message
@@ -91,7 +99,7 @@ const Login = () => {
               Continuous MFA Login
             </Typography>
           </Box>
-  
+
           {/* Form */}
           <Box
             style={{
@@ -155,7 +163,6 @@ const Login = () => {
       </Container>
     </div>
   );
-    
 };
 
 export default Login;
