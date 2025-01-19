@@ -5,7 +5,7 @@ from typing import List
 import uuid
 from continuous_mfa.config import settings 
 from database.interface import NoSqlDb
-from database.factory import get_database
+from database.factory import get_database, get_db
 from queues.factory import get_queue_client
 from queues.interface import QueueClient
 from continuous_mfa.models.role import Role, Role
@@ -23,26 +23,8 @@ router = APIRouter()
 auth = get_auth_provider(config_provider)
 security = HTTPBearer()
 
-# Inject database dependency dynamically
-def get_db() -> NoSqlDb:
-    database_type = settings.database_type  # Read from app config
-
-    db_params: Dict[str, str] = {}
-
-    if database_type == "dynamodb":
-        db_params = {
-            "region_name": settings.aws_region,
-            "aws_access_key_id": settings.aws_access_key_id,
-            "aws_secret_access_key": settings.aws_secret_access_key
-        }
-    elif database_type == "tinydb":
-        db_params = {
-           # "table_prefix": settings.table_prefix
-        }
-
-
-    return get_database(database_type, **db_params)  # Pass to factory
-
+def get_db_provider() -> NoSqlDb:
+    return get_database(config_provider)
 
 # Inject database dependency dynamically
 def get_queue() -> QueueClient:
@@ -67,7 +49,7 @@ def get_queue() -> QueueClient:
 # write - Create an item
 @router.post("/role", response_model=Role)
 def create_role(item: Role, 
-                        db: NoSqlDb = Depends(get_db), 
+                        db: NoSqlDb = Depends(get_db_provider), 
                         q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     logger.info(f"Received request to create: {item}")
@@ -86,7 +68,7 @@ def create_role(item: Role,
 
 # read - Retrieve all items
 @router.get("/roles", response_model=List[Role])
-def get_all_roles(db: NoSqlDb = Depends(get_db), 
+def get_all_roles(db: NoSqlDb = Depends(get_db_provider), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     logger.info("Received request to retrieve all role")
     return db.get_all_items("role")
@@ -94,7 +76,7 @@ def get_all_roles(db: NoSqlDb = Depends(get_db),
 # read - Retrieve a single item
 @router.get("/role/{id}", response_model=Role)
 def get_role(id: str, 
-                     db: NoSqlDb = Depends(get_db), 
+                     db: NoSqlDb = Depends(get_db_provider), 
                      user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     logger.info(f"Received request to retrieve role with id: {id}")
     item = db.get_item("role", id)
@@ -106,7 +88,7 @@ def get_role(id: str,
 # write - Update an item (without modifying ID)
 @router.put("/role/{id}", response_model=Role)
 def update_role(id: str, 
-                        updated_item: Role, db: NoSqlDb = Depends(get_db), 
+                        updated_item: Role, db: NoSqlDb = Depends(get_db_provider), 
                         q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     item = db.get_item("role", id)
@@ -121,7 +103,7 @@ def update_role(id: str,
 # write - Delete an item
 @router.delete("/role/{id}")
 def delete_role(id: str, 
-                        db: NoSqlDb = Depends(get_db), 
+                        db: NoSqlDb = Depends(get_db_provider), 
                         q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     item = db.get_item("role", id)

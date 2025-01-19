@@ -71,9 +71,16 @@ class LocalAuthProvider(AuthProvider):
 
     def _generate_jwt(self, username: str) -> str:
         """Generate a JWT for the given username."""
+        user = self.database.get_item(USERS_TABLE, username)
+        if user:
+            user.pop("password_hash", None)
+            user.pop("password", None)        
+            user.pop("token", None)        
+
         payload = {
             "sub": username,
             "exp": datetime.utcnow() + timedelta(minutes=JWT_EXPIRATION_MINUTES),
+            "user": user
         }
         token = jwt.encode(payload, JWT_SECRET_KEY, algorithm="HS256")
         return token if isinstance(token, str) else token.decode("utf-8")

@@ -21,7 +21,7 @@ export default function ReportTable() {
   const { reports, setReports, mfaStatus } = useMFALite()
   const { userInfo } = useUser()
 
-  const [sortColumn, setSortColumn] = useState('processingDate')
+  const [sortColumn, setSortColumn] = useState('start_datetime')
   const [sortDirection, setSortDirection] = useState('desc') // Default: latest first
 
   // const fetchReports = useCallback(async () => {
@@ -112,15 +112,15 @@ export default function ReportTable() {
   }
 
   const sortedReports = [...reports]
-    .filter(report => !(report.report.endsWith('log') && !userInfo.hasAdmin))
+    .filter(title => !(report.title.endsWith('log') && !userInfo.hasAdmin))
     .sort((a, b) => {
       let valueA, valueB
-      if (sortColumn === 'report') {
-        valueA = a.report.toLowerCase()
-        valueB = b.report.toLowerCase()
-      } else if (sortColumn === 'processingDate') {
-        valueA = new Date(a.processingDate).getTime()
-        valueB = new Date(b.processingDate).getTime()
+      if (sortColumn === 'title') {
+        valueA = a.title.toLowerCase()
+        valueB = b.title.toLowerCase()
+      } else if (sortColumn === 'start_datetime') {
+        valueA = new Date(a.start_datetime).getTime()
+        valueB = new Date(b.start_datetime).getTime()
       }
 
       if (valueA < valueB) return sortDirection === 'asc' ? -1 : 1
@@ -142,17 +142,17 @@ export default function ReportTable() {
               <TableCell sx={{ backgroundColor: '#82A8C8', color: '#25344B' }}></TableCell>
               <TableCell
                 sx={{ backgroundColor: '#82A8C8', color: '#25344B' }}
-                onClick={() => handleSort('report')}
+                onClick={() => handleSort('title')}
               >
-                <TableSortLabel active={sortColumn === 'report'} direction={sortDirection}>
+                <TableSortLabel active={sortColumn === 'title'} direction={sortDirection}>
                   Report Name
                 </TableSortLabel>
               </TableCell>
               <TableCell
                 sx={{ backgroundColor: '#82A8C8', color: '#25344B' }}
-                onClick={() => handleSort('processingDate')}
+                onClick={() => handleSort('start_datetime')}
               >
-                <TableSortLabel active={sortColumn === 'processingDate'} direction={sortDirection}>
+                <TableSortLabel active={sortColumn === 'start_datetime'} direction={sortDirection}>
                   Processing Date
                 </TableSortLabel>
               </TableCell>
@@ -175,18 +175,18 @@ export default function ReportTable() {
               sortedReports.map((report) => (
                 <TableRow key={report.id}>
                   <TableCell>
-                    {(report.report.endsWith('.xlsx') || report.report.endsWith('.xls')) && (
+                    {(report.title.endsWith('.xlsx') || report.title.endsWith('.xls')) && (
                       <img src="/processing.gif" alt="report" width="30" />
                     )}
                   </TableCell>
                   <TableCell component="th" scope="row">
-                    {report.report}
+                    {report.title}
                   </TableCell>
-                  <TableCell>{formatDateToLocal(report.processingDate)}</TableCell>
+                  <TableCell>{formatDateToLocal(report.start_datetime)}</TableCell>
                   <TableCell align="right">
-                    {!report.report.endsWith('.xlsx') && (
+                    {!report.title.endsWith('.xlsx') && (
                       <Tooltip title="Download">
-                        <IconButton onClick={() => handleDownload(report.report)}>
+                        <IconButton onClick={() => handleDownload(report.title)}>
                           <DownloadIcon />
                         </IconButton>
                       </Tooltip>
@@ -194,7 +194,7 @@ export default function ReportTable() {
                   </TableCell>
                   <TableCell align="right">
                     <Tooltip title="Delete">
-                      <IconButton onClick={() => handleDelete(report.report)}>
+                      <IconButton onClick={() => handleDelete(report.title)}>
                         <DeleteIcon />
                       </IconButton>
                     </Tooltip>

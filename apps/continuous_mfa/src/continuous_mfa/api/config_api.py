@@ -5,7 +5,7 @@ from typing import List
 import uuid
 from continuous_mfa.config import settings 
 from database.interface import NoSqlDb
-from database.factory import get_database
+from database.factory import get_database, get_db
 from queues.factory import get_queue_client
 from queues.interface import QueueClient
 from continuous_mfa.models.config import Config, Config
@@ -23,26 +23,8 @@ router = APIRouter()
 auth = get_auth_provider(config_provider)
 security = HTTPBearer()
 
-# Inject database dependency dynamically
-def get_db() -> NoSqlDb:
-    database_type = settings.database_type  # Read from app config
-
-    db_params: Dict[str, str] = {}
-
-    if database_type == "dynamodb":
-        db_params = {
-            "region_name": settings.aws_region,
-            "aws_access_key_id": settings.aws_access_key_id,
-            "aws_secret_access_key": settings.aws_secret_access_key
-        }
-    elif database_type == "tinydb":
-        db_params = {
-           # "table_prefix": settings.table_prefix
-        }
-
-
-    return get_database(database_type, **db_params)  # Pass to factory
-
+def get_db_provider() -> NoSqlDb:
+    return get_database(config_provider)
 
 # Inject database dependency dynamically
 def get_queue() -> QueueClient:
@@ -67,7 +49,7 @@ def get_queue() -> QueueClient:
 # write - Create an item
 @router.post("/config", response_model=Config)
 def create_config(item: Config, 
-                        db: NoSqlDb = Depends(get_db), 
+                        db: NoSqlDb = Depends(get_db_provider), 
                         q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     logger.info(f"Received request to create: {item}")
@@ -86,7 +68,7 @@ def create_config(item: Config,
 
 # read - Retrieve all items
 @router.get("/configs", response_model=List[Config])
-def get_all_configs(db: NoSqlDb = Depends(get_db), 
+def get_all_configs(db: NoSqlDb = Depends(get_db_provider), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     logger.info("Received request to retrieve all config")
     return db.get_all_items("config")
@@ -94,7 +76,7 @@ def get_all_configs(db: NoSqlDb = Depends(get_db),
 # read - Retrieve a single item
 @router.get("/config/{id}", response_model=Config)
 def get_config(id: str, 
-                     db: NoSqlDb = Depends(get_db), 
+                     db: NoSqlDb = Depends(get_db_provider), 
                      user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     logger.info(f"Received request to retrieve config with id: {id}")
     item = db.get_item("config", id)
@@ -106,7 +88,7 @@ def get_config(id: str,
 # write - Update an item (without modifying ID)
 @router.put("/config/{id}", response_model=Config)
 def update_config(id: str, 
-                        updated_item: Config, db: NoSqlDb = Depends(get_db), 
+                        updated_item: Config, db: NoSqlDb = Depends(get_db_provider), 
                         q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     item = db.get_item("config", id)
@@ -121,7 +103,7 @@ def update_config(id: str,
 # write - Delete an item
 @router.delete("/config/{id}")
 def delete_config(id: str, 
-                        db: NoSqlDb = Depends(get_db), 
+                        db: NoSqlDb = Depends(get_db_provider), 
                         q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     item = db.get_item("config", id)

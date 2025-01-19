@@ -64,8 +64,8 @@ from .api.product_api import router as product_router
 app.include_router(product_router, prefix='/v1', tags=["Product"])
 from .api.run_api import router as run_router
 app.include_router(run_router, prefix='/v1', tags=["Run"])
-from .api.run_status_api import router as run_status_router
-app.include_router(run_status_router, prefix='/v1', tags=["Run Status"])
+from .api.report_api import router as report_router
+app.include_router(report_router, prefix='/v1', tags=["Report"])
 
 
 

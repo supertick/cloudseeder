@@ -1,0 +1,39 @@
+{
+  "_default": {
+    "CloneSelectMFA": {
+      "id": "CloneSelectMFA",
+      "title": "Clone Select MFA",
+      "description": "Clone Select MFA"
+    },
+    "MFALite": {
+      "id": "MFALite",
+      "title": "MFA Lite",
+      "description": "MFA Lite"
+    },
+    "TimeSegmentedMFA": {
+      "id": "TimeSegmentedMFA",
+      "title": "Time Segmented MFA",
+      "description": "Time Segmented MFA"
+    },
+    "BioInterpreter": {
+      "id": "BioInterpreter",
+      "title": "Bio Interpreter",
+      "description": "Bio Interpreter"
+    },
+    "CoreMFAtoMFALite": {
+        "id": "CoreMFAtoMFALite",
+        "title": "Core MFA to MFA Lite",
+        "description": "Core MFA to MFA Lite"
+      },
+      "BMSMFALite": {
+        "id": "BMSMFALite",
+        "title": "BMS MFA Lite",
+        "description": "BMS MFA Lite"
+      },
+      "PerfuseMFALite": {
+        "id": "PerfuseMFALite",
+        "title": "Perfuse MFA Lite",
+        "description": "Perfuse MFA Lite"
+      }
+    }
+}
