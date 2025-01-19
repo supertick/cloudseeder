@@ -112,7 +112,7 @@ export default function ReportTable() {
   }
 
   const sortedReports = [...reports]
-    .filter(title => !(report.title.endsWith('log') && !userInfo.hasAdmin))
+    .filter(report => !(report.title.endsWith('log') && !userInfo.hasAdmin))
     .sort((a, b) => {
       let valueA, valueB
       if (sortColumn === 'title') {
