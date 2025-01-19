@@ -129,16 +129,6 @@ export default function User() {
     }));
   };
 
-  const handleEditUser = (user) => {
-    setEditingAccess(user);
-    setIsEditDialogOpen(true);
-  };
-
-  const handleCloseEditDialog = () => {
-    setEditingAccess(null);
-    setIsEditDialogOpen(false);
-  };
-
   const handleOpenDeleteDialog = (userId) => {
     setDeleteUserId(userId);
     setIsDeleteDialogOpen(true);
@@ -151,7 +141,7 @@ export default function User() {
 
   const handleDeleteUser = async () => {
     try {
-      await apiClient.delete(`/user/${deleteUserId}`);
+      await apiClient.delete(`/user-product-access/${deleteUserId}`);
       setUserProductAccess((prevUserProductAccess) =>
         prevUserProductAccess.filter((user) => user.id !== deleteUserId)
       );
@@ -161,26 +151,6 @@ export default function User() {
     }
   };
 
-  const handleSaveEdit = async () => {
-    try {
-      await apiClient.put(`/user/${editingAccess.id}`, editingAccess);
-      setUserProductAccess((prevUserProductAccess) =>
-        prevUserProductAccess.map((user) =>
-          user.id === editingAccess.id ? editingAccess : user
-        )
-      );
-      handleCloseEditDialog();
-    } catch (error) {
-      console.error("Error updating user:", error);
-    }
-  };
-
-  const handleEditFieldChange = (field, value) => {
-    setEditingAccess((prevUser) => ({
-      ...prevUser,
-      [field]: value,
-    }));
-  };
 
   const handleToggle = (id, field) => {
     setUserProductAccess((prevRecords) =>
@@ -322,7 +292,7 @@ export default function User() {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="delete-user-dialog-description">
-            Are you sure you want to delete user with ID {deleteUserId}?
+            Are you sure you want to delete access {deleteUserId}?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -336,7 +306,7 @@ export default function User() {
       </Dialog>
 
 
-      {/* Add User Dialog */}
+      {/* Add Access Dialog */}
       <Dialog
         open={isAddDialogOpen}
         onClose={handleCloseAddDialog}
@@ -357,7 +327,7 @@ export default function User() {
           />
           <Select
             label="Roles"
-            value={newAccess.roles || ""} // Ensure a default value
+            value={newAccess.product_id || ""} // Ensure a default value
             onChange={(e) =>
               handleNewAccessFieldChange("product_id", e.target.value)
             }
@@ -365,7 +335,7 @@ export default function User() {
           >
             {products.map((product) => (
               <MenuItem key={product.id} value={product.id}>
-                {product.id}{" "}
+                {product.id}
                 {/* Adjust field name as needed */}
               </MenuItem>
             ))}
