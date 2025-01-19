@@ -16,6 +16,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  TextField,
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import AddIcon from "@mui/icons-material/Add";
@@ -29,6 +30,8 @@ export default function Admin() {
   const [users, setUsers] = useState([]); // State to store users
   const [deleteUserId, setDeleteUserId] = useState(null); // Store the user ID to delete
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false); // Control delete dialog visibility
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false); // Control edit dialog visibility
+  const [editingUser, setEditingUser] = useState(null); // Store the user being edited
 
   // Fetch user data from the API
   useEffect(() => {
@@ -51,9 +54,14 @@ export default function Admin() {
     console.log("Add user button clicked");
   };
 
-  const handleEditUser = (userId) => {
-    // Logic for editing a user
-    console.log("Edit user:", userId);
+  const handleEditUser = (user) => {
+    setEditingUser(user);
+    setIsEditDialogOpen(true);
+  };
+
+  const handleCloseEditDialog = () => {
+    setEditingUser(null);
+    setIsEditDialogOpen(false);
   };
 
   const handleOpenDeleteDialog = (userId) => {
@@ -75,6 +83,28 @@ export default function Admin() {
     } catch (error) {
       console.error("Error deleting user:", error);
     }
+  };
+
+  const handleSaveEdit = async () => {
+    try {
+      await apiClient.put(`/user/${editingUser.id}`, editingUser);
+      // Update the user list with the edited user
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user.id === editingUser.id ? editingUser : user
+        )
+      );
+      handleCloseEditDialog();
+    } catch (error) {
+      console.error("Error updating user:", error);
+    }
+  };
+
+  const handleEditFieldChange = (field, value) => {
+    setEditingUser((prevUser) => ({
+      ...prevUser,
+      [field]: value,
+    }));
   };
 
   return (
@@ -163,7 +193,7 @@ export default function Admin() {
                     <Tooltip title="Edit User">
                       <IconButton
                         color="primary"
-                        onClick={() => handleEditUser(user.id)}
+                        onClick={() => handleEditUser(user)}
                       >
                         <EditIcon />
                       </IconButton>
@@ -205,6 +235,49 @@ export default function Admin() {
           </Button>
           <Button onClick={handleDeleteUser} color="secondary" autoFocus>
             Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Edit User Dialog */}
+      <Dialog
+        open={isEditDialogOpen}
+        onClose={handleCloseEditDialog}
+        aria-labelledby="edit-user-dialog-title"
+        aria-describedby="edit-user-dialog-description"
+      >
+        <DialogTitle id="edit-user-dialog-title">Edit User</DialogTitle>
+        <DialogContent>
+          <TextField
+            label="Email"
+            value={editingUser?.email || ""}
+            fullWidth
+            margin="normal"
+            disabled
+          />
+          <TextField
+            label="Full Name"
+            value={editingUser?.fullname || ""}
+            fullWidth
+            margin="normal"
+            onChange={(e) =>
+              handleEditFieldChange("fullname", e.target.value)
+            }
+          />
+          <TextField
+            label="Roles"
+            value={editingUser?.roles || ""}
+            fullWidth
+            margin="normal"
+            onChange={(e) => handleEditFieldChange("roles", e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseEditDialog} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleSaveEdit} color="secondary" autoFocus>
+            Save
           </Button>
         </DialogActions>
       </Dialog>
