@@ -258,34 +258,27 @@ export default function Product() {
         <DialogTitle id="edit-product-dialog-title">Edit Product</DialogTitle>
         <DialogContent>
           <TextField
-            label="Email"
-            value={editingProduct?.email || ""}
+            label="Id"
+            value={editingProduct?.id || ""}
             fullWidth
             margin="normal"
             disabled
           />
           <TextField
-            label="Full Name"
-            value={editingProduct?.fullname || ""}
+            label="Title"
+            value={editingProduct?.title || ""}
             fullWidth
             margin="normal"
-            onChange={(e) => handleEditFieldChange("fullname", e.target.value)}
+            onChange={(e) => handleEditFieldChange("title", e.target.value)}
           />
-          <Select
-            label="Roles"
-            multiple
-            value={editingProduct?.roles || []}
-            onChange={(e) => handleEditFieldChange("roles", e.target.value)}
+          <TextField
+            label="Description"
+            value={editingProduct?.description || ""}
             fullWidth
-            renderValue={(selected) => selected.join(", ")}
-          >
-            {VALID_ROLES.map((role) => (
-              <MenuItem key={role} value={role}>
-                <Checkbox checked={editingProduct?.roles?.includes(role)} />
-                <ListItemText primary={role} />
-              </MenuItem>
-            ))}
-          </Select>
+            margin="normal"
+            onChange={(e) => handleEditFieldChange("description", e.target.value)}
+          />
+
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseEditDialog} color="primary">
@@ -306,40 +299,32 @@ export default function Product() {
         <DialogTitle id="add-product-dialog-title">Add New Product</DialogTitle>
         <DialogContent>
           <TextField
-            label="Email"
-            value={newProduct.email}
+            label="Id"
+            value={newProduct.id}
             fullWidth
             margin="normal"
             onChange={(e) =>
-              handleNewProductFieldChange("email", e.target.value)
+              handleNewProductFieldChange("id", e.target.value)
             }
           />
           <TextField
-            label="Full Name"
-            value={newProduct.fullname}
+            label="Title"
+            value={newProduct.title}
             fullWidth
             margin="normal"
             onChange={(e) =>
-              handleNewProductFieldChange("fullname", e.target.value)
+              handleNewProductFieldChange("title", e.target.value)
             }
           />
-          <Select
-            label="Roles"
-            multiple
-            value={newProduct.roles}
-            onChange={(e) =>
-              handleNewProductFieldChange("roles", e.target.value)
-            }
+          <TextField
+            label="Description"
+            value={newProduct.description}
             fullWidth
-            renderValue={(selected) => selected.join(", ")}
-          >
-            {VALID_ROLES.map((role) => (
-              <MenuItem key={role} value={role}>
-                <Checkbox checked={newProduct.roles.includes(role)} />
-                <ListItemText primary={role} />
-              </MenuItem>
-            ))}
-          </Select>
+            margin="normal"
+            onChange={(e) =>
+              handleNewProductFieldChange("description", e.target.value)
+            }
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseAddDialog} color="primary">
