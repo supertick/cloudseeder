@@ -174,7 +174,6 @@ export default function Product() {
         <Box display="flex" justifyContent="flex-end" mb={2}>
           <Button
             variant="contained"
-            color="primary"
             startIcon={<AddIcon />}
             onClick={handleAddProduct}
           >
@@ -210,7 +209,6 @@ export default function Product() {
                     </Tooltip>
                     <Tooltip title="Delete Product">
                       <IconButton
-                        color="secondary"
                         onClick={() => handleOpenDeleteDialog(product.id)}
                       >
                         <DeleteIcon />

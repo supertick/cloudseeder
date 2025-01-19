@@ -32,7 +32,7 @@ import Footer from "./Footer";
 
 const VALID_ROLES = ["admin", "user", "editor", "viewer"]; // Define valid roles
 
-export default function Admin() {
+export default function Users() {
   const [users, setUsers] = useState([]);
   const [deleteUserId, setDeleteUserId] = useState(null);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -224,7 +224,6 @@ export default function Admin() {
                     </Tooltip>
                     <Tooltip title="Delete User">
                       <IconButton
-                        color="secondary"
                         onClick={() => handleOpenDeleteDialog(user.id)}
                       >
                         <DeleteIcon />

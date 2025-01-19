@@ -1,7 +1,5 @@
 // src/CloneSelectMFA.js
 import React, { useEffect, useState } from 'react'
-import { post } from 'aws-amplify/api'
-import { getUrl } from 'aws-amplify/storage'
 import { useUser } from './UserContext'
 import TopMenuBar from './TopMenuBar'
 import FileUploadSection from './FileUploadSection'
