@@ -2,12 +2,12 @@ import logging
 from fastapi import Depends, HTTPException, Security
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from auth.factory import get_auth_provider
-
+from .config import config_provider
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-auth = get_auth_provider()
+auth = get_auth_provider(config_provider=config_provider)
 security = HTTPBearer()
 
 def get_current_user(credentials: HTTPAuthorizationCredentials = Security(security)) -> dict:

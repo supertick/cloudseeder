@@ -1,3 +1,4 @@
+from typing import Dict
 import boto3
 from botocore.exceptions import BotoCoreError, ClientError
 from .interface import AuthProvider
@@ -6,10 +7,12 @@ from typing import Optional
 class CognitoAuthProvider(AuthProvider):
     """AWS Cognito authentication provider."""
 
-    def __init__(self, user_pool_id: str, client_id: str):
+
+    def __init__(self, config: Dict[str, str]):
         self.client = boto3.client("cognito-idp")
-        self.user_pool_id = user_pool_id
-        self.client_id = client_id
+        self.config = config
+        self.user_pool_id = config.get("user_pool_id")
+        self.client_id = config.get("client_id")
 
     def register_user(self, username: str, password: str) -> dict:
         try:

@@ -12,13 +12,15 @@ from continuous_mfa.models.product import Product, Product
 from typing import Dict
 from auth.factory import get_auth_provider
 from ..auth_util import require_role, no_role_required
+from ..config import config_provider
+
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
-auth = get_auth_provider()
+auth = get_auth_provider(config_provider)
 security = HTTPBearer()
 
 # Inject database dependency dynamically

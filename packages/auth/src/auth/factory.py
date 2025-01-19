@@ -1,15 +1,24 @@
 import os
+from typing import Callable, Dict
+from database.factory import get_db
 from .cognito import CognitoAuthProvider
 from .local_auth import LocalAuthProvider
 from .interface import AuthProvider
 
-def get_auth_provider() -> AuthProvider:
-    auth_type = os.getenv("AUTH_PROVIDER", "local")  # Default to local auth
+def get_auth_provider(config_provider: Callable[[], Dict[str, str]]) -> AuthProvider:
+    """
+    Factory method to return an AuthProvider instance based on the configuration.
+
+    :param config_provider: A callable that returns the configuration dictionary.
+    :return: An instance of AuthProvider.
+    """
+    config = config_provider()  # Get configuration dynamically
+    auth_type = config.get("auth_type", "local").lower()  # Default to local auth
 
     if auth_type == "cognito":
-        return CognitoAuthProvider(
-            user_pool_id=os.getenv("COGNITO_USER_POOL_ID"),
-            client_id=os.getenv("COGNITO_CLIENT_ID"),
-        )
+        return CognitoAuthProvider(config=config)
+    elif auth_type == "local":
+        # Pass `get_db` as the database_factory to `LocalAuthProvider`
+        return LocalAuthProvider(config=config, database_factory=get_db)
     else:
-        return LocalAuthProvider()
+        raise ValueError(f"Unsupported auth_type: {auth_type}")

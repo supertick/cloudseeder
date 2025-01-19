@@ -7,6 +7,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials, OAuth2Pas
 from typing import List, Optional
 from continuous_mfa.config import settings
 from auth.factory import get_auth_provider
+from .config import config_provider
 import jwt
 import time
 
@@ -68,7 +69,7 @@ app.include_router(run_status_router, prefix='/v1', tags=["Run Status"])
 
 
 
-auth = get_auth_provider()
+auth = get_auth_provider(config_provider)
 security = HTTPBearer()
 
 

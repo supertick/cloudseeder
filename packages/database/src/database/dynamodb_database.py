@@ -1,3 +1,4 @@
+from typing import Dict
 import boto3
 from botocore.exceptions import BotoCoreError, ClientError
 from boto3.dynamodb.types import TypeSerializer
@@ -10,21 +11,26 @@ class DynamoDBDatabase(NoSqlDb):
 
     def __init__(
         self,
-        table_prefix: str = "",
-        region_name: str = None,
-        aws_access_key_id: str = None,
-        aws_secret_access_key: str = None,
+        # table_prefix: str = "",
+        # region_name: str = None,
+        # aws_access_key_id: str = None,
+        # aws_secret_access_key: str = None,
+        config: Dict[str, str] = None,
     ):
         """Initialize DynamoDB client with optional AWS credentials."""
+        if not config:
+            raise ValueError("Missing configuration for DynamoDB database.")
+        
+        self.config = config
         
         self.dynamodb = boto3.resource(
             "dynamodb",
-            region_name=region_name,
-            aws_access_key_id=aws_access_key_id,
-            aws_secret_access_key=aws_secret_access_key
+            region_name=config.get("region_name"),
+            aws_access_key_id=config.get("aws_access_key_id"),
+            aws_secret_access_key=config.get("aws_secret_access_key")
         )
         
-        self.table_prefix = table_prefix
+        self.table_prefix = config.get("table_prefix", "")
         self.serializer = TypeSerializer()
 
         

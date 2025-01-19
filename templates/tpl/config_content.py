@@ -1,3 +1,4 @@
+from typing import Dict
 from pydantic_settings import BaseSettings
 from {app_name}.models.config import Config
 from dotenv import load_dotenv
@@ -17,3 +18,6 @@ settings = AppSettings()
 
 # Optional: Convert to the original Config model
 config = settings.to_config()
+
+def config_provider() -> Dict[str, str]:
+    return settings.dict()
