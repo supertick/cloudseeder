@@ -62,6 +62,8 @@ from .api.user_product_access_api import router as user_product_access_router
 app.include_router(user_product_access_router, prefix='/v1', tags=["User Product Access"])
 from .api.product_api import router as product_router
 app.include_router(product_router, prefix='/v1', tags=["Product"])
+from .api.input_api import router as input_router
+app.include_router(input_router, prefix='/v1', tags=["Input"])
 from .api.run_api import router as run_router
 app.include_router(run_router, prefix='/v1', tags=["Run"])
 from .api.report_api import router as report_router

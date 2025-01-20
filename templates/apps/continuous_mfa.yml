@@ -44,6 +44,12 @@ app:
       title: Optional[str] = Field(None, example="BMS MFALite")
       description: Optional[str] = Field(None, example="BMS MFALite")
 
+    input:
+      id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
+      title: Optional[str] = Field(None, example="Input File 1")
+      files: List[str]
+      upload_date: Optional[int] = Field(None, example=1683123456789)
+
     run:
       id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
       product: str

@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import List, Dict, Any
 
 class NoSqlDb(ABC):
     @abstractmethod
@@ -24,4 +25,18 @@ class NoSqlDb(ABC):
     @abstractmethod
     def delete_item(self, table: str, key: str) -> None:
         """Delete an item from the specified table by its key."""
+        pass
+
+    @abstractmethod
+    def search_by_key_part(
+        self, table: str, key_part: str, regex: bool = False
+    ) -> List[Dict[str, Any]]:
+        """
+        Search for items whose keys contain or match a part of the given key.
+
+        :param table: The table to search in.
+        :param key_part: The key part to search for.
+        :param regex: Whether to treat key_part as a regular expression. Defaults to False (prefix search).
+        :return: A list of matching items.
+        """
         pass

@@ -16,6 +16,7 @@ import Product from './Product'
 import { createTheme, ThemeProvider, Button } from '@mui/material';
 import Users from './Users'
 import User from './User'
+import Reports from './Reports'
 
 const theme = createTheme({
   palette: {
@@ -44,6 +45,7 @@ function App({ signOut }) {
             <Route path="/file" element={<SimpleFileUpload signOut={signOut} />} />
             <Route path="/login" element={<Login />} /> 
             <Route path="/user/:id" element={<User />} />
+            <Route path="/reports/:id" element={<Reports />} />
             <Route path="*" element={<NotFoundPage />} /> {/* Catch-all route for 404s */}
           </Routes>
         </Router>
