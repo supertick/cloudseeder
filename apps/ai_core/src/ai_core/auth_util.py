@@ -2,12 +2,12 @@ import logging
 from fastapi import Depends, HTTPException, Security
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from auth.factory import get_auth_provider
-
+from .config import config_provider
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-auth = get_auth_provider()
+auth = get_auth_provider(config_provider=config_provider)
 security = HTTPBearer()
 
 def get_current_user(credentials: HTTPAuthorizationCredentials = Security(security)) -> dict:
@@ -42,3 +42,11 @@ def require_role(required_roles: list):
         
         return user
     return role_checker
+
+def no_auth_required():
+    """No-op dependency for disabled authentication."""
+    return {}
+
+def no_role_required():
+    """No-op role check when auth is disabled."""
+    return {}

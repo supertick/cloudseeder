@@ -3,6 +3,8 @@ from typing import List, Optional, Literal
 import time
 
 class Upload_file_content(BaseModel):
-    id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
+    id: Optional[str] = Field(None, example="john@company1.com-1683123456789")
+    user_id: str
+    upload_date: int
     filename: str
     data: str

@@ -62,7 +62,7 @@ export default function Reports() {
 
   const [newAccess, setNewAccess] = useState({
     id: "",
-    user_id: "",
+    user_id: user?.id,
     product_id: "",
     access: false,
     enabled: false,
@@ -213,10 +213,12 @@ export default function Reports() {
       });
   };
   const handleInputFileUpload = (file) => {
+    const epoch_time = new Date().getTime()
     const metadata = {
+      id: `${user?.id}-${epoch_time}`,
       filename: file.name,
-      uploadDate: new Date().toISOString(),
-      description: "This is an uploaded file",
+      user_id: user?.id,
+      upload_date: epoch_time,
     };
   
     const reader = new FileReader();
@@ -224,11 +226,31 @@ export default function Reports() {
       const base64File = reader.result.split(",")[1]; // Extract the Base64 string
       const payload = {
         ...metadata,
-        file: base64File, // Add the encoded file
+        data: base64File, // Add the encoded file
       };
   
       // Example of sending the payload
-      apiClient.post("/input-file-content", payload);
+      apiClient.post("/upload-file-content", payload)
+      .then((response) => {
+        console.log("Metadata posted successfully:", response);
+        const metadata = {
+          id: response.id,
+          filename: file.name,
+          user_id: user?.id,
+          upload_date: epoch_time,
+        };
+        apiClient.post("/input", metadata)
+        .then((response) => {
+          console.info("File processed successfully:", response);
+        }).catch((error) => {
+          console.error("Error processing file:", error);
+        });
+        return response;
+      })
+      .catch((error) => {
+        console.error("Error posting metadata:", error);
+      });
+
     };
   
     reader.onerror = (error) => {
