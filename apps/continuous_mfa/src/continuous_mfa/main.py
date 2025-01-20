@@ -68,6 +68,8 @@ from .api.run_api import router as run_router
 app.include_router(run_router, prefix='/v1', tags=["Run"])
 from .api.report_api import router as report_router
 app.include_router(report_router, prefix='/v1', tags=["Report"])
+from .api.upload_file_content_api import router as upload_file_content_router
+app.include_router(upload_file_content_router, prefix='/v1', tags=["Upload File Content"])
 
 
 

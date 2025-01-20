@@ -18,6 +18,7 @@ import {
   DialogContentText,
   DialogTitle,
   TextField,
+  TableContainer,
   IconButton,
   Radio,
   Select,
@@ -42,11 +43,12 @@ import FolderIcon from "@mui/icons-material/Folder";
 import WidgetsIcon from "@mui/icons-material/Widgets";
 import DownloadIcon from "@mui/icons-material/Download";
 import AnalyticsIcon from "@mui/icons-material/Analytics";
-import SyncIcon from '@mui/icons-material/Sync';
+import SyncIcon from "@mui/icons-material/Sync";
+import InputUploadDialog from "./InputUploadDialog";
 
 export default function Reports() {
   const { id } = useParams();
-
+  const [isDialogOpen, setDialogOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [products, setProducts] = useState([]);
   const [inputFiles, setinputFiles] = useState([]);
@@ -210,6 +212,38 @@ export default function Reports() {
         console.error(`Error downloading file for record ID ${id}:`, error);
       });
   };
+  const handleInputFileUpload = (file) => {
+    const metadata = {
+      filename: file.name,
+      uploadDate: new Date().toISOString(),
+      description: "This is an uploaded file",
+    };
+  
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64File = reader.result.split(",")[1]; // Extract the Base64 string
+      const payload = {
+        ...metadata,
+        file: base64File, // Add the encoded file
+      };
+  
+      // Example of sending the payload
+      apiClient.post("/input-file-content", payload);
+    };
+  
+    reader.onerror = (error) => {
+      console.error("Error reading file:", error);
+    };
+  
+    reader.readAsDataURL(file); // Read the file as Base64
+  };
+  
+
+  <InputUploadDialog
+    isInputUploadDialogOpen={isDialogOpen}
+    handleCloseInputUploadDialog={() => setDialogOpen(false)}
+    handleInputFileUpload={handleInputFileUpload}
+  />;
 
   return (
     <div
@@ -246,7 +280,7 @@ export default function Reports() {
             variant="contained"
             color="primary"
             startIcon={<AddIcon />}
-            onClick={handleInputUpload}
+            onClick={() => setDialogOpen(true)}
           >
             Add Input File
           </Button>
@@ -263,85 +297,92 @@ export default function Reports() {
         {/* Input Library */}
 
         <Paper>
-          <Table
+          <TableContainer
             sx={{
-              borderCollapse: "collapse", // Removes borders between cells
+              maxHeight: "400px", // Set maximum height for the table container
+              overflowY: "auto", // Enable vertical scrolling when content overflows
             }}
           >
-            <TableHead>
-              <TableRow
-                sx={{
-                  height: "40px", // Adjust header row height
-                  "& .MuiTableCell-root": {
-                    padding: "4px 8px", // Reduce padding for header cells
-                  },
-                }}
-              >
-                <TableCell></TableCell>
-                <TableCell>Filename</TableCell>
-                <TableCell>Uploaded</TableCell>
-                <TableCell>Actions</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {sortedFiles.map((record) => (
+            <Table
+              sx={{
+                borderCollapse: "collapse", // Removes borders between cells
+              }}
+            >
+              <TableHead>
                 <TableRow
-                  key={record.id}
-                  hover
-                  selected={record.id === selectedFile} // Highlights the selected row
-                  onClick={() => setSelectedFile(record.id)} // Select row on click
                   sx={{
-                    height: "30px", // Reduce row height
-                    cursor: "pointer", // Indicate the row is clickable
-                    "&:hover": {
-                      backgroundColor: "#f5f5f5", // Light gray hover effect
-                    },
-                    "&.Mui-selected": {
-                      backgroundColor: "#dbe9ff", // Light blue for selected row
-                    },
+                    height: "40px", // Adjust header row height
                     "& .MuiTableCell-root": {
-                      padding: "4px 8px", // Reduce padding for body cells
+                      padding: "4px 8px", // Reduce padding for header cells
                     },
                   }}
                 >
-                  <TableCell>
-                    <Radio
-                      checked={record.id === selectedFile}
-                      value={record.id}
-                      name="inputFileSelection"
-                      size="small"
-                    />
-                  </TableCell>
-                  <TableCell>{record.files}</TableCell>
-                  <TableCell>{formatDate(record.upload_date)}</TableCell>
-                  <TableCell>
-                    <Tooltip title="Download">
-                      <IconButton
-                        onClick={(e) => {
-                          e.stopPropagation(); // Prevent row selection when clicking download
-                          handleInputDownload(record.id);
-                        }}
-                        size="small"
-                      >
-                        <DownloadIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Delete Input File">
-                      <IconButton
-                        onClick={(e) => {
-                          e.stopPropagation(); // Prevent row selection when clicking delete
-                          handleOpenDeleteInputDialog(record.id);
-                        }}
-                        size="small"
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </Tooltip>
-                  </TableCell>
+                  <TableCell></TableCell>
+                  <TableCell>Filename</TableCell>
+                  <TableCell>Uploaded</TableCell>
+                  <TableCell>Actions</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHead>
+              <TableBody>
+                {sortedFiles.map((record) => (
+                  <TableRow
+                    key={record.id}
+                    hover
+                    selected={record.id === selectedFile} // Highlights the selected row
+                    onClick={() => setSelectedFile(record.id)} // Select row on click
+                    sx={{
+                      height: "30px", // Reduce row height
+                      cursor: "pointer", // Indicate the row is clickable
+                      "&:hover": {
+                        backgroundColor: "#f5f5f5", // Light gray hover effect
+                      },
+                      "&.Mui-selected": {
+                        backgroundColor: "#dbe9ff", // Light blue for selected row
+                      },
+                      "& .MuiTableCell-root": {
+                        padding: "4px 8px", // Reduce padding for body cells
+                      },
+                    }}
+                  >
+                    <TableCell>
+                      <Radio
+                        checked={record.id === selectedFile}
+                        value={record.id}
+                        name="inputFileSelection"
+                        size="small"
+                      />
+                    </TableCell>
+                    <TableCell>{record.files}</TableCell>
+                    <TableCell>{formatDate(record.upload_date)}</TableCell>
+                    <TableCell>
+                      <Tooltip title="Download">
+                        <IconButton
+                          onClick={(e) => {
+                            e.stopPropagation(); // Prevent row selection when clicking download
+                            handleInputDownload(record.id);
+                          }}
+                          size="small"
+                        >
+                          <DownloadIcon />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title="Delete Input File">
+                        <IconButton
+                          onClick={(e) => {
+                            e.stopPropagation(); // Prevent row selection when clicking delete
+                            handleOpenDeleteInputDialog(record.id);
+                          }}
+                          size="small"
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </Tooltip>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </Paper>
         <br />
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
@@ -361,63 +402,48 @@ export default function Reports() {
 
         {/* MUI Paper Table */}
         <Paper>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell></TableCell>
-                <TableCell>Product</TableCell>
-                <TableCell>Access</TableCell>
-                <TableCell>Enabled</TableCell>
-                <TableCell>Errors</TableCell>
-                <TableCell>Success</TableCell>
-                <TableCell>Actions</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {inputFiles.map((record) => (
-                <TableRow key={record.id}>
-                  <TableCell>
-                    <AppsIcon style={{ fontSize: 40, color: "#2F3F5C" }} />
-                  </TableCell>
-                  <TableCell>
-                    <Link
-                      to={`/products`} // Link to product details
-                      style={{ textDecoration: "none", color: "#1976d2" }}
-                    >
-                      {record.product_id}
-                    </Link>
-                  </TableCell>
-                  {/* Toggle for "access" */}
-                  <TableCell>
-                    <Switch
-                      checked={record.access}
-                      onChange={() => handleToggle(record.id, "access")}
-                      color="primary"
-                    />
-                  </TableCell>
-                  {/* Toggle for "enabled" */}
-                  <TableCell>
-                    <Switch
-                      checked={record.enabled}
-                      onChange={() => handleToggle(record.id, "enabled")}
-                      color="primary"
-                    />
-                  </TableCell>
-                  <TableCell>{record.errors}</TableCell>
-                  <TableCell>{record.success}</TableCell>
-                  <TableCell>
-                    <Tooltip title="Delete Access">
-                      <IconButton
-                        onClick={() => handleOpenDeleteInputDialog(record.id)}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </Tooltip>
-                  </TableCell>
+          <TableContainer
+            sx={{
+              maxHeight: "400px", // Set maximum height for the table container
+              overflowY: "auto", // Enable vertical scrolling when content overflows
+            }}
+          >
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell></TableCell>
+                  <TableCell>Report</TableCell>
+                  <TableCell>Actions</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHead>
+              <TableBody>
+                {inputFiles.map((record) => (
+                  <TableRow key={record.id}>
+                    <TableCell>
+                      <AppsIcon style={{ fontSize: 40, color: "#2F3F5C" }} />
+                    </TableCell>
+                    <TableCell>
+                      <Link
+                        to={`/products`} // Link to product details
+                        style={{ textDecoration: "none", color: "#1976d2" }}
+                      >
+                        {record.product_id}
+                      </Link>
+                    </TableCell>
+                    <TableCell>
+                      <Tooltip title="Delete Access">
+                        <IconButton
+                          onClick={() => handleOpenDeleteInputDialog(record.id)}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </Tooltip>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </Paper>
       </div>
       {/* Delete Confirmation Dialog */}
@@ -444,42 +470,13 @@ export default function Reports() {
           </Button>
         </DialogActions>
       </Dialog>
-
-      {/* Add Access Dialog */}
-      <Dialog
-        open={isAddDialogOpen}
-        onClose={handleCloseAddDialog}
-        aria-labelledby="add-user-dialog-title"
-        aria-describedby="add-user-dialog-description"
-      >
-        <DialogTitle id="add-user-dialog-title">Add Product Access</DialogTitle>
-        <DialogContent>
-          <Select
-            label="Roles"
-            value={newAccess.product_id || ""} // Ensure a default value
-            onChange={(e) =>
-              handleNewAccessFieldChange("product_id", e.target.value)
-            }
-            fullWidth
-          >
-            {products.map((product) => (
-              <MenuItem key={product.id} value={product.id}>
-                {product.id}
-                {/* Adjust field name as needed */}
-              </MenuItem>
-            ))}
-          </Select>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseAddDialog} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleSaveAdd} color="secondary" autoFocus>
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
-
+      {/* InputUploadDialog */}
+      <InputUploadDialog
+        isInputUploadDialogOpen={isDialogOpen}
+        handleCloseInputUploadDialog={() => setDialogOpen(false)}
+        handleInputFileUpload={handleInputFileUpload}
+      />
+      ;
       <Footer />
     </div>
   );
