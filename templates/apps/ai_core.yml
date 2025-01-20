@@ -52,21 +52,16 @@ app:
       last_login: Optional[int] = Field(None, example=1683123456789)
       modified: Optional[int] = Field(None, example=1683123456789)
 
-
     transcription_request:
       id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
-      type: str = Field(None, example="string")
+      user_id: str = Field(None, example="john@company1.com")
+      prefix: str = Field("work-dir", example="work-dir")
+      type: Literal["deepgram", "aws-transcribe"] = Field("tinydb", description="transcription type", example="deepgram")
       files: list[str]
-
-    transcription:
-      id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
-      type: str
-      status: str
-      files_path: str
 
     transcription_result:
       id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
-      type: str
+      type: Literal["deepgram", "aws-transcribe"] = Field("tinydb", description="transcription type", example="deepgram")
       status: str
       created: Optional[int] = Field(None, example=1683123456789)
       patient: str

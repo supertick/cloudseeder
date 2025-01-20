@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai_core"
+version = "0.1.0"
+description = "A FastAPI application in a monorepo"
+authors = [{ name = "GroG Bot", email = "grogbot@robotlab-x.com" }]
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "pydantic",
+    "pydantic-settings",
+    "python-dotenv",
+    "python-multipart",
+    "PyJWT",
+    "pydub",
+    "ffmpeg-python",
+    "boto3",
+    "slack_sdk",
+    "deepgram-sdk"
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

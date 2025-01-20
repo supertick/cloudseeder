@@ -60,8 +60,6 @@ from .api.user_api import router as user_router
 app.include_router(user_router, prefix='/v1', tags=["User"])
 from .api.transcription_request_api import router as transcription_request_router
 app.include_router(transcription_request_router, prefix='/v1', tags=["Transcription Request"])
-from .api.transcription_api import router as transcription_router
-app.include_router(transcription_router, prefix='/v1', tags=["Transcription"])
 from .api.transcription_result_api import router as transcription_result_router
 app.include_router(transcription_result_router, prefix='/v1', tags=["Transcription Result"])
 
