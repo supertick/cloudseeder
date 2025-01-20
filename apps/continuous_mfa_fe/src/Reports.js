@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {formatDate} from "./DateUtils";
+import { formatDate } from "./DateUtils";
 import {
   Paper,
   Table,
@@ -9,7 +9,6 @@ import {
   TableRow,
   TableCell,
   Avatar,
-  IconButton,
   Tooltip,
   Button,
   Box,
@@ -19,6 +18,8 @@ import {
   DialogContentText,
   DialogTitle,
   TextField,
+  IconButton,
+  Radio,
   Select,
   MenuItem,
   Checkbox,
@@ -40,8 +41,7 @@ import CollectionsIcon from "@mui/icons-material/Collections";
 import FolderIcon from "@mui/icons-material/Folder";
 import WidgetsIcon from "@mui/icons-material/Widgets";
 import DownloadIcon from "@mui/icons-material/Download";
-
-const VALID_ROLES = ["admin", "user", "editor", "viewer"]; // Define valid roles
+import AnalyticsIcon from "@mui/icons-material/Analytics";
 
 export default function Reports() {
   const { id } = useParams();
@@ -52,6 +52,11 @@ export default function Reports() {
   const [deleteUserId, setDeleteUserId] = useState(null);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false); // Add dialog state
+  const [selectedFile, setSelectedFile] = useState(null); // State for radio button selection
+  const sortedFiles = [...inputFiles].sort(
+    (a, b) => b.upload_date - a.upload_date
+  );
+
   const [newAccess, setNewAccess] = useState({
     id: "",
     user_id: "",
@@ -102,6 +107,9 @@ export default function Reports() {
       } catch (error) {
         console.error("Error fetching fetchUser:", error);
       }
+      const sortedFiles = [...inputFiles].sort(
+        (a, b) => b.upload_date - a.upload_date
+      );
     };
 
     fetchUser();
@@ -149,9 +157,9 @@ export default function Reports() {
     setIsDeleteDialogOpen(false);
   };
 
-  const handleDeleteUser = async () => {
+  const handleDeleteInputFile = async () => {
     try {
-      await apiClient.delete(`/user-product-access/${deleteUserId}`);
+      await apiClient.delete(`/input/${deleteUserId}`);
       setinputFiles((prevUserProductAccess) =>
         prevUserProductAccess.filter((user) => user.id !== deleteUserId)
       );
@@ -228,22 +236,11 @@ export default function Reports() {
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <LibraryBooksIcon style={{ fontSize: 20, color: "#2F3F5C" }} />
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "10px",
-            }}
-          ></div>
-          <h3 style={{ color: "#2F3F5C", margin: 0 }}>
-            {user?.fullname} Input Library
-          </h3>
-        </div>
-
-        <Box display="flex" justifyContent="flex-end" mb={2}>
+        <span style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <LibraryBooksIcon style={{ fontSize: 30, color: "#2F3F5C" }} />
+          <span style={{ fontSize: 18, color: "#2F3F5C", fontWeight: 'bold' }}>
+  {user?.fullname} Input Files
+</span>
           <Button
             variant="contained"
             color="primary"
@@ -252,14 +249,17 @@ export default function Reports() {
           >
             Process Input File
           </Button>
-        </Box>
-
+        </span>
         {/* Input Library */}
 
         <Paper>
-          <Table>
+          <Table
+            sx={{
+              borderCollapse: "collapse", // Collapse borders to remove lines
+            }}
+          >
             <TableHead>
-              <TableRow>
+              <TableRow style={{ height: 50 }}>
                 <TableCell></TableCell>
                 <TableCell>Filename</TableCell>
                 <TableCell>Uploaded</TableCell>
@@ -267,27 +267,53 @@ export default function Reports() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {inputFiles.map((record) => (
-                <TableRow key={record.id}>
-                  <TableCell></TableCell>
+              {sortedFiles.map((record) => (
+                <TableRow
+                  height={20}
+                  key={record.id}
+                  hover
+                  selected={record.id === selectedFile} // Highlights the selected row
+                  onClick={() => setSelectedFile(record.id)} // Select row on click
+                  sx={{
+                    height: "30px", // Compact row height
+                    cursor: "pointer", // Indicate the row is clickable
+                    "&:hover": {
+                      backgroundColor: "#f5f5f5", // Light gray hover effect
+                    },
+                    "&.Mui-selected": {
+                      backgroundColor: "#dbe9ff", // Light blue for selected row
+                    },
+                  }}
+                >
                   <TableCell>
-                    <Link
-                      to={`/products`} // Link to product details
-                      style={{ textDecoration: "none", color: "#1976d2" }}
-                    >
-                      {record.files}
-                    </Link>
+                    <Radio
+                      checked={record.id === selectedFile}
+                      value={record.id}
+                      name="inputFileSelection"
+                      size="small"
+                    />
                   </TableCell>
+                  <TableCell>{record.files}</TableCell>
                   <TableCell>{formatDate(record.upload_date)}</TableCell>
                   <TableCell>
                     <Tooltip title="Download">
-                      <IconButton onClick={() => handleInputDownload(record.id)}>
+                      <IconButton
+                        onClick={(e) => {
+                          e.stopPropagation(); // Prevent row selection when clicking download
+                          handleInputDownload(record.id);
+                        }}
+                        size="small"
+                      >
                         <DownloadIcon />
                       </IconButton>
                     </Tooltip>
                     <Tooltip title="Delete Input File">
                       <IconButton
-                        onClick={() => handleOpenDeleteInputDialog(record.id)}
+                        onClick={(e) => {
+                          e.stopPropagation(); // Prevent row selection when clicking delete
+                          handleOpenDeleteInputDialog(record.id);
+                        }}
+                        size="small"
                       >
                         <DeleteIcon />
                       </IconButton>
@@ -298,7 +324,22 @@ export default function Reports() {
             </TableBody>
           </Table>
         </Paper>
-                <br/>
+        <br />
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <AnalyticsIcon style={{ fontSize: 30, color: "#2F3F5C" }} />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "10px",
+            }}
+          ></div>
+          <h3 style={{ color: "#2F3F5C", margin: 0 }}>
+            {user?.fullname} Reports
+          </h3>
+        </div>
+
         {/* MUI Paper Table */}
         <Paper>
           <Table>
@@ -368,18 +409,18 @@ export default function Reports() {
         aria-describedby="delete-user-dialog-description"
       >
         <DialogTitle id="delete-user-dialog-title">
-          {"Delete Reports?"}
+          {"Delete Input File?"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="delete-user-dialog-description">
-            Are you sure you want to delete access {deleteUserId}?
+            Are you sure you want to delete access this file {deleteUserId}?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDeleteDialog} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleDeleteUser} color="secondary" autoFocus>
+          <Button onClick={handleDeleteInputFile} color="secondary" autoFocus>
             Yes
           </Button>
         </DialogActions>
