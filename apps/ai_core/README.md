@@ -6,21 +6,22 @@ This is a FastAPI application for `ai_core`.
 
 ### Create a Virtual Environment
 ```sh
-cd apps/ai_core
+cd apps
 python -m venv venv
 source venv/bin/activate  # On Windows, use venv\Scripts\activate
 ```
 
 ### Install Dependencies
 ```sh
+cd ai_core
 pip install -e .
 
 # move to the packages directory and install the desired packages
-cd packages/auth
+cd ../../packages/auth
 pip install -e .
-cd ../packages/database
+cd ../database
 pip install -e .
-cd ../packages/queues
+cd ../queues
 pip install -e .
 ```
 

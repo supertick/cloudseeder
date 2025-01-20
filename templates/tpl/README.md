@@ -6,21 +6,22 @@ This is a FastAPI application for `{app_name}`.
 
 ### Create a Virtual Environment
 ```sh
-cd apps/{app_name}
+cd apps
 python -m venv venv
 source venv/bin/activate  # On Windows, use venv\Scripts\activate
 ```
 
 ### Install Dependencies
 ```sh
+cd {app_name}
 pip install -e .
 
 # move to the packages directory and install the desired packages
-cd packages/auth
+cd ../../packages/auth
 pip install -e .
-cd ../packages/database
+cd ../database
 pip install -e .
-cd ../packages/queues
+cd ../queues
 pip install -e .
 ```
 

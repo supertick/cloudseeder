@@ -56,8 +56,6 @@ app.add_middleware(
 # Include API routes
 from .api.config_api import router as config_router
 app.include_router(config_router, prefix='/v1', tags=["Config"])
-from .api.company_api import router as company_router
-app.include_router(company_router, prefix='/v1', tags=["Company"])
 from .api.user_api import router as user_router
 app.include_router(user_router, prefix='/v1', tags=["User"])
 from .api.transcription_request_api import router as transcription_request_router

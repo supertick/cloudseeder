@@ -6,34 +6,52 @@ app:
   models:
     config:
       id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
-      port: int
-      work_dir: str
-      log_level: str
+      port: Optional[int] = Field(8000, example="8000")
+      work_dir: Optional[str] = Field(".", example=".")
+      log_level: Optional[str] = Field("info", example="info")
+
+      # REQUIRED CONFIGURATION
+      auth_enabled: Optional[bool] = Field(False, description="Enable authentication", example=True)
+      database_type: Literal["tinydb", "dynamodb"] = Field("tinydb", description="Database type", example="dynamodb")
+      debug: Optional[bool] = Field(True, description="Enable debug mode", example=True)
+      # need blocking or async queues
+      queue_type: Literal["local", "sqs"] = Field("local", description="Database type", example="local")      
       deepgram_api_key: str
+
       database_type: Literal["tinydb", "dynamodb"] = Field("tinydb", description="Database type", example="dynamodb")
       queue_type: Literal["local", "noop"] = Field("tinydb", description="Queue type", example="local")
       aws_access_key_id: Optional[str] = Field(None, description="AWS Access Key ID", example="your-access-key")
       aws_secret_access_key: Optional[str] = Field(None, description="AWS Secret Access Key", example="your-secret-key")
       aws_region: Optional[str] = Field(None, description="AWS Region", example="us-east-1")
 
-    company:
-      id: Optional[str] = Field(None)
-      name: str
-      description: str
-      users: list[str]
+    # company:
+    #   id: Optional[str] = Field(None)
+    #   name: str
+    #   description: str
+    #   users: list[str]
+
+    # user:
+    #   _method_map:
+    #     "post /v1/user": ["admin"]
+    #     "get /v1/users": []
+    #     "get /v1/user/{id}": []
+    #     "put /v1/user/{id}": ["admin"]
+    #     "delete /v1/user/{id}": ["admin"]
+    #   id: Optional[str] = Field(None, example="admin@scribble.ai")
+    #   full_name: Optional[str] = Field(None, example="John Doe")
+    #   password_hash: Optional[str] = Field(None, example="secret")
+    #   email: str
+    #   roles: list[str]
 
     user:
-      _method_map:
-        "post /v1/user": ["admin"]
-        "get /v1/users": []
-        "get /v1/user/{id}": []
-        "put /v1/user/{id}": ["admin"]
-        "delete /v1/user/{id}": ["admin"]
-      id: Optional[str] = Field(None, example="admin@scribble.ai")
-      full_name: Optional[str] = Field(None, example="John Doe")
+      id: Optional[str] = Field(None, example="john@company1.com")
+      fullname: Optional[str] = Field(None, example="John Doe")
+      email: Optional[str] = Field(None, example="john@company1.com")
       password_hash: Optional[str] = Field(None, example="secret")
-      email: str
-      roles: list[str]
+      roles: Optional[list[str]] = Field(None, example=["admin"])
+      last_login: Optional[int] = Field(None, example=1683123456789)
+      modified: Optional[int] = Field(None, example=1683123456789)
+
 
     transcription_request:
       id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
