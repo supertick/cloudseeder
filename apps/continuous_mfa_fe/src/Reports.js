@@ -42,6 +42,7 @@ import FolderIcon from "@mui/icons-material/Folder";
 import WidgetsIcon from "@mui/icons-material/Widgets";
 import DownloadIcon from "@mui/icons-material/Download";
 import AnalyticsIcon from "@mui/icons-material/Analytics";
+import SyncIcon from '@mui/icons-material/Sync';
 
 export default function Reports() {
   const { id } = useParams();
@@ -115,7 +116,7 @@ export default function Reports() {
     fetchUser();
   }, []);
 
-  const handleAddUser = () => {
+  const handleInputUpload = () => {
     setNewAccess({ email: "", fullname: "", roles: [] }); // Reset new user form
     setIsAddDialogOpen(true);
   };
@@ -238,14 +239,23 @@ export default function Reports() {
       >
         <span style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           <LibraryBooksIcon style={{ fontSize: 30, color: "#2F3F5C" }} />
-          <span style={{ fontSize: 18, color: "#2F3F5C", fontWeight: 'bold' }}>
-  {user?.fullname} Input Files
-</span>
+          <span style={{ fontSize: 18, color: "#2F3F5C", fontWeight: "bold" }}>
+            {user?.fullname} Input Files
+          </span>
           <Button
             variant="contained"
             color="primary"
             startIcon={<AddIcon />}
-            onClick={handleAddUser}
+            onClick={handleInputUpload}
+          >
+            Add Input File
+          </Button>
+
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<SyncIcon />}
+            onClick={handleInputUpload}
           >
             Process Input File
           </Button>
@@ -255,11 +265,18 @@ export default function Reports() {
         <Paper>
           <Table
             sx={{
-              borderCollapse: "collapse", // Collapse borders to remove lines
+              borderCollapse: "collapse", // Removes borders between cells
             }}
           >
             <TableHead>
-              <TableRow style={{ height: 50 }}>
+              <TableRow
+                sx={{
+                  height: "40px", // Adjust header row height
+                  "& .MuiTableCell-root": {
+                    padding: "4px 8px", // Reduce padding for header cells
+                  },
+                }}
+              >
                 <TableCell></TableCell>
                 <TableCell>Filename</TableCell>
                 <TableCell>Uploaded</TableCell>
@@ -269,19 +286,21 @@ export default function Reports() {
             <TableBody>
               {sortedFiles.map((record) => (
                 <TableRow
-                  height={20}
                   key={record.id}
                   hover
                   selected={record.id === selectedFile} // Highlights the selected row
                   onClick={() => setSelectedFile(record.id)} // Select row on click
                   sx={{
-                    height: "30px", // Compact row height
+                    height: "30px", // Reduce row height
                     cursor: "pointer", // Indicate the row is clickable
                     "&:hover": {
                       backgroundColor: "#f5f5f5", // Light gray hover effect
                     },
                     "&.Mui-selected": {
                       backgroundColor: "#dbe9ff", // Light blue for selected row
+                    },
+                    "& .MuiTableCell-root": {
+                      padding: "4px 8px", // Reduce padding for body cells
                     },
                   }}
                 >
