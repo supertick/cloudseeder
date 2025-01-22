@@ -6,14 +6,13 @@ This is a FastAPI application for `{app_name}`.
 
 ### Create a Virtual Environment
 ```sh
-cd apps
 python -m venv venv
 source venv/bin/activate  # On Windows, use venv\Scripts\activate
 ```
 
 ### Install Dependencies
 ```sh
-cd {app_name}
+cd apps/{app_name}
 pip install -e .
 
 # move to the packages directory and install the desired packages
@@ -37,7 +36,7 @@ python -m uvicorn {app_name}.main:app --reload
 ```sh
 # run this from above the apps directory
 docker build -t {app_name} -f apps/{app_name}/Dockerfile .
-docker run --rm -p 8000:8000 {app_name}
+docker run --rm --name {app_name} -p 8000:8000 {app_name}
 
 # interactively
 docker run --rm -it {app_name} /bin/sh

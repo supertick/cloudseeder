@@ -4,12 +4,13 @@ import time
 
 class Report(BaseModel):
     id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
-    product: str
-    title: str
-    start_datetime: int
+    product: Optional[str] = None
+    title: Optional[str] = None
+    user_id: Optional[str] = Field(None, example="john@company1.com")
+    input_files: list[str] = Field(default_factory=list, example=["file1.txt", "file2.txt"])
+    output_files: list[str] = Field(default_factory=list, example=["file1.txt", "file2.txt"])
+    start_datetime: Optional[int] = Field(None, example=1683123456789)
     end_datetime: Optional[int] = Field(None, example=1683123456789)
-    status: str
+    status: Optional[str] = None
     exception: Optional[str] = Field(None, example="error")
-    input_files: list[str]
-    output_files: list[str]
     modified: Optional[int] = Field(None, example=1683123456789)

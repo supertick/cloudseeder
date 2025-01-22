@@ -7,7 +7,7 @@ class Config(BaseModel):
     auth_enabled: Optional[bool] = Field(False, description="Enable authentication", example=True)
     database_type: Literal["tinydb", "dynamodb"] = Field("tinydb", description="Database type", example="dynamodb")
     debug: Optional[bool] = Field(True, description="Enable debug mode", example=True)
-    queue_type: Literal["local", "sqs"] = Field("local", description="Database type", example="local")
+    queue_type: Literal["local", "noop", "sqs", "azure"] = Field("local", description="Database type", example="local")
     port: int
     log_level: str
     work_dir: str

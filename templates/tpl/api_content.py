@@ -11,8 +11,8 @@ from queues.interface import QueueClient
 from {app_name}.models.{model_name} import {ModelName}, {ModelName}
 from typing import Dict
 from auth.factory import get_auth_provider
-from ..auth_util import require_role, no_role_required
-from ..config import config_provider
+from {app_name}.auth_util import require_role, no_role_required
+from {app_name}.config import config_provider
 
 
 logging.basicConfig(level=logging.INFO)

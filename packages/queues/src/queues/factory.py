@@ -30,6 +30,9 @@ def get_queue_client(name: str, queue_type="local", **kwargs):
     else:
         raise ValueError(f"Invalid queue type: {queue_type}")
 
+    # MQTT queue ?
+    # ROS2 queue ?
+
     # Store the instance in the singleton dictionary
     _queues[name] = queue_instance
     return queue_instance

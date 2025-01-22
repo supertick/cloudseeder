@@ -8,7 +8,7 @@ app:
       database_type: Literal["tinydb", "dynamodb"] = Field("tinydb", description="Database type", example="dynamodb")
       debug: Optional[bool] = Field(True, description="Enable debug mode", example=True)
       # need blocking or async queues
-      queue_type: Literal["local", "sqs"] = Field("local", description="Database type", example="local")      
+      queue_type: Literal["local", "noop", "sqs", "azure"] = Field("local", description="Database type", example="local")      
 
       # COMMON CONFIGURATION
       port: int
@@ -47,29 +47,31 @@ app:
     input:
       id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
       title: Optional[str] = Field(None, example="Input File 1")
+      user_id: Optional[str] = Field(None, example="john@company1.com")
       files: List[str]
       upload_date: Optional[int] = Field(None, example=1683123456789)
 
     run:
       id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
-      product: str
-      start_datetime: str
-      status: str
-      input_dir: str
-      output_dir: str
-      modified: Optional[int] = Field(None, example=1683123456789)
+      product: Optional[str] = None
+      title: Optional[str] = Field(None, example="input-1.xlsx")
+      # IMPORTANT - user_id is filled in from auth not passed in 
+      user_id: Optional[str] = Field(None, example="john@company1.com")
+      input_dir: Optional[str] = Field(None, example="input_dir")
+      output_dir: Optional[str] = Field(None, example="output_dir")
 
     report:
       id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
-      product: str
-      title: str
+      product: Optional[str] = None
+      title: Optional[str] = None
+      user_id: Optional[str] = Field(None, example="john@company1.com")
+      input_files: list[str] = Field(default_factory=list, example=["file1.txt", "file2.txt"])
+      output_files: list[str] = Field(default_factory=list, example=["file1.txt", "file2.txt"])
       # FIXME - snake case
-      start_datetime: int
+      start_datetime: Optional[int] = Field(None, example=1683123456789)
       end_datetime: Optional[int] = Field(None, example=1683123456789)
-      status: str
+      status: Optional[str] = None
       exception: Optional[str] = Field(None, example="error")
-      input_files: list[str]
-      output_files: list[str]
       modified: Optional[int] = Field(None, example=1683123456789)
 
     upload_file_content:

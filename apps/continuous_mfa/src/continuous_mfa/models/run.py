@@ -4,9 +4,8 @@ import time
 
 class Run(BaseModel):
     id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
-    product: str
-    start_datetime: str
-    status: str
-    input_dir: str
-    output_dir: str
-    modified: Optional[int] = Field(None, example=1683123456789)
+    product: Optional[str] = None
+    title: Optional[str] = Field(None, example="input-1.xlsx")
+    user_id: Optional[str] = Field(None, example="john@company1.com")
+    input_dir: Optional[str] = Field(None, example="input_dir")
+    output_dir: Optional[str] = Field(None, example="output_dir")

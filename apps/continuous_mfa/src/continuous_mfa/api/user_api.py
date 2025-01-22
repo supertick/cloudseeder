@@ -11,8 +11,8 @@ from queues.interface import QueueClient
 from continuous_mfa.models.user import User, User
 from typing import Dict
 from auth.factory import get_auth_provider
-from ..auth_util import require_role, no_role_required
-from ..config import config_provider
+from continuous_mfa.auth_util import require_role, no_role_required
+from continuous_mfa.config import config_provider
 
 
 logging.basicConfig(level=logging.INFO)

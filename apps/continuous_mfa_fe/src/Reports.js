@@ -52,11 +52,16 @@ export default function Reports() {
   const [user, setUser] = useState(null);
   const [products, setProducts] = useState([]);
   const [inputFiles, setinputFiles] = useState([]);
+  const [reports, setResports] = useState([]);
   const [deleteUserId, setDeleteUserId] = useState(null);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false); // Add dialog state
   const [selectedFile, setSelectedFile] = useState(null); // State for radio button selection
   const sortedFiles = [...inputFiles].sort(
+    (a, b) => b.upload_date - a.upload_date
+  );
+
+  const sortedReports = [...reports].sort(
     (a, b) => b.upload_date - a.upload_date
   );
 
@@ -71,7 +76,7 @@ export default function Reports() {
   const [editingAccess, setEditingAccess] = useState(null);
 
   useEffect(() => {
-    const fetchUserProductAccess = async () => {
+    const fetchInputs = async () => {
       try {
         const response = await apiClient.get("/inputs");
         if (response) {
@@ -82,7 +87,22 @@ export default function Reports() {
       }
     };
 
-    fetchUserProductAccess();
+    fetchInputs();
+  }, []);
+
+  useEffect(() => {
+    const fetchReports = async () => {
+      try {
+        const response = await apiClient.get("/reports");
+        if (response) {
+          setResports(response);
+        }
+      } catch (error) {
+        console.error("Error fetching reports:", error);
+      }
+    };
+
+    fetchReports();
   }, []);
 
   useEffect(() => {
@@ -213,14 +233,14 @@ export default function Reports() {
       });
   };
   const handleInputFileUpload = (file) => {
-    const epoch_time = new Date().getTime()
+    const epoch_time = new Date().getTime();
     const metadata = {
       id: `${user?.id}-${epoch_time}`,
       filename: file.name,
       user_id: user?.id,
       upload_date: epoch_time,
     };
-  
+
     const reader = new FileReader();
     reader.onload = () => {
       const base64File = reader.result.split(",")[1]; // Extract the Base64 string
@@ -228,38 +248,39 @@ export default function Reports() {
         ...metadata,
         data: base64File, // Add the encoded file
       };
-  
-      // Example of sending the payload
-      apiClient.post("/upload-file-content", payload)
-      .then((response) => {
-        console.log("Metadata posted successfully:", response);
-        const metadata = {
-          id: response.id,
-          filename: file.name,
-          user_id: user?.id,
-          upload_date: epoch_time,
-        };
-        apiClient.post("/input", metadata)
-        .then((response) => {
-          console.info("File processed successfully:", response);
-        }).catch((error) => {
-          console.error("Error processing file:", error);
-        });
-        return response;
-      })
-      .catch((error) => {
-        console.error("Error posting metadata:", error);
-      });
 
+      // Example of sending the payload
+      apiClient
+        .post("/upload-file-content", payload)
+        .then((response) => {
+          console.log("Metadata posted successfully:", response);
+          const metadata = {
+            id: response.id,
+            files: [file.name],
+            user_id: user?.id,
+            upload_date: epoch_time,
+          };
+          apiClient
+            .post("/input", metadata)
+            .then((response) => {
+              console.info("File processed successfully:", response);
+            })
+            .catch((error) => {
+              console.error("Error processing file:", error);
+            });
+          return response;
+        })
+        .catch((error) => {
+          console.error("Error posting metadata:", error);
+        });
     };
-  
+
     reader.onerror = (error) => {
       console.error("Error reading file:", error);
     };
-  
+
     reader.readAsDataURL(file); // Read the file as Base64
   };
-  
 
   <InputUploadDialog
     isInputUploadDialogOpen={isDialogOpen}
@@ -296,7 +317,7 @@ export default function Reports() {
         <span style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           <LibraryBooksIcon style={{ fontSize: 30, color: "#2F3F5C" }} />
           <span style={{ fontSize: 18, color: "#2F3F5C", fontWeight: "bold" }}>
-            {user?.fullname} Input Files
+            {user?.fullname}
           </span>
           <Button
             variant="contained"
@@ -304,7 +325,7 @@ export default function Reports() {
             startIcon={<AddIcon />}
             onClick={() => setDialogOpen(true)}
           >
-            Add Input File
+            Add Input
           </Button>
 
           <Button
@@ -318,10 +339,9 @@ export default function Reports() {
         </span>
         {/* Input Library */}
 
-        <Paper>
           <TableContainer
             sx={{
-              maxHeight: "400px", // Set maximum height for the table container
+              maxHeight: "80px", // Set maximum height for the table container
               overflowY: "auto", // Enable vertical scrolling when content overflows
             }}
           >
@@ -377,7 +397,7 @@ export default function Reports() {
                     <TableCell>{record.files}</TableCell>
                     <TableCell>{formatDate(record.upload_date)}</TableCell>
                     <TableCell>
-                      <Tooltip title="Download">
+                      {/* <Tooltip title="Download">
                         <IconButton
                           onClick={(e) => {
                             e.stopPropagation(); // Prevent row selection when clicking download
@@ -387,7 +407,7 @@ export default function Reports() {
                         >
                           <DownloadIcon />
                         </IconButton>
-                      </Tooltip>
+                      </Tooltip> */}
                       <Tooltip title="Delete Input File">
                         <IconButton
                           onClick={(e) => {
@@ -405,7 +425,6 @@ export default function Reports() {
               </TableBody>
             </Table>
           </TableContainer>
-        </Paper>
         <br />
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           <AnalyticsIcon style={{ fontSize: 30, color: "#2F3F5C" }} />
@@ -423,24 +442,50 @@ export default function Reports() {
         </div>
 
         {/* MUI Paper Table */}
-        <Paper>
           <TableContainer
             sx={{
-              maxHeight: "400px", // Set maximum height for the table container
+              maxHeight: "800px", // Set maximum height for the table container
               overflowY: "auto", // Enable vertical scrolling when content overflows
             }}
           >
-            <Table>
+            <Table
+              sx={{
+                borderCollapse: "collapse", // Removes borders between cells
+              }}
+            >
               <TableHead>
-                <TableRow>
+                <TableRow
+                  sx={{
+                    height: "40px", // Adjust header row height
+                    "& .MuiTableCell-root": {
+                      padding: "4px 8px", // Reduce padding for header cells
+                    },
+                  }}
+                >
+                  {" "}
                   <TableCell></TableCell>
                   <TableCell>Report</TableCell>
                   <TableCell>Actions</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {inputFiles.map((record) => (
-                  <TableRow key={record.id}>
+                {reports.map((record) => (
+                  <TableRow key={record.id}
+                  sx={{
+                    height: "26px", // Reduce row height
+                    cursor: "pointer", // Indicate the row is clickable
+                    "&:hover": {
+                      backgroundColor: "#f5f5f5", // Light gray hover effect
+                    },
+                    "&.Mui-selected": {
+                      backgroundColor: "#dbe9ff", // Light blue for selected row
+                    },
+                    "& .MuiTableCell-root": {
+                      padding: "2px 4px", // Reduce padding for body cells
+                    },
+                  }}
+
+                  >
                     <TableCell>
                       <AppsIcon style={{ fontSize: 40, color: "#2F3F5C" }} />
                     </TableCell>
@@ -449,7 +494,7 @@ export default function Reports() {
                         to={`/products`} // Link to product details
                         style={{ textDecoration: "none", color: "#1976d2" }}
                       >
-                        {record.product_id}
+                        {record.title} {record.id}
                       </Link>
                     </TableCell>
                     <TableCell>
@@ -466,7 +511,6 @@ export default function Reports() {
               </TableBody>
             </Table>
           </TableContainer>
-        </Paper>
       </div>
       {/* Delete Confirmation Dialog */}
       <Dialog
