@@ -44,6 +44,11 @@ async def start_queue_listener(queue_name, queue_type="local"):
 
             # if no user_id process exception
 
+            # check if the user has access to the product
+            # if not process exception
+
+            # get_database
+
         await asyncio.sleep(1)
 
         # FIXME - verify user_id matches auth of rest api from where

@@ -11,8 +11,8 @@ from queues.interface import QueueClient
 from ai_core.models.transcription_result import Transcription_result, Transcription_result
 from typing import Dict
 from auth.factory import get_auth_provider
-from ..auth_util import require_role, no_role_required
-from ..config import config_provider
+from ai_core.auth_util import require_role, no_role_required
+from ai_core.config import config_provider
 
 
 logging.basicConfig(level=logging.INFO)

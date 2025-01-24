@@ -21,6 +21,7 @@ dependencies = [
     "boto3",
     "slack_sdk",
     "deepgram-sdk"
+    "openai"
 ]
 
 [project.optional-dependencies]

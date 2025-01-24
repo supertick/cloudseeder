@@ -5,9 +5,9 @@ app:
 
   models:
     config:
-      id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
-      port: Optional[int] = Field(8000, example="8000")
-      work_dir: Optional[str] = Field(".", example=".")
+      id: Optional[str] = Field("default", example="default")
+      port: Optional[int] = Field(8001, example="8001")
+      work_dir: Optional[str] = Field("work", example="work")
       log_level: Optional[str] = Field("info", example="info")
 
       # REQUIRED CONFIGURATION
@@ -15,8 +15,12 @@ app:
       database_type: Literal["tinydb", "dynamodb"] = Field("tinydb", description="Database type", example="dynamodb")
       debug: Optional[bool] = Field(True, description="Enable debug mode", example=True)
       # need blocking or async queues
-      queue_type: Literal["local", "sqs"] = Field("local", description="Database type", example="local")      
-      deepgram_api_key: str
+      queue_type: Literal["local", "sqs"] = Field("local", description="Queue type", example="local")      
+      deepgram_api_key: Optional[str] = Field(None, example="xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+
+
+      openai_key: Optional[str] = Field(None, description="OpenAI access key", example="your-access-key")
+      openai_model: Optional[str] = Field("gpt-4o-mini", description="OpenAI model", example="gpt-4o-mini")
 
       aws_access_key_id: Optional[str] = Field(None, description="AWS Access Key ID", example="your-access-key")
       aws_secret_access_key: Optional[str] = Field(None, description="AWS Secret Access Key", example="your-secret-key")
@@ -51,11 +55,14 @@ app:
       modified: Optional[int] = Field(None, example=1683123456789)
 
     transcription_request:
-      id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
-      user_id: str = Field(None, example="john@company1.com")
-      prefix: str = Field("work-dir", example="work-dir")
-      type: Literal["deepgram", "aws-transcribe"] = Field("tinydb", description="transcription type", example="deepgram")
-      files: list[str]
+      id: Optional[str] = None
+      user_id: str = Field(None, example="john@companya.com")
+      patient_id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
+      encounter_id: Optional[str] = Field(None, example="0kGa50000000d9REAQ")
+      assessment_id: Optional[str] = Field(None, example="001a500000ou2FIAAY")
+      company_id: Optional[str] = Field(None, example="CompanyA")
+      transcribe_type: Literal["deepgram", "aws-transcribe", "whisper"] = Field("deepgram", description="transcription type", example="deepgram")
+      files: list[str] = Field(None, example=["audio_1720195869941.webm", "audio_1720195889351.webm", "audio_1720195889391.webm"])
 
     transcription_result:
       id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
