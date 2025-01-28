@@ -32,14 +32,14 @@ python -m uvicorn ai_core.main:app --reload
 
 Ai Core Should be available at http://localhost:8000
 
-### Run the Application in Docker
+### Run the Application in Docker Locally
 ```sh
 # run this from above the apps directory
 docker build -t ai_core -f apps/ai_core/Dockerfile .
-docker run --rm --name ai_core -p 8000:8000 ai_core
+docker run --env-file .env --rm --name ai_core -p 8001:8001 ai_core
 
 # interactively
-docker run --rm -it ai_core /bin/sh
+docker run --env-file .env --rm -it ai_core /bin/sh
 
 ```
 

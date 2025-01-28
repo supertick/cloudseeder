@@ -1,0 +1,2000 @@
+[
+    {
+        "question_code": "M0018",
+        "question": "National Provider Identifier (NPI) for the attending physician who has signed the plan of care",
+        "options": []
+    },
+    {
+        "question_code": "M0010",
+        "question": "CMS Certification Number",
+        "options": []
+    },
+    {
+        "question_code": "M0014",
+        "question": "Branch State",
+        "options": []
+    },
+    {
+        "question_code": "M0016",
+        "question": "Branch ID Number",
+        "options": []
+    },
+    {
+        "question_code": "M0020",
+        "question": "Patient ID Number",
+        "options": []
+    },
+    {
+        "question_code": "M0030",
+        "question": "Start of Care Date",
+        "options": []
+    },
+    {
+        "question_code": "M0040",
+        "question": "Patient Name",
+        "options": []
+    },
+    {
+        "question_code": "M0050",
+        "question": "Patient State of Residence",
+        "options": []
+    },
+    {
+        "question_code": "M0060",
+        "question": "Patient ZIP Code",
+        "options": []
+    },
+    {
+        "question_code": "M0064",
+        "question": "Social Security Number",
+        "options": []
+    },
+    {
+        "question_code": "M0063",
+        "question": "Medicare Number",
+        "options": []
+    },
+    {
+        "question_code": "M0065",
+        "question": "Medicaid Number",
+        "options": []
+    },
+    {
+        "question_code": "M0069",
+        "question": "Gender",
+        "options": [
+            "1. Male",
+            "2. Female"
+        ]
+    },
+    {
+        "question_code": "M0066",
+        "question": "Birth Date",
+        "options": []
+    },
+    {
+        "question_code": "A1005",
+        "question": "Ethnicity - Are you of Hispanic, Latino/a, or Spanish origin?",
+        "options": [
+            "A. No, not of Hispanic, Latino/a, or Spanish origin",
+            "B. Yes, Mexican, Mexican American, Chicano/a",
+            "C. Yes, Puerto Rican",
+            "D. Yes, Cuban",
+            "E. Yes, another Hispanic, Latino, or Spanish origin",
+            "X. Patient unable to respond",
+            "Y. Patient declines to respond"
+        ]
+    },
+    {
+        "question_code": "A1010",
+        "question": "Race - What is your race?",
+        "options": [
+            "A. White",
+            "B. Black or African American",
+            "C. American Indian or Alaska Native",
+            "D. Asian Indian",
+            "E. Chinese",
+            "F. Filipino",
+            "G. Japanese",
+            "H. Korean",
+            "I. Vietnamese",
+            "J. Other Asian",
+            "K. Native Hawaiian",
+            "L. Guamanian or Chamorro",
+            "M. Samoan",
+            "N. Other Pacific Islander",
+            "X. Patient unable to respond",
+            "Y. Patient declines to respond",
+            "Z. None of the above"
+        ]
+    },
+    {
+        "question_code": "M0150",
+        "question": "Current Payment Sources for Home Care",
+        "options": [
+            "0. None; no charge for current services",
+            "1. Medicare (traditional fee-for-service)",
+            "2. Medicare (HMO/managed care/Advantage plan)",
+            "3. Medicaid (traditional fee-for-service)",
+            "4. Medicaid (HMO/managed care)",
+            "5. Workers' compensation",
+            "6. Title programs (for example, Title III, V, or XX)",
+            "7. Other government (for example, TriCare, VA)",
+            "8. Private insurance",
+            "9. Private HMO/managed care",
+            "10. Self-pay",
+            "11. Other (specify)",
+            "UK. Unknown"
+        ]
+    },
+    {
+        "question_code": "A1110.A",
+        "question": "Language - What is your preferred language?",
+        "options": []
+    },
+    {
+        "question_code": "A1110.B",
+        "question": "Language - Do you need or want an interpreter to communicate with a doctor or health care staff?",
+        "options": [
+            "0. No",
+            "1. Yes",
+            "9. Unable to determine"
+        ]
+    },
+    {
+        "question_code": "M0080",
+        "question": "Discipline of Person Completing Assessment",
+        "options": [
+            "1. RN",
+            "2. PT",
+            "3. SLP/ST",
+            "4. OT"
+        ]
+    },
+    {
+        "question_code": "M0090",
+        "question": "Date Assessment Completed",
+        "options": []
+    },
+    {
+        "question_code": "M0100",
+        "question": "This Assessment is Currently Being Completed for the Following Reason",
+        "options": [
+            "1. Start/Resumption of Care - Start of care - further visits planned",
+            "3. Start/Resumption of Care - Resumption of care (after inpatient stay)",
+            "4. Follow-Up - Recertification (follow-up) reassessment",
+            "5. Follow-Up - Other follow-up",
+            "6. Transfer to an Inpatient Facility - Transferred to an inpatient facility - patient not discharged from agency",
+            "7. Transfer to an Inpatient Facility - Transferred to an inpatient facility - patient discharged from agency",
+            "8. Discharge from Agency - Not to an Inpatient Facility - Death at home",
+            "9. Discharge from Agency - Not to an Inpatient Facility - Discharge from agency"
+        ]
+    },
+    {
+        "question_code": "M0102",
+        "question": "Date of Physician-ordered Start of Care (Resumption of Care) - If the physician indicated a specific start of care (resumption of care) date when the patient was referred for home health services, record the date specified",
+        "options": []
+    },
+    {
+        "question_code": "M0104",
+        "question": "Date of Referral - Indicate the date that the written or verbal referral for initiation or resumption of care was received by the HHA.",
+        "options": []
+    },
+    {
+        "question_code": "M0110",
+        "question": "Is the Medicare home health payment episode, for which this assessment will define a case mix group, an 'early' episode or a 'later' episode in the patient's current sequence of adjacent Medicare home health payment episodes?",
+        "options": [
+            "1. Early",
+            "2. Later",
+            "UK Unknown",
+            "NA Not Applicable: No Medicare case mix group to be defined by this assessment."
+        ]
+    },
+    {
+        "question_code": "A1250",
+        "question": "Has lack of transportation kept you from medical appointments, meetings, work, or from getting things needed for daily living?",
+        "options": [
+            "A. Yes, it has kept me from medical appointments or from getting my medications",
+            "B. Yes, it has kept me from non-medical meetings, appointments, work, or from getting things that I need",
+            "C. No",
+            "X. Patient unable to respond",
+            "Y. Patient declines to respond"
+        ]
+    },
+    {
+        "question_code": "M1000",
+        "question": "From which of the following Inpatient Facilities was the patient discharged within the past 14 days?",
+        "options": [
+            "1. Long-term nursing facility (NF)",
+            "2. Skilled nursing facility (SNF/TCU)",
+            "3. Short-stay acute hospital (IPPS)",
+            "4. Long-term care hospital (LTCH)",
+            "5. Inpatient rehabilitation hospital or unit (IRF)",
+            "6. Psychiatric hospital or unit",
+            "7. Other (specify)",
+            "NA Patient was not discharged from an inpatient facility - Skip to B0200 Hearing"
+        ]
+    },
+    {
+        "question_code": "M1005",
+        "question": "Inpatient Discharge Date (most recent)",
+        "options": []
+    },
+    {
+        "question_code": "B0200",
+        "question": "Ability to hear (with hearing aid or hearing appliances if normally used",
+        "options": [
+            "0. Adequate - no difficulty in normal conversation, social interaction, listening to TV",
+            "1. Minimal difficult - difficulty in some environments (e.g., when person speaks softly, or setting is noisy)",
+            "2. Moderate difficulty - speaker has to increase volume and speak distinctly",
+            "3. Highly impaired - absence of useful hearing"
+        ]
+    },
+    {
+        "question_code": "B1000",
+        "question": "Ability to see in adequate light (with glasses or other visual appliances)",
+        "options": [
+            "0. Adequate - sees fine detail, such as regular print in newspapers/books",
+            "1. Impaired - sees large print, but not regular print in newspapers/books",
+            "2. Moderately impaired - limited vision; not able to see newspaper headlines but can identify objects",
+            "3. Highly impaired - object identification in question, but eyes appear to follow objects",
+            "4. Severely impaired - no vision or sees only light, colors or shapes; eyes do not appear to follow objects"
+        ]
+    },
+    {
+        "question_code": "B1300",
+        "question": "How often do you need to have someone help you when you read instructions, pamphlets, or other written material from your doctor or pharmacy?",
+        "options": [
+            "0. Never",
+            "1. Rarely",
+            "2. Sometimes",
+            "3. Often",
+            "4. Always",
+            "7. Patient declines to respond",
+            "8. Patient unable to respond"
+        ]
+    },
+    {
+        "question_code": "C0100",
+        "question": "Should Brief Interview for Mental Status (C0200-C0500) be Conducted? - Attempt to conduct interview with all patients.",
+        "options": [
+            "0. No (patient is rarely/never understood)",
+            "1. Yes"
+        ]
+    },
+    {
+        "question_code": "C0200",
+        "question": "Ask patient: 'I am going to say three words for you to remember. Please repeat the words after I have said all three. The words are: sock, blue, and bed. Now tell me the three words.",
+        "options": [
+            "0. None",
+            "1. One",
+            "2. Two",
+            "3. Three"
+        ]
+    },
+    {
+        "question_code": "C0300.A",
+        "question": "Please tell me what year it is right now. - Able to report correct year",
+        "options": [
+            "0. Missed by > 5 years or no answer",
+            "1. Missed by 2-5 years",
+            "2. Missed by 1 year",
+            "3. Correct"
+        ]
+    },
+    {
+        "question_code": "C0300.B",
+        "question": "What month are we in right now? - Able to report correct month",
+        "options": [
+            "0. Missed by > 1 month or no answer",
+            "1. Missed by 6 days to 1 month",
+            "2. Accurate within 5 days"
+        ]
+    },
+    {
+        "question_code": "C0300.C",
+        "question": "What day of the week is today? - Able to report correct day of the week",
+        "options": [
+            "0. Incorrect or no answer",
+            "1. Correct"
+        ]
+    },
+    {
+        "question_code": "C0400.A",
+        "question": "Let's go back to an earlier question. What were those three words that I asked you to repeat? If unable to remember a word, give cue (something to wear; a color; a piece of furniture) for that word.- Able to recall 'sock'",
+        "options": [
+            "0. No - could not recall",
+            "1. Yes, after cueing (something to wear)",
+            "2. Yes, no cue required"
+        ]
+    },
+    {
+        "question_code": "C0400.B",
+        "question": "Let's go back to an earlier question. What were those three words that I asked you to repeat? If unable to remember a word, give cue (something to wear; a color; a piece of furniture) for that word. - Able to recall 'blue'",
+        "options": [
+            "0. No - could not recall",
+            "1. Yes, after cueing (a color)",
+            "2. Yes, no cue required"
+        ]
+    },
+    {
+        "question_code": "C0400.C",
+        "question": "Let's go back to an earlier question. What were those three words that I asked you to repeat? If unable to remember a word, give cue (something to wear; a color; a piece of furniture) for that word.- Able to recall 'bed'",
+        "options": [
+            "0. No - could not recall",
+            "1. Yes, after cueing (a piece of furniture)",
+            "2. Yes, no cue required"
+        ]
+    },
+    {
+        "question_code": "C0500",
+        "question": " BIMS Summary Score - Add scores for questions C0200-C0400 and fill in total score (00-15) - Enter 99 if the patient was unable to complete the interview.",
+        "options": []
+    },
+    {
+        "question_code": "C1310.A",
+        "question": "Is there evidence of an acute change in mental status from the patient's baseline?",
+        "options": [
+            "0. No",
+            "1. Yes"
+        ]
+    },
+    {
+        "question_code": "C1310.B",
+        "question": "Did the patient have difficulty focusing attention, for example, being easily distractible or having difficulty keeping track of what was being said?",
+        "options": [
+            "0. Behavior not present",
+            "1. Behavior continuously present, does not fluctuate",
+            "2. Behavior present, fluctuates (comes and goes, changes in severity)"
+        ]
+    },
+    {
+        "question_code": "C1310.C",
+        "question": "Was the patient's thinking disorganized or incoherent (rambling or irrelevant conversation, unclear or illogical flow of ideas, or unpredictable switching from subject to subject)?",
+        "options": [
+            "0. Behavior not present",
+            "1. Behavior continuously present, does not fluctuate",
+            "2. Behavior present, fluctuates (comes and goes, changes in severity)"
+        ]
+    },
+    {
+        "question_code": "C1310.D",
+        "question": "Did the patient have altered level of consciousness, as indicated by any of the following criteria?",
+        "options": [
+            "0. vigilant - startled easily to any sound or touch",
+            "1. lethargic - repeatedly dozed off when being asked questions, but responded to voice or touch",
+            "2. stuporous - very difficult to arouse and keep aroused for the interview",
+            "3. comatose - could not be aroused"
+        ]
+    },
+    {
+        "question_code": "M1700",
+        "question": "Patient's current (day of assessment) level of alertness, orientation, comprehension, concentration, and immediate memory for simple commands.",
+        "options": [
+            "0. Alert/oriented, able to focus and shift attention, comprehends and recalls task directions independently.",
+            "1. Requires prompting (cuing, repetition, reminders) only under stressful or unfamiliar conditions.",
+            "2. Requires assistance and some direction in specific situations (for example, on all tasks involving shifting of attention) or consistently requires low stimulus environment due to distractibility.",
+            "3. Requires considerable assistance in routine situations. Is not alert and oriented or is unable to shift attention and recall directions more than half the time.",
+            "4. Totally dependent due to disturbances such as constant disorientation, coma, persistent vegetative state, or delirium."
+        ]
+    },
+    {
+        "question_code": "M1710",
+        "question": "When Confused - Reported or observed within the last 14 days.",
+        "options": [
+            "0. Never",
+            "1. In new or complex situations only",
+            "2. On awakening or at night only",
+            "3. During the day and evening, but not constantly",
+            "4. Constantly",
+            "NA. Patient nonresponsive"
+        ]
+    },
+    {
+        "question_code": "M1720",
+        "question": "When Anxious - Reported or observed within the last 14 days.",
+        "options": [
+            "0. None of the time",
+            "1. Less often than daily",
+            "2. Daily, but not constantly",
+            "3. All of the time",
+            "NA. Patient nonresponsive"
+        ]
+    },
+    {
+        "question_code": "D0150.A1",
+        "question": "Over the last 2 weeks, have you been bothered by any of the following problems? - Little interest or pleasure in doing things - Symptom Presence?",
+        "options": [
+        	"0. No (enter 0 in Symptom Frequency 2)",
+        	"1. Yes (enter 0-3 in Symptom Frequency 2)",
+        	"9. No response (leave Symptom Frequency blank)."
+        ]
+    },
+    {
+        "question_code": "D0150.A2",
+        "question": "Over the last 2 weeks, have you been bothered by any of the following problems? - Little interest or pleasure in doing things - Symptom Frequency?",
+        "options": [
+        	"0. Never or 1 day",
+        	"1. 2-6 days (several days)",
+        	"2. 7-11 days (half or more of the days)",
+        	"3. 12-14 days (nearly every day)"
+        ]
+    },
+    {
+        "question_code": "D0150.B1",
+        "question": "Over the last 2 weeks, have you been bothered by any of the following problems? - Feeling down, depressed, or hopeless - Symptom Presence?",
+        "options": [
+        	"0. No (enter 0 in Symptom Frequency 2)",
+        	"1. Yes (enter 0-3 in Symptom Frequency 2)",
+        	"9. No response (leave Symptom Frequency blank)."
+        ]
+    },
+    {
+        "question_code": "D0150.B2",
+        "question": "Over the last 2 weeks, have you been bothered by any of the following problems? - Feeling down, depressed, or hopeless - Symptom Frequency?",
+        "options": [
+        	"0. Never or 1 day",
+        	"1. 2-6 days (several days)",
+        	"2. 7-11 days (half or more of the days)",
+        	"3. 12-14 days (nearly every day)"
+        ]
+    },
+    {
+        "question_code": "D0150.C1",
+        "question": "Over the last 2 weeks, have you been bothered by any of the following problems? - Trouble falling or staying asleep, or sleeping too much - Symptom Presence?",
+        "options": [
+        	"0. No (enter 0 in Symptom Frequency 2)",
+        	"1. Yes (enter 0-3 in Symptom Frequency 2)",
+        	"9. No response (leave Symptom Frequency blank)."
+        ]
+    },
+    {
+        "question_code": "D0150.C2",
+        "question": "Over the last 2 weeks, have you been bothered by any of the following problems? - Trouble falling or staying asleep, or sleeping too much - Symptom Frequency?",
+        "options": [
+        	"0. Never or 1 day",
+        	"1. 2-6 days (several days)",
+        	"2. 7-11 days (half or more of the days)",
+        	"3. 12-14 days (nearly every day)"
+        ]
+    },
+    {
+        "question_code": "D0150.D1",
+        "question": "Over the last 2 weeks, have you been bothered by any of the following problems? - Feeling tired or having little energy - Symptom Presence?",
+        "options": [
+        	"0. No (enter 0 in Symptom Frequency 2)",
+        	"1. Yes (enter 0-3 in Symptom Frequency 2)",
+        	"9. No response (leave Symptom Frequency blank)."
+        ]
+    },
+    {
+        "question_code": "D0150.D2",
+        "question": "Over the last 2 weeks, have you been bothered by any of the following problems? - Feeling tired or having little energy - Symptom Frequency?",
+        "options": [
+        	"0. Never or 1 day",
+        	"1. 2-6 days (several days)",
+        	"2. 7-11 days (half or more of the days)",
+        	"3. 12-14 days (nearly every day)"
+        ]
+    },
+    {
+        "question_code": "D0150.E1",
+        "question": "Over the last 2 weeks, have you been bothered by any of the following problems? - Poor appetite or overeating - Symptom Presence?",
+        "options": [
+        	"0. No (enter 0 in Symptom Frequency 2)",
+        	"1. Yes (enter 0-3 in Symptom Frequency 2)",
+        	"9. No response (leave Symptom Frequency blank)."
+        ]
+    },
+    {
+        "question_code": "D0150.E2",
+        "question": "Over the last 2 weeks, have you been bothered by any of the following problems? - Poor appetite or overeating - Symptom Frequency?",
+        "options": [
+        	"0. Never or 1 day",
+        	"1. 2-6 days (several days)",
+        	"2. 7-11 days (half or more of the days)",
+        	"3. 12-14 days (nearly every day)"
+        ]
+    },
+    {
+        "question_code": "D0150.F1",
+        "question": "Over the last 2 weeks, have you been bothered by any of the following problems? - Feeling bad about yourself - or that you are a failure or have let yourself or your family down - Symptom Presence?",
+        "options": [
+        	"0. No (enter 0 in Symptom Frequency 2)",
+        	"1. Yes (enter 0-3 in Symptom Frequency 2)",
+        	"9. No response (leave Symptom Frequency blank)."
+        ]
+    },
+    {
+        "question_code": "D0150.F2",
+        "question": "Over the last 2 weeks, have you been bothered by any of the following problems? - Feeling bad about yourself - or that you are a failure or have let yourself or your family down - Symptom Frequency?",
+        "options": [
+        	"0. Never or 1 day",
+        	"1. 2-6 days (several days)",
+        	"2. 7-11 days (half or more of the days)",
+        	"3. 12-14 days (nearly every day)"
+        ]
+    },
+    {
+        "question_code": "D0150.G1",
+        "question": "Over the last 2 weeks, have you been bothered by any of the following problems? - Trouble concentrating on things, such as reading the newspaper or watching television - Symptom Presence?",
+        "options": [
+        	"0. No (enter 0 in Symptom Frequency 2)",
+        	"1. Yes (enter 0-3 in Symptom Frequency 2)",
+        	"9. No response (leave Symptom Frequency blank)."
+        ]
+    },
+    {
+        "question_code": "D0150.G2",
+        "question": "Over the last 2 weeks, have you been bothered by any of the following problems? - Trouble concentrating on things, such as reading the newspaper or watching television - Symptom Frequency?",
+        "options": [
+        	"0. Never or 1 day",
+        	"1. 2-6 days (several days)",
+        	"2. 7-11 days (half or more of the days)",
+        	"3. 12-14 days (nearly every day)"
+        ]
+    },
+    {
+        "question_code": "D0150.H1",
+        "question": "Over the last 2 weeks, have you been bothered by any of the following problems? - Moving or speaking so slowly that other people could have noticed. Or the opposite - being so fidgety or restless that you have been moving around a lot more than usual - Symptom Presence?",
+        "options": [
+        	"0. No (enter 0 in Symptom Frequency 2)",
+        	"1. Yes (enter 0-3 in Symptom Frequency 2)",
+        	"9. No response (leave Symptom Frequency blank)."
+        ]
+    },
+    {
+        "question_code": "D0150.H2",
+        "question": "Over the last 2 weeks, have you been bothered by any of the following problems? - Moving or speaking so slowly that other people could have noticed. Or the opposite - being so fidgety or restless that you have been moving around a lot more than usual - Symptom Frequency?",
+        "options": [
+        	"0. Never or 1 day",
+        	"1. 2-6 days (several days)",
+        	"2. 7-11 days (half or more of the days)",
+        	"3. 12-14 days (nearly every day)"
+        ]
+    },
+    {
+        "question_code": "D0150.I1",
+        "question": "Over the last 2 weeks, have you been bothered by any of the following problems? - Thoughts that you would be better off dead, or of hurting yourself in some way - Symptom Presence?",
+        "options": [
+        	"0. No (enter 0 in Symptom Frequency 2)",
+        	"1. Yes (enter 0-3 in Symptom Frequency 2)",
+        	"9. No response (leave Symptom Frequency blank)."
+        ]
+    },
+    {
+        "question_code": "D0150.I2",
+        "question": "Over the last 2 weeks, have you been bothered by any of the following problems? - Thoughts that you would be better off dead, or of hurting yourself in some way - Symptom Frequency?",
+        "options": [
+        	"0. Never or 1 day",
+        	"1. 2-6 days (several days)",
+        	"2. 7-11 days (half or more of the days)",
+        	"3. 12-14 days (nearly every day)"
+        ]
+    },
+    {
+        "question_code": "D0160",
+        "question": "Add scores for all frequency responses in Symptom Frequency. Total score must be between 02 and 27. Enter 99 if unable to complete interview (i.e., Symptom Frequency is blank for 3 or more required items)",
+        "options": null
+    },
+    {
+        "question_code": "D0700",
+        "question": "How often do you feel lonely or isolated from those around you?",
+        "options": [
+            "0. Never",
+            "1. Rarely",
+            "2. Sometimes",
+            "3. Often",
+            "4. Always",
+            "7. Patient declines to respond",
+            "8. Patient unable to respond"
+        ]
+    },
+    {
+        "question_code": "M1740",
+        "question": "Cognitive, Behavioral, and Psychiatric Symptoms that are demonstrated at least once a week (reported or observed)",
+        "options": [
+            "1. Memory deficit: failure to recognize familiar persons/places, inability to recall events of past 24 hours, significant memory loss so that supervision is required",
+            "2. Impaired decision-making: failure to perform usual ADLs or IADLs, inability to appropriately stop activities, jeopardizes safety through actions",
+            "3. Verbal disruption: yelling, threatening, excessive profanity, sexual references, etc.",
+            "4. Physical aggression: aggressive or combative to self and others (for example, hits self, throws objects, punches, dangerous maneuvers with wheelchair or other objects)",
+            "5. Disruptive, infantile, or socially inappropriate behavior (excludes verbal actions)",
+            "6. Delusional, hallucinatory, or paranoid behavior",
+            "7. None of the above behaviors demonstrated"
+        ]
+    },
+    {
+        "question_code": "M1745",
+        "question": "Any physical, verbal, or other disruptive/dangerous symptoms that are injurious to self or others or jeopardize personal safety.",
+        "options": [
+            "0. Never",
+            "1. Less than once a month",
+            "2. Once a month",
+            "3. Several times each month",
+            "4. Several times a week",
+            "5. At least daily"
+        ]
+    },
+    {
+        "question_code": "M1100",
+        "question": "Which of the following best describes the patient's residential circumstance and availability of assistance?",
+        "options": [
+            "01. Patient lives alone - Around the Clock",
+            "02. Patient lives alone - Regular Daytime",
+            "03. Patient lives alone - Regular Nighttime",
+            "04. Patient lives alone - Occasional/ Short-Term Assistance",
+            "05. Patient lives alone - No Assistance Available",
+            "06. Patient lives with other person(s) in the home - Around the Clock",
+            "07. Patient lives with other person(s) in the home - Regular Daytime",
+            "08. Patient lives with other person(s) in the home - Regular Nighttime",
+            "09. Patient lives with other person(s) in the home - Occasional/ Short-Term Assistance",
+            "10. Patient lives with other person(s) in the home - No Assistance Available",
+            "11. Patient lives in congregate situation (for example, assisted living, residential care home) - Around the Clock",
+            "12. Patient lives in congregate situation (for example, assisted living, residential care home) - Regular Daytime",
+            "13. Patient lives in congregate situation (for example, assisted living, residential care home) - Regular Nighttime",
+            "14. Patient lives in congregate situation (for example, assisted living, residential care home) - Occasional/ Short-Term Assistance",
+            "15. Patient lives in congregate situation (for example, assisted living, residential care home) - No Assistance Available"
+        ]
+    },
+    {
+        "question_code": "M2102",
+        "question": "Determine the ability and willingness of non-agency caregivers (such as family members, friends, or privately paid caregivers) to provide assistance for the following activities, if assistance is needed. Excludes all care by your agency staff. - Supervision and safety (for example, due to cognitive impairment)",
+        "options": [
+            "0. No assistance needed - patient is independent or does not have needs in this area",
+            "1. Non-agency caregiver(s) currently provide assistance",
+            "2. Non-agency caregiver(s) need training/supportive services to provide assistance",
+            "3. Non-agency caregiver(s) are not likely to provide assistance OR it is unclear if they will provide assistance",
+            "4. Assistance needed, but no non-agency caregiver(s) available"
+        ]
+    },
+    {
+        "question_code": "M1800",
+        "question": "Current ability to tend safely to personal hygiene needs (specifically: washing face and hands, hair care, shaving or make up, teeth or denture care, or fingernail care).",
+        "options": [
+            "0. Able to groom self unaided, with or without the use of assistive devices or adapted methods.",
+            "1. Grooming utensils must be placed within reach before able to complete grooming activities.",
+            "2. Someone must assist the patient to groom self.",
+            "3. Patient depends entirely upon someone else for grooming needs."
+        ]
+    },
+    {
+        "question_code": "M1810",
+        "question": "Current Ability to Dress Upper Body safely (with or without dressing aids) including undergarments, pullovers, frontopening shirts and blouses, managing zippers, buttons, and snaps.",
+        "options": [
+            "0. Able to get clothes out of closets and drawers, put them on and remove them from the upper body without assistance.",
+            "1. Able to dress upper body without assistance if clothing is laid out or handed to the patient.",
+            "2. Someone must help the patient put on upper body clothing.",
+            "3. Patient depends entirely upon another person to dress the upper body."
+        ]
+    },
+    {
+        "question_code": "M1820",
+        "question": "Current Ability to Dress Lower Body safely (with or without dressing aids) including undergarments, slacks, socks or nylons, shoes.",
+        "options": [
+            "0. Able to obtain, put on, and remove clothing and shoes without assistance.",
+            "1. Able to dress lower body without assistance if clothing and shoes are laid out or handed to the patient.",
+            "2. Someone must help the patient put on undergarments, slacks, socks or nylons, and shoes.",
+            "3. Patient depends entirely upon another person to dress lower body."
+        ]
+    },
+    {
+        "question_code": "M1830",
+        "question": "Current ability to wash entire body safely. Excludes grooming (washing face, washing hands, and shampooing hair).",
+        "options": [
+            "0. Able to bathe self in shower or tub independently, including getting in and out of tub/shower.",
+            "1. With the use of devices, is able to bathe self in shower or tub independently, including getting in and out of the tub/shower.",
+            "2.a. Able to bathe in shower or tub with the intermittent assistance of another person: for intermittent supervision or encouragement or reminders",
+            "2.b. Able to bathe in shower or tub with the intermittent assistance of another person: to get in and out of the shower or tub",
+            "2.c. Able to bathe in shower or tub with the intermittent assistance of another person: for washing difficult to reach areas.",
+            "3. Able to participate in bathing self in shower or tub, but requires presence of another person throughout the bath for assistance or supervision.",
+            "4. Unable to use the shower or tub, but able to bathe self independently with or without the use of devices at the sink, in chair, or on commode.",
+            "5. Unable to use the shower or tub, but able to participate in bathing self in bed, at the sink, in bedside chair, or on commode, with the assistance or supervision of another person.",
+            "6. Unable to participate effectively in bathing and is bathed totally by another person."
+        ]
+    },
+    {
+        "question_code": "M1840",
+        "question": "Current ability to get to and from the toilet or bedside commode safely and transfer on and off toilet/commode.",
+        "options": [
+            "0. Able to get to and from the toilet and transfer independently with or without a device.",
+            "1. When reminded, assisted, or supervised by another person, able to get to and from the toilet and transfer.",
+            "2. Unable to get to and from the toilet but is able to use a bedside commode (with or without assistance).",
+            "3. Unable to get to and from the toilet or bedside commode but is able to use a bedpan/urinal independently.",
+            "4. Is totally dependent in toileting."
+        ]
+    },
+    {
+        "question_code": "M1845",
+        "question": "Current ability to maintain perineal hygiene safely, adjust clothes and/or incontinence pads before and after using toilet, commode, bedpan, urinal. If managing ostomy, includes cleaning area around stoma, but not managing equipment.",
+        "options": [
+            "0. Able to manage toileting hygiene and clothing management without assistance.",
+            "1. Able to manage toileting hygiene and clothing management without assistance if supplies/implements are laid out for the patient.",
+            "2. Someone must help the patient to maintain toileting hygiene and/or adjust clothing.",
+            "3. Patient depends entirely upon another person to maintain toileting hygiene."
+        ]
+    },
+    {
+        "question_code": "M1850",
+        "question": "Current ability to move safely from bed to chair, or ability to turn and position self in bed if patient is bedfast.",
+        "options": [
+            "0. Able to independently transfer.",
+            "1. Able to transfer with minimal human assistance or with use of an assistive device.",
+            "2. Able to bear weight and pivot during the transfer process but unable to transfer self.",
+            "3. Unable to transfer self and is unable to bear weight or pivot when transferred by another person.",
+            "4. Bedfast, unable to transfer but is able to turn and position self in bed.",
+            "5. Bedfast, unable to transfer and is unable to turn and position self"
+        ]
+    },
+    {
+        "question_code": "M1860",
+        "question": "Current ability to walk safely, once in a standing position, or use a wheelchair, once in a seated position, on a variety of surfaces.",
+        "options": [
+            "0. Able to independently walk on even and uneven surfaces and negotiate stairs with or without railings (specifically: needs no human assistance or assistive device).",
+            "1. With the use of a one-handed device (for example, cane, single crutch, hemi-walker), able to independently walk on even and uneven surfaces and negotiate stairs with or without railings.",
+            "2. Requires use of a two-handed device (for example, walker or crutches) to walk alone on a level surface and/or requires human supervision or assistance to negotiate stairs or steps or uneven surfaces.",
+            "3. Able to walk only with the supervision or assistance of another person at all times.",
+            "4. Chairfast, unable to ambulate but is able to wheel self independently.",
+            "5. Chairfast, unable to ambulate and is unable to wheel self.",
+            "6. Bedfast, unable to ambulate or be up in a chair."
+        ]
+    },
+    {
+        "question_code": "GG0100.A",
+        "question": "Indicate the patient's usual ability with everyday activities prior to the current illness, exacerbation, or injury. - Code the patient's need for assistance with bathing, dressing, using the toilet, and eating prior to the current illness, exacerbation, or injury.",
+        "options": [
+            "3. Independent - Patient completed all the activities by themself, with or without an assistive device, with no assistance from a helper.",
+            "2. Needed Some Help - Patient needed partial assistance from another person to complete any activities.",
+            "1. Dependent - A helper completed all the activities for the patient.",
+            "8. Unknown",
+            "9. Not Applicable"
+        ]
+    },
+    {
+        "question_code": "GG0100.B",
+        "question": "Indicate the patient's usual ability with everyday activities prior to the current illness, exacerbation, or injury. - Code the patient's need for assistance with walking from room to room (with or without a device such as cane, crutch or walker) prior to the current illness, exacerbation, or injury.",
+        "options": [
+            "3. Independent - Patient completed all the activities by themself, with or without an assistive device, with no assistance from a helper.",
+            "2. Needed Some Help - Patient needed partial assistance from another person to complete any activities.",
+            "1. Dependent - A helper completed all the activities for the patient.",
+            "8. Unknown",
+            "9. Not Applicable"
+        ]
+    },
+    {
+        "question_code": "GG0100.C",
+        "question": "Indicate the patient's usual ability with everyday activities prior to the current illness, exacerbation, or injury. - Code the patient's need for assistance with internal or external stairs (with or without a device such as cane, crutch, or walker) prior to the current illness, exacerbation or injury.",
+        "options": [
+            "3. Independent - Patient completed all the activities by themself, with or without an assistive device, with no assistance from a helper.",
+            "2. Needed Some Help - Patient needed partial assistance from another person to complete any activities.",
+            "1. Dependent - A helper completed all the activities for the patient.",
+            "8. Unknown",
+            "9. Not Applicable"
+        ]
+    },
+    {
+        "question_code": "GG0100.D",
+        "question": "Indicate the patient's usual ability with everyday activities prior to the current illness, exacerbation, or injury. - Code the patient's need for assistance with planning regular tasks, such as shopping or remembering to take medication prior to the current illness, exacerbation, or injury.",
+        "options": [
+            "3. Independent - Patient completed all the activities by themself, with or without an assistive device, with no assistance from a helper.",
+            "2. Needed Some Help - Patient needed partial assistance from another person to complete any activities.",
+            "1. Dependent - A helper completed all the activities for the patient.",
+            "8. Unknown",
+            "9. Not Applicable"
+        ]
+    },
+    {
+        "question_code": "GG0110",
+        "question": "Indicate devices and aids used by the patient prior to the current illness, exacerbation, or injury.",
+        "options": [
+            "A. Manual wheelchair",
+            "B. Motorized wheelchair and/or scooter",
+            "C. Mechanical lift",
+            "D. Walker",
+            "E. Orthotics/Prosthetics",
+            "Z. None of the above"
+        ]
+    },
+    {
+        "question_code": "GG0130.A1",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - The ability to use suitable utensils to bring food and/or liquid to the mouth and swallow food and/or liquid once the meal is placed before the patient - SOC/ROC Performance?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0130.A2",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - The ability to use suitable utensils to bring food and/or liquid to the mouth and swallow food and/or liquid once the meal is placed before the patient - Discharge Goal?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0130.B1",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - The ability to use suitable items to clean teeth. Dentures (if applicable): The ability to insert and remove dentures into and from mouth, and manage denture soaking and rinsing with use of equipment. - SOC/ROC Performance?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0130.B2",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - The ability to use suitable items to clean teeth. Dentures (if applicable): The ability to insert and remove dentures into and from mouth, and manage denture soaking and rinsing with use of equipment. - Discharge Goal?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0130.C1",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - The ability to maintain perineal hygiene, adjust clothes before and after voiding or having a bowel movement. If managing an ostomy, include wiping the opening but not managing equipment. - SOC/ROC Performance?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0130.C2",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - The ability to maintain perineal hygiene, adjust clothes before and after voiding or having a bowel movement. If managing an ostomy, include wiping the opening but not managing equipment. - Discharge Goal?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0130.E1",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - The ability to bathe self, including washing, rinsing, and drying self (excludes washing of back and hair). Does not include transferring in/out of tub/shower. - SOC/ROC Performance?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0130.E2",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - The ability to bathe self, including washing, rinsing, and drying self (excludes washing of back and hair). Does not include transferring in/out of tub/shower. - Discharge Goal?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0130.F1",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - The ability to dress and undress above the waist; including fasteners, if applicable. - SOC/ROC Performance?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0130.F2",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - The ability to dress and undress above the waist; including fasteners, if applicable. - Discharge Goal?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0130.G1",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - The ability to dress and undress below the waist, including fasteners; does not include footwear. - SOC/ROC Performance?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0130.G2",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - The ability to dress and undress below the waist, including fasteners; does not include footwear. - Discharge Goal?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0130.H1",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - The ability to put on and take off socks and shoes or other footwear that is appropriate for safe mobility; including fasteners, if applicable. - SOC/ROC Performance?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0130.H2",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - The ability to put on and take off socks and shoes or other footwear that is appropriate for safe mobility; including fasteners, if applicable. - Discharge Goal?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.A1",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Roll left and right: The ability to roll from lying on back to left and right side, and return to lying on back on the bed. - SOC/ROC Performance?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.A2",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Roll left and right: The ability to roll from lying on back to left and right side, and return to lying on back on the bed. - Discharge Goal?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.B1",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Sit to lying: The ability to move from sitting on side of bed to lying flat on the bed. - SOC/ROC Performance?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.B2",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Sit to lying: The ability to move from sitting on side of bed to lying flat on the bed. - Discharge Goal?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.C1",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Lying to sitting on side of bed: The ability to move from lying on the back to sitting on the side of the bed with no back support. - SOC/ROC Performance?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.C2",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Lying to sitting on side of bed: The ability to move from lying on the back to sitting on the side of the bed with no back support. - Discharge Goal?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.D1",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Sit to stand: The ability to come to a standing position from sitting in a chair, wheelchair, or on the side of the bed. - SOC/ROC Performance?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.D2",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Sit to stand: The ability to come to a standing position from sitting in a chair, wheelchair, or on the side of the bed. - Discharge Goal?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.E1",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Chair/bed-to-chair transfer: The ability to transfer to and from a bed to a chair (or wheelchair). - SOC/ROC Performance?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.E2",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Chair/bed-to-chair transfer: The ability to transfer to and from a bed to a chair (or wheelchair). - Discharge Goal?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.F1",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Toilet transfer: The ability to get on and off a toilet or commode. - SOC/ROC Performance?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.F2",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Toilet transfer: The ability to get on and off a toilet or commode. - Discharge Goal?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.G1",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Car transfer: The ability to transfer in and out of a car or van on the passenger side. Does not include the ability to open/close door or fasten seat belt. - SOC/ROC Performance?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.G2",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Car transfer: The ability to transfer in and out of a car or van on the passenger side. Does not include the ability to open/close door or fasten seat belt. - Discharge Goal?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.I1",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Walk 10 feet: Once standing, the ability to walk at least 10 feet in a room, corridor, or similar space. If SOC/ROC performance is coded 07, 09, 10 or 88, - Skip to GG0170M, Mobility, 1 step (curb) - SOC/ROC Performance?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.I2",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Walk 10 feet: Once standing, the ability to walk at least 10 feet in a room, corridor, or similar space. If SOC/ROC performance is coded 07, 09, 10 or 88, - Skip to GG0170M, Mobility, 1 step (curb) - Discharge Goal?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.J1",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Walk 50 feet with two turns: Once standing, the ability to walk 50 feet and make two turns. - SOC/ROC Performance?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.J2",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Walk 50 feet with two turns: Once standing, the ability to walk 50 feet and make two turns. - Discharge Goal?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.K1",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Walk 150 feet: Once standing, the ability to walk at least 150 feet in a corridor or similar space. - SOC/ROC Performance?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.K2",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Walk 150 feet: Once standing, the ability to walk at least 150 feet in a corridor or similar space. - Discharge Goal?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.L1",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Walking 10 feet on uneven surfaces: The ability to walk 10 feet on uneven or sloping surfaces (indoor or outdoor), such as turf or gravel. - SOC/ROC Performance?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.L2",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Walking 10 feet on uneven surfaces: The ability to walk 10 feet on uneven or sloping surfaces (indoor or outdoor), such as turf or gravel. - Discharge Goal?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.M1",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - 1 step (curb): The ability to go up and down a curb or up and down one step. If SOC/ROC performance is coded 07, 09, 10 or 88, - Skip to GG0170P, Mobility, Picking up object. - SOC/ROC Performance?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.M2",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - 1 step (curb): The ability to go up and down a curb or up and down one step. If SOC/ROC performance is coded 07, 09, 10 or 88, - Skip to GG0170P, Mobility, Picking up object. - Discharge Goal?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.N1",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - 4 steps: The ability to go up and down four steps with or without a rail. If SOC/ROC performance is coded 07, 09, 10 or 88, - Skip to GG0170P, Mobility, Picking up object. - SOC/ROC Performance?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.N2",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - 4 steps: The ability to go up and down four steps with or without a rail. If SOC/ROC performance is coded 07, 09, 10 or 88, - Skip to GG0170P, Mobility, Picking up object. - Discharge Goal?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.O1",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - 12 steps: The ability to go up and down 12 steps with or without a rail. - SOC/ROC Performance?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.O2",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - 12 steps: The ability to go up and down 12 steps with or without a rail. - Discharge Goal?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.P1",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Picking up object: The ability to bend/stoop from a standing position to pick up a small object, such as a spoon, from the floor. - SOC/ROC Performance?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.P2",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Picking up object: The ability to bend/stoop from a standing position to pick up a small object, such as a spoon, from the floor. - Discharge Goal?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.Q",
+        "question": "Does patient use wheelchair and/or scooter?",
+        "options": [
+            "0. No (Skip to M1600, Urinary Tract Infection)",
+            "1. Yes (Continue to GG0170R, Wheel 50 feet with two turns)"
+        ]
+    },
+    {
+        "question_code": "GG0170.R1",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Wheel 50 feet with two turns: Once seated in wheelchair/scooter, the ability to wheel at least 50 feet and make two turns. - SOC/ROC Performance?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.R2",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Wheel 50 feet with two turns: Once seated in wheelchair/scooter, the ability to wheel at least 50 feet and make two turns. - Discharge Goal?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.RR1",
+        "question": "Wheel 50 feet with two turns: Once seated in wheelchair/scooter, the ability to wheel at least 50 feet and make two turns. Indicate the type of wheelchair or scooter used?",
+        "options": [
+            "1. Manual",
+            "2. Motorized"
+        ]
+    },
+    {
+        "question_code": "GG0170.S1",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Wheel 150 feet: Once seated in wheelchair/scooter, the ability to wheel at least 150 feet in a corridor or similar space. - SOC/ROC Performance?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.S2",
+        "question": "Code the patient's usual performance at SOC/ROC for each activity using the 6-point scale. If activity was not attempted at SOC/ROC, code the reason. Code the patient's discharge goal(s) using the 6-point scale. Use of codes 07, 09, 10 or 88 is permissible to code discharge goal(s). - Wheel 150 feet: Once seated in wheelchair/scooter, the ability to wheel at least 150 feet in a corridor or similar space. - Discharge Goal?",
+        "options": [
+            "06. Independent - Patient completes the activity by themself with no assistance from a helper.",
+            "05. Setup or clean-up assistance - Helper sets up or cleans up; patient completes activity. Helper assists only prior to or following the activity.",
+            "04. Supervision or touching assistance - Helper provides verbal cues and/or touching/steadying and/or contact guard assistance as patient completes activity. Assistance may be provided throughout the activity or intermittently.",
+            "03. Partial/moderate assistance - Helper does LESS THAN HALF the effort. Helper lifts, holds or supports trunk or limbs, but provides less than half the effort.",
+            "02. Substantial/maximal assistance - Helper does MORE THAN HALF the effort. Helper lifts or holds trunk or limbs and provides more than half the effort.",
+            "01. Dependent - Helper does ALL of the effort. Patient does none of the effort to complete the activity. Or, the assistance of 2 or more helpers is required for the patient to complete the activity.",
+            "07. Patient refused",
+            "09. Not applicable - Not attempted and the patient did not perform this activity prior to the current illness, exacerbation or injury.",
+            "10. Not attempted due to environmental limitations (e.g., lack of equipment, weather constraints)",
+            "88. Not attempted due to medical condition or safety concerns"
+        ]
+    },
+    {
+        "question_code": "GG0170.SS1",
+        "question": "Wheel 150 feet: Once seated in wheelchair/scooter, the ability to wheel at least 150 feet in a corridor or similar space. Indicate the type of wheelchair or scooter used?",
+        "options": [
+            "1. Manual",
+            "2. Motorized"
+        ]
+    },
+    {
+        "question_code": "M1600",
+        "question": "Has this patient been treated for a Urinary Tract Infection in the past 14 days?",
+        "options": [
+            "0. NO",
+            "1. Yes",
+            "NA. Patient on prophylactic treatment",
+            "UK. Unknown"
+        ]
+    },
+    {
+        "question_code": "M1610",
+        "question": " Urinary Incontinence or Urinary Catheter Presence",
+        "options": [
+            "0. No incontinence or catheter (includes anuria or ostomy for urinary drainage)",
+            "1. Patient is incontinent",
+            "2. Patient requires a urinary catheter (specifically: external, indwelling, intermittent, or suprapubic)"
+        ]
+    },
+    {
+        "question_code": "M1620",
+        "question": "Bowel Incontinence Frequency",
+        "options": [
+            "0. Very rarely or never has bowel incontinence",
+            "1. Less than once weekly",
+            "2. One to three times weekly",
+            "3. Four to six times weekly",
+            "4. On a daily basis",
+            "NA. More often than once daily",
+            "NA. Patient has ostomy for bowel elimination",
+            "UK. Unknown"
+        ]
+    },
+    {
+        "question_code": "M1630",
+        "question": "Does this patient have an ostomy for bowel elimination that (within the last 14 days): a) was related to an inpatient facility stay; or b) necessitated a change in medical or treatment regimen?",
+        "options": [
+            "0. Patient does not have an ostomy for bowel elimination.",
+            "1. Patient's ostomy was not related to an inpatient stay and did not necessitate change in medical or treatment regimen.",
+            "2. The ostomy was related to an inpatient stay or did necessitate change in medical or treatment regimen."
+        ]
+    },
+    {
+        "question_code": "M1021.A",
+        "question": "Primary Diagnosis - Diagnoses (Sequencing of diagnoses should reflect the seriousness of each condition and support the disciplines and services provided)",
+        "options": []
+    },
+    {
+        "question_code": "M1021.B",
+        "question": "Primary Diagnosis - ICD-10-CM and symptom control rating for each condition. Note that the sequencing of these ratings may not match the sequencing of the diagnoses",
+        "options": []
+    },
+    {
+        "question_code": "M1023.A",
+        "question": "Other Diagnoses - Diagnoses (Sequencing of diagnoses should reflect the seriousness of each condition and support the disciplines and services provided)",
+        "options": []
+    },
+    {
+        "question_code": "M1023.B",
+        "question": "Other Diagnoses - ICD-10-CM and symptom control rating for each condition. Note that the sequencing of these ratings may not match the sequencing of the diagnoses",
+        "options": []
+    },
+    {
+        "question_code": "M1028",
+        "question": "Active Diagnoses - Comorbidities and Co-existing Conditions",
+        "options": [
+            "1. Peripheral Vascular Disease (PVD) or Peripheral Arterial Disease (PAD)",
+            "2. Diabetes Mellitus (DM)",
+            "3. None of the above"
+        ]
+    },
+    {
+        "question_code": "M1033",
+        "question": "Which of the following signs or symptoms characterize this patient as at risk for hospitalization?",
+        "options": [
+            "1. History of falls (2 or more falls - or any fall with an injury - in the past 12 months)",
+            "2. Unintentional weight loss of a total of 10 pounds or more in the past 12 months",
+            "3. Multiple hospitalizations (2 or more) in the past 6 months",
+            "4. Multiple emergency department visits (2 or more) in the past 6 months",
+            "5. Decline in mental, emotional, or behavioral status in the past 3 months",
+            "6. Reported or observed history of difficulty complying with any medical instructions (for example, medications, diet, exercise) in the past 3 months",
+            "7. Currently taking 5 or more medications",
+            "8. Currently reports exhaustion",
+            "9. Other risk(s) not listed in 1-8",
+            "10. None of the above"
+        ]
+    },
+    {
+        "question_code": "J0510",
+        "question": "Over the past 5 days, how much of the time has pain made it hard for you to sleep at night",
+        "options": [
+            "0. Does not apply - I have not had any pain or hurting in the past 5 days - Skip to M1400, Short of Breath at SOC/ROC; Skip to J1800 Any Falls Since SOC/ROC at DC",
+            "1. Rarely or not at all",
+            "2. Occasionally",
+            "3. Frequently",
+            "4. Almost constantly",
+            "8. Unable to answer"
+        ]
+    },
+    {
+        "question_code": "J0520",
+        "question": "Over the past 5 days, how often have you limited your participation in rehabilitation therapy sessions due to pain?",
+        "options": [
+            "0. Does not apply - I have not received rehabilitation therapy in the past 5 days",
+            "1. Rarely or not at all",
+            "2. Occasionally",
+            "3. Frequently",
+            "4. Almost constantly",
+            "8. Unable to answer"
+        ]
+    },
+    {
+        "question_code": "J0530",
+        "question": "Over the past 5 days, how often you have limited your day-to-day activities (excluding rehabilitation therapy session) because of pain?",
+        "options": [
+            "1. Rarely or not at all",
+            "2. Occasionally",
+            "3. Frequently",
+            "4. Almost constantly",
+            "8. Unable to answer"
+        ]
+    },
+    {
+        "question_code": "M1400",
+        "question": "When is the patient dyspneic or noticeably Short of Breath?",
+        "options": [
+            "0. Patient is not short of breath",
+            "1. When walking more than 20 feet, climbing stairs",
+            "2. With moderate exertion (for example, while dressing, using commode or bedpan, walking distances less than 20 feet)",
+            "3. With minimal exertion (for example, while eating, talking, or performing other ADLs) or with agitation",
+            "4. At rest (during day or night)"
+        ]
+    },
+    {
+        "question_code": "M1060.A",
+        "question": "Height (in inches). Record most recent height measure since the most recent SOC/ROC",
+        "options": null
+    },
+    {
+        "question_code": "M1060.B",
+        "question": "Weight (in pounds). Base weight on most recent measure in last 30 days; measure weight consistently, according to standard agency practice (for example, in a.m. after voiding, before meal, with shoes off, etc.)",
+        "options": null
+    },
+    {
+        "question_code": "K0520",
+        "question": "Check all of the nutritional approaches that apply on admission",
+        "options": [
+            "A. Parenteral/IV feeding",
+            "B. Feeding tube (e.g., nasogastric or abdominal (PEG))",
+            "C. Mechanically altered diet - require change in texture of food or liquids (e.g., pureed food, thickened liquids)",
+            "D. Therapeutic diet (e.g., low salt, diabetic, low cholesterol)",
+            "Z. None of the above"
+        ]
+    },
+    {
+        "question_code": "M1870",
+        "question": "Current ability to feed self meals and snacks safely. Note: This refers only to the process of eating, chewing, and swallowing, not preparing the food to be eaten.",
+        "options": [
+            "0. Able to independently feed self",
+            "1.a. Able to feed self independently but requires: meal set-up;",
+            "1.b. Able to feed self independently but requires: intermittent assistance or supervision from another person;",
+            "1.c. Able to feed self independently but requires: a liquid, pureed or ground meat diet.",
+            "2. Unable to feed self and must be assisted or supervised throughout the meal/snack",
+            "3. Able to take in nutrients orally and receives supplemental nutrients through a nasogastric tube or gastrostomy.",
+            "4. Unable to take in nutrients orally and is fed nutrients through a nasogastric tube or gastrostomy.",
+            "5. Unable to take in nutrients orally or by tube feeding."
+        ]
+    },
+    {
+        "question_code": "M1306",
+        "question": "Does this patient have at least one Unhealed Pressure Ulcer/Injury at Stage 2 or Higher or designated as Unstageable? (Excludes Stage 1 pressure injuries and all healed pressure ulcers/injuries)",
+        "options": [
+            "0. No - Skip to M1322, Current Number of Stage 1 Pressure Injuries at SOC/ROC; Skip to M1324, Stage of Most Problematic Unhealed Pressure Ulcer/Injury that is Stageable at DC",
+            "1. Yes"
+        ]
+    },
+    {
+        "question_code": "M1311.A1",
+        "question": "Current Number of Unhealed Pressure Ulcers/Injuries at Each Stage - Stage 2: Partial thickness loss of dermis presenting as a shallow open ulcer with a red or pink wound bed, without slough. May also present as an intact or open/ruptured blister. Number of Stage 2 pressure ulcers",
+        "options": []
+    },
+    {
+        "question_code": "M1311.B1",
+        "question": "Current Number of Unhealed Pressure Ulcers/Injuries at Each Stage - Stage 3: Full thickness tissue loss. Subcutaneous fat may be visible but bone, tendon, or muscle is not exposed. Slough may be present but does not obscure the depth of tissue loss. May include undermining and tunneling. Number of Stage 3 pressure ulcers",
+        "options": []
+    },
+    {
+        "question_code": "M1311.C1",
+        "question": "Current Number of Unhealed Pressure Ulcers/Injuries at Each Stage - Stage 4: Full thickness tissue loss with exposed bone, tendon, or muscle. Slough or eschar may be present on some parts of the wound bed. Often includes undermining and tunneling. Number of Stage 4 pressure ulcers",
+        "options": []
+    },
+    {
+        "question_code": "M1311.D1",
+        "question": "Current Number of Unhealed Pressure Ulcers/Injuries at Each Stage - Unstageable: Non-removable dressing/device: Known but not stageable due to non-removable dressing/device Number of unstageable pressure ulcers/injuries due to non-removable dressing/device",
+        "options": []
+    },
+    {
+        "question_code": "M1311.E1",
+        "question": "Current Number of Unhealed Pressure Ulcers/Injuries at Each Stage - Unstageable: Slough and/or eschar: Known but not stageable due to coverage of wound bed by slough and/or eschar Number of unstageable pressure ulcers due to coverage of wound bed by slough and/or eschar",
+        "options": []
+    },
+    {
+        "question_code": "M1311.F1",
+        "question": "Current Number of Unhealed Pressure Ulcers/Injuries at Each Stage - Unstageable: Deep tissue injury Number of unstageable pressure injuries presenting as deep tissue injury",
+        "options": []
+    },
+    {
+        "question_code": "M1322",
+        "question": "Current Number of Stage 1 Pressure Injuries - Intact skin with non-blanchable redness of a localized area usually over a bony prominence. Darkly pigmented skin may not have a visible blanching; in dark skin tones only it may appear with persistent blue or purple hues",
+        "options": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4 or more"
+        ]
+    },
+    {
+        "question_code": "M1324",
+        "question": "Stage of Most Problematic Unhealed Pressure Ulcer/Injury that is Stageable - Excludes pressure ulcer/injury that cannot be staged due to a non-removable dressing/device, coverage of wound bed by slough and/or eschar, or deep tissue injury.",
+        "options": [
+            "1. Stage 1",
+            "2. Stage 2",
+            "3. Stage 3",
+            "4. Stage 4",
+            "NA. Patient has no pressure ulcers/injuries or no stageable pressure ulcers/injuries"
+        ]
+    },
+    {
+        "question_code": "M1330",
+        "question": "Does this patient have a Stasis Ulcer?",
+        "options": [
+            "0. No - Skip to M1340, Surgical Wound",
+            "1. Yes, patient has BOTH observable and unobservable stasis ulcers",
+            "2. Yes, patient has observable stasis ulcers ONLY",
+            "3. Yes, patient has unobservable stasis ulcers ONLY (known but not observable due to non-removable dressing/device) - Skip to M1340, Surgical Wound "
+        ]
+    },
+    {
+        "question_code": "M1332",
+        "question": "Current Number of Stasis Ulcer(s) that are Observable",
+        "options": [
+            "1. One",
+            "2. Two",
+            "3. Three",
+            "4. Four"
+        ]
+    },
+    {
+        "question_code": "M1334",
+        "question": "Status of Most Problematic Stasis Ulcer that is Observable",
+        "options": [
+            "1. Fully granulating",
+            "2. Early/partial granulation",
+            "3. Not healing"
+        ]
+    },
+    {
+        "question_code": "M1340",
+        "question": "Does this patient have a Surgical Wound?",
+        "options": [
+            "0. No - Skip to N0415, High-Risk Drug Classes: Use and Indication",
+            "1. Yes, patient has at least one observable surgical wound",
+            "2. Surgical wound known but not observable due to non-removable dressing/device - Skip to N0415, High-Risk Drug Classes: Use and Indication"
+        ]
+    },
+    {
+        "question_code": "M1342",
+        "question": "Status of Most Problematic Surgical Wound that is Observable",
+        "options": [
+            "0. Newly epithelialized",
+            "1. Fully granulating",
+            "2. Early/partial granulation",
+            "3. Not healing"
+        ]
+    },
+    {
+        "question_code": "N0415.1",
+        "question": "High-Risk Drug Classes: Use and Indication - Check if the patient is taking any medications by pharmacological classification, not how it is used, in the following classes. (can check multiple options)",
+        "options": [
+            "A. Antipsychotic",
+            "E. Anticoagulant",
+            "F. Antibiotic",
+            "H. Opioid",
+            "I. Antiplatelet",
+            "J. Hypoglycemic (including insulin)",
+            "Z. None of the Above"
+        ]
+    },
+    {
+        "question_code": "N0415.2",
+        "question": "High-Risk Drug Classes: Use and Indication - If Column-1(s Taking) is checked, check if there is an indication noted for all medications in the drug class. (can check multiple options)",
+        "options": [
+            "A. Antipsychotic",
+            "E. Anticoagulant",
+            "F. Antibiotic",
+            "H. Opioid",
+            "I. Antiplatelet",
+            "J. Hypoglycemic (including insulin)",
+            "Z. None of the Above"
+        ]
+    },
+    {
+        "question_code": "M2001",
+        "question": "Did a complete drug regimen review identify potential clinically significant medication issues?",
+        "options": [
+            "0. No - No issues found during review - Skip to M2010, Patient/Caregiver High-Risk Drug Education",
+            "1. Yes - Issues found during review",
+            "9. NA - Patient is not taking any medications - Skip to O0110, Special Treatments, Procedures, and Programs"
+        ]
+    },
+    {
+        "question_code": "M2003",
+        "question": "Did the agency contact a physician (or physician-designee) by midnight of the next calendar day and complete prescribed/recommended actions in response to the identified potential clinically significant medication issues?",
+        "options": [
+            "0. No",
+            "1. Yes"
+        ]
+    },
+    {
+        "question_code": "M2010",
+        "question": "Has the patient/caregiver received instruction on special precautions for all high-risk medications (such as hypoglycemics, anticoagulants, etc.) and how and when to report problems that may occur?",
+        "options": [
+            "0. No",
+            "1. Yes",
+            "NA. Patient not taking any high-risk drugs OR patient/caregiver fully knowledgeable about special precautions associated with all high-risk medications"
+        ]
+    },
+    {
+        "question_code": "M2020",
+        "question": "Patient's current ability to prepare and take all oral medications reliably and safely, including administration of the correct dosage at the appropriate times/intervals. Excludes injectable and IV medications. (NOTE: This refers to ability, not compliance or willingness.)",
+        "options": [
+            "0. Able to independently take the correct oral medication(s) and proper dosage(s) at the correct times.",
+            "1.a. Able to take medication(s) at the correct times if: individual dosages are prepared in advance by another person;",
+            "1.b. Able to take medication(s) at the correct times if: another person develops a drug diary or chart.",
+            "2. Able to take medication(s) at the correct times if given reminders by another person at the appropriate times",
+            "3. Unable to take medication unless administered by another person.",
+            "NA. No oral medications prescribed."
+        ]
+    },
+    {
+        "question_code": "M2030",
+        "question": "Patient's current ability to prepare and take all prescribed injectable medications reliably and safely, including administration of correct dosage at the appropriate times/intervals. Excludes IV medications.",
+        "options": [
+            "0. Able to independently take the correct medication(s) and proper dosage(s) at the correct times.",
+            "1.a. Able to take injectable medication(s) at the correct times if: individual syringes are prepared in advance by another person;",
+            "1.b. Able to take injectable medication(s) at the correct times if: another person develops a drug diary or chart.",
+            "2. Able to take medication(s) at the correct times if given reminders by another person based on the frequency of the injection",
+            "3. Unable to take injectable medication unless administered by another person.",
+            "NA. No injectable medications prescribed."
+        ]
+    },
+    {
+        "question_code": "O0110.1",
+        "question": "Check all of the following treatments, procedures, and programs that apply on admission. - Cancer Treatments",
+        "options": [
+            "A1. Chemotherapy",
+            "A2. IV",
+            "A3. Oral",
+            "A10. Other",
+            "B1. Radiation",
+            "Z1. None of the Above"
+        ]
+    },
+    {
+        "question_code": "O0110.2",
+        "question": "Check all of the following treatments, procedures, and programs that apply on admission. - Respiratory Therapies",
+        "options": [
+            "C1. Oxygen Therapy",
+            "C2. Continuous",
+            "C3. Intermittent",
+            "C4. High-concentration",
+            "D1. Suctioning",
+            "D2. Scheduled",
+            "D3. As needed",
+            "E1. Tracheostomy Care",
+            "F1. Invasive Mechanical Ventilator",
+            "G1. Non-invasive Mechanical Ventilator",
+            "G2. BiPAP",
+            "G3. CPAP",
+            "Z1. None of the Above"
+        ]
+    },
+    {
+        "question_code": "O0110.3",
+        "question": "Check all of the following treatments, procedures, and programs that apply on admission. - Other",
+        "options": [
+            "H1. IV Medications",
+            "H2. Vasoactive medications",
+            "H3. Antibiotics",
+            "H4. Anticoagulation",
+            "H10. Other",
+            "I1. Transfusions",
+            "J1. Dialysis",
+            "J2. Hemodialysis",
+            "J3. Peritoneal dialysis",
+            "O1. IV Access",
+            "O2. Peripheral",
+            "O3. Mid-line",
+            "O4. Central",
+            "Z1. None of the Above"
+        ]
+    },
+    {
+        "question_code": "M2200",
+        "question": "In the home health plan of care for the Medicare payment episode for which this assessment will define a case mix group, what is the indicated need for therapy visits (total of reasonable and necessary physical, occupational, and speech-language pathology visits combined)? (Enter zero ['000'] if no therapy visits indicated.)",
+        "options": [
+            "NA. Not Applicable: No case mix group defined by this assessment.",
+            "Number of therapy visits indicated (total of physical, occupational and speech-language pathology combined.)"
+        ]
+    }
+]

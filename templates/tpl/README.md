@@ -32,14 +32,14 @@ python -m uvicorn {app_name}.main:app --reload
 
 {App Name} Should be available at http://localhost:8000
 
-### Run the Application in Docker
+### Run the Application in Docker Locally
 ```sh
 # run this from above the apps directory
 docker build -t {app_name} -f apps/{app_name}/Dockerfile .
-docker run --rm --name {app_name} -p 8000:8000 {app_name}
+docker run --env-file .env --rm --name {app_name} -p 8000:8000 {app_name}
 
 # interactively
-docker run --rm -it {app_name} /bin/sh
+docker run --env-file .env --rm -it {app_name} /bin/sh
 
 ```
 

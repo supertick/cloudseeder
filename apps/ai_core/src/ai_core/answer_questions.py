@@ -1,6 +1,7 @@
 import logging
 import openai
 from ai_core.config import settings
+from ai_core.slack import send_slack_message
 from itertools import zip_longest
 from concurrent.futures import ThreadPoolExecutor
 import json
@@ -269,20 +270,6 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
     
-def send_slack_message(message: str):
-    """
-    Send a message to Slack Channel using Bot User
-    """
-    try:
-        # if settings.use_slack
-        if slack_client:
-            slack_client.chat_postMessage(
-                channel=settings.slack_channel_name, 
-                text=message
-            )
-    except Exception as e:
-        raise e
-
 def get_splitted_assessment_list()-> list:
     """
     Get Splitted Assessment list by assessment_object_key
@@ -310,7 +297,7 @@ def prepare_user_content(splitted_list, template):
     return user_content_list
 
 
-def answer_questions(patient_id: str, encounter_id: str, assessment_id: str, assessment_type: str):
+def answer_questions(conversation_filename:str, patient_id: str, encounter_id: str, assessment_id: str, assessment_type: str):
 
     with open("assessment.json", "r") as file:
         full_assessment_list = json.load(file)
@@ -320,67 +307,22 @@ def answer_questions(patient_id: str, encounter_id: str, assessment_id: str, ass
     client = openai.OpenAI(api_key=settings.openai_key)
 
     try:
-        # # Get Encryption Salt
-        # encryption_salt = get_secret_by_name(secret_key_name="ENCRYPTION_SALT")
-        # encryption_password = get_secret_by_name(secret_key_name="ENCRYPTION_PASSWORD")
-        
-        # # Create a Slack Client to send Messages
-        # slack_bot_token = get_secret_by_name(secret_key_name="SLACK_BOT_TOKEN")
-        # slack_client = WebClient(token=slack_bot_token)
-        
-        # # Create OpenAI Client
-        # api_key = get_secret_by_name(secret_key_name="OPENAI_API_KEY")
-        
-        # client = openai.OpenAI(api_key=api_key)
-
-        # # Get Object key from Lambda Event 
-        # object_key = get_object_key_from_event(event=event)
-        
-        # if "medical" not in str(object_key):
-        #     return {
-        #         'statusCode': 400,
-        #         'error': json.dumps("There is no medical transcribe file uploaded.")
-        #     }
-        
-        # # Get Patient and Encounter Id from object key
-        # object_data_dict = get_patient_id_and_encounter_id_from_object_key(key=object_key)
-        # patient_id = object_data_dict.get("patient_id")
-        # encounter_id = object_data_dict.get("encounter_id")
-        # assessment_id = object_data_dict.get("assessment_id")
-        
-        # # Send an Alert to Slack Channel
-        # slack_message = f"Generating Question-Answer process started.\n\nDate : *{time.ctime(time.time())}*\nPatient ID : *{patient_id}*\nEncounter ID : *{encounter_id}*\nAssessment ID : *{assessment_id}*"
-        # send_slack_message(message=slack_message)
         
         # ---------------------------------------------------------------
         # OpenAI Operation
         # ---------------------------------------------------------------
         vector_store_name = f"vs_{patient_id}"
         assistant_name = f"assistant_{patient_id}"
-        
-        # Get and Upload Transcription File
-        # transcription_file_obj = get_file_from_s3_and_upload_to_openai(client=client, slack_client=slack_client, slack_channel_name=slack_channel_name, object_key=object_key, filename="transcript.json", patient_id=patient_id, encounter_id=encounter_id, assessment_id=assessment_id)
-        
-        # if not transcription_file_obj:
-        #     # Send an Alert to Slack Channel
-        #     slack_message = f"Transcription file found empty.\n\nDate : *{time.ctime(time.time())}*\nPatient ID : *{patient_id}*\nEncounter ID : *{encounter_id}*\nAssessment ID : *{assessment_id}*"
-        #     send_slack_message(message=slack_message)
-        #     return {
-        #         'statusCode': 400,
-        #         'error': json.dumps("Transcription file found empty.")
-        #     }
-            
+                    
         # Create Vector Store
         vector_store = client.beta.vector_stores.create(name=vector_store_name)
                 
-        file_paths = ["conversation.json"]
+        file_paths = [conversation_filename]
         file_streams = [open(path, "rb") for path in file_paths]
 
         file_batch = client.beta.vector_stores.file_batches.upload_and_poll(
         vector_store_id=vector_store.id, files=file_streams
         )
-
-        # file_batch = client.beta.vector_stores.file_batches.create_and_poll(vector_store_id=vector_store.id, files=file_streams) # file_ids=["formatted_output.json"]
 
         print(file_batch.status)
         print(file_batch.file_counts)
@@ -397,6 +339,8 @@ def answer_questions(patient_id: str, encounter_id: str, assessment_id: str, ass
         chunk_size = number_of_question  # Number of questions per chunk
         assessment_splitted_list = split_assessment_list(full_assessment_list, chunk_size)
         user_content_list = prepare_user_content(assessment_splitted_list, user_content_default)
+
+        question_answer_list = []
 
         # Parallel processing with ThreadPoolExecutor
         with ThreadPoolExecutor() as executor:
@@ -439,52 +383,62 @@ def answer_questions(patient_id: str, encounter_id: str, assessment_id: str, ass
                     logger.error(f"Error processing future: {e}")            
 
             # Create Required JSON Format
-            final_data_dict = {
-                "EncounterID": encounter_id,
-                "PatientID": patient_id,
-                "Responses": question_answer_list
-            }
+            # final_data_dict = {
+            #     "EncounterID": encounter_id,
+            #     "PatientID": patient_id,
+            #     "Responses": question_answer_list
+            # }
                 
-            if final_data_dict:
-                
-                # Save JSON Data to s3
-                object_key = f"question_answer/{patient_id}/{encounter_id}"
-                question_answer_file_name = "question_answer.json"
-                # upload_file_to_s3(object_key=object_key, file_name=question_answer_file_name, file_content=json.dumps(final_data_dict))
-                with open(question_answer_file_name, "w") as json_file:
-                    json.dump(question_answer_list, json_file)
+            # if final_data_dict:
+            #     return question_answer_list
+            #     # # Save JSON Data to s3
+            #     # object_key = f"question_answer/{patient_id}/{encounter_id}"
+            #     # question_answer_file_name = "question_answer.json"
+            #     # # upload_file_to_s3(object_key=object_key, file_name=question_answer_file_name, file_content=json.dumps(final_data_dict))
+            #     # with open(question_answer_file_name, "w") as json_file:
+            #     #     json.dump(question_answer_list, json_file)
                 
         # Delete All OpenAI Objects
-        if delete_openai_objects:
-            delete_all_openai_objects(
-                client=client,
-                file_ids_list=[transcription_file_obj.id],
-                vector_store_id=vector_store.id,
-                run_ids=run_obj_list,
-                assistant_id=assistant.id
-            )
-                    
-        # Create and Save Encrypted Audio file to s3 and Delete single audio file from s3
-        # create_encrypted_audio_and_save_to_s3(salt_string=encryption_salt, encryption_password=encryption_password, patient_id=patient_id, encounter_id=encounter_id)
-        
+        # I don't think embeddings require deleting
+        # if delete_openai_objects:
+        #     delete_all_openai_objects(
+        #         client=client,
+        #         file_ids_list=[transcription_file_obj.id],
+        #         vector_store_id=vector_store.id,
+        #         run_ids=run_obj_list,
+        #         assistant_id=assistant.id
+        #     )
+                            
         # Send an Alert to Slack Channel
-        slack_message = f"Whole process completed successfully with Question-Answer pair.\n\nDate : *{time.ctime(time.time())}*\nPatient ID : *{patient_id}*\nEncounter ID : *{encounter_id}*\nAssessment ID : *{assessment_id}*"
+        slack_message = f"Whole process completed successfully with Question-Answer pair.\n\n"
+        f"Date : *{time.ctime(time.time())}*\n"
+        f"Patient ID : *{patient_id}*\n"
+        f"Encounter ID : *{encounter_id}*\n"
+        f"Assessment ID : *{assessment_id}*"
+
         send_slack_message(slack_message)
-        
-        return {
-            'statusCode': 200,
-            'body': json.dumps("Completed...")
+
+        final_data_dict = {
+            "EncounterID": encounter_id,
+            "PatientID": patient_id,
+            "Responses": question_answer_list
         }
-        
+
+        return final_data_dict
+                
     except Exception as e:
         # Send an Alert to Slack Channel
-        error_message = f"Something went wrong while generating question-answer file.\n\nDate : *{time.ctime(time.time())}*\nPatient ID : *{patient_id}*\nEncounter ID : *{encounter_id}*\nAssessment ID : *{assessment_id}*\nError : *{str(e)}*\nLine no. : *{e.__traceback__.tb_lineno}*"
-        send_slack_message(error_message)
+        error_message = f"Something went wrong while generating question-answer file.\n\n"
+        f"Date : *{time.ctime(time.time())}*\n"
+        f"Patient ID : *{patient_id}*\n"
+        f"Encounter ID : *{encounter_id}*\n"
+        f"Assessment ID : *{assessment_id}*\n"
+        f"Error : *{str(e)}*\n"
+        f"Line no. : *{e.__traceback__.tb_lineno}*"
+
         logger.error(error_message)
-        return {
-            'statusCode': 400,
-            'error': json.dumps("something went wrong.")
-        }
+        send_slack_message(error_message)
+        return None
         
 
 

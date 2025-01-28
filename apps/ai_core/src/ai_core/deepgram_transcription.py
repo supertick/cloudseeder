@@ -15,11 +15,12 @@ logger = logging.getLogger(__name__)
 # Generate a timestamp for the transcript file
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
-def transform_deepgram_json(filename):
+def transform(json_data):
     try:
+        logger.info(f"Transforming Deepgram JSON... {json_data}")
         # Open and load the JSON file
-        with open(filename, 'r') as file:
-            data = json.load(file)
+        # data = json.load(json_data)
+        data = json.loads(json_data)
         
         # Extract the desired data
         input_json = data["results"]["channels"][0]["alternatives"][0]["paragraphs"]["paragraphs"]
@@ -39,13 +40,7 @@ def transform_deepgram_json(filename):
             # Add the transformed entry to the result list
             transformed.append(transformed_entry)
         
-        # Save the formatted JSON to a new file
-        with open("conversation.json", 'w') as outfile:
-            json.dump(transformed, outfile, indent=4)
-        
-        logger.info("Formatted JSON saved to 'conversation.json'.")
-
-        # transform_deepgram_json
+        return transformed
     
     except KeyError as e:
         logger.error(f"Key error: {e}")
@@ -54,16 +49,9 @@ def transform_deepgram_json(filename):
     except Exception as e:
         logger.error(f"An error occurred: {e}")
 
-def transcribe(request: Transcription_request):
+def transcribe(audio_filename: str):
         # Create a Deepgram client using the API key
         deepgram = DeepgramClient(settings.deepgram_api_key)
-        start_time = int(time.time())
-
-        # should only be 1 file per request
-        if len(request.files) != 1:
-            raise ValueError("Invalid number of files in the request.")
-        
-        audio_filename = request.files[0]
 
         # Read the audio file as binary data
         if not os.path.exists(audio_filename):
@@ -94,24 +82,10 @@ def transcribe(request: Transcription_request):
 
         # Call the transcribe_file method with the text payload and options
         response = deepgram.listen.rest.v("1").transcribe_file(payload, options, timeout=httpx.Timeout(300.0, connect=10.0))
-        conversation = transform_deepgram_json(response.to_json())
-
-        parent_dir = os.path.join(settings.work_dir, request.patient_id, request.encounter_id)
-
-        # Create a directory for the patient if it doesn't exist
-        if not os.path.exists(parent_dir):
-            os.makedirs(parent_dir)
-
-        output_file = os.path.join(parent_dir, f"transcript_{start_time}.json")
-        with open(output_file, "w") as f:
-            json.dump(conversation, f, indent=4)
-        
-        logger.info(f"Transcript JSON file generated successfully: {output_file}")
-
-        return output_file
+        return response.to_json()
 
 
 if __name__ == "__main__":
     # main()
-    data = transform_deepgram_json("transcript_1737658924-1737658955.json")
+    data = transform("transcript_1737658924-1737658955.json")
     

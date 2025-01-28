@@ -22,15 +22,18 @@ RUN pip install -e apps/ai_core \
     && pip install -e packages/database \
     && pip install -e packages/queues
 
+WORKDIR /app/apps/ai_core
+
 # Expose port 8000 for FastAPI
 EXPOSE 8000
 
 # Set environment variables (optional fallback values)
 # FIXME - dynamically pull config elements from tpl definition
-ENV AI_CORE_PORT=8000
+ENV AI_CORE_PORT=8001
 ENV AI_CORE_WORK_DIR="/work"
 ENV AI_CORE_LOG_LEVEL="info"
 ENV AI_CORE_DEEPGRAM_API_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
 # Command to run the FastAPI application
-CMD ["uvicorn", "ai_core.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# CMD ["uvicorn", "ai_core.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["python", "src/ai_core/pipeline.py"]
