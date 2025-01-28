@@ -15,7 +15,10 @@ dependencies = [
     "pydantic-settings",
     "python-dotenv",
     "python-multipart",
-    "PyJWT"
+    "PyJWT",
+    "openai",
+    "deepgram",
+    "slack_sdk"
 ]
 
 [project.optional-dependencies]

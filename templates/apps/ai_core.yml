@@ -8,7 +8,7 @@ app:
       id: Optional[str] = Field("default", example="default")
       port: Optional[int] = Field(8001, example="8001")
       work_dir: Optional[str] = Field("work", example="work")
-      log_level: Optional[str] = Field("info", example="info")
+      log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] = Field("INFO", description="Log Level", example="INFO") 
 
       # REQUIRED CONFIGURATION
       auth_enabled: Optional[bool] = Field(False, description="Enable authentication", example=True)
@@ -18,13 +18,16 @@ app:
       queue_type: Literal["local", "sqs"] = Field("local", description="Queue type", example="local")      
       deepgram_api_key: Optional[str] = Field(None, example="xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
 
-
       openai_key: Optional[str] = Field(None, description="OpenAI access key", example="your-access-key")
       openai_model: Optional[str] = Field("gpt-4o-mini", description="OpenAI model", example="gpt-4o-mini")
 
       aws_access_key_id: Optional[str] = Field(None, description="AWS Access Key ID", example="your-access-key")
       aws_secret_access_key: Optional[str] = Field(None, description="AWS Secret Access Key", example="your-secret-key")
       aws_region: Optional[str] = Field(None, description="AWS Region", example="us-east-1")
+
+      slack_enabled: Optional[bool] = Field(False, description="Enable Slack notifications", example=True)
+      slack_channel: Optional[str] = Field("acutedge-alerts", description="Slack channel", example="acutedge-alerts")
+      slack_bot_token: Optional[str] = Field(None, description="Slack bot token", example="xxxxxxxx")
 
     # company:
     #   id: Optional[str] = Field(None)

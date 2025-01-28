@@ -27,10 +27,10 @@ EXPOSE 8000
 
 # Set environment variables (optional fallback values)
 # FIXME - dynamically pull config elements from tpl definition
-ENV {APP_NAME}_PORT=8000
-ENV {APP_NAME}_WORK_DIR="/work"
-ENV {APP_NAME}_LOG_LEVEL="info"
-ENV {APP_NAME}_DEEPGRAM_API_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+# ENV {APP_NAME}_PORT=8000
+# ENV {APP_NAME}_WORK_DIR="/work"
+# ENV {APP_NAME}_LOG_LEVEL="info"
+# ENV {APP_NAME}_DEEPGRAM_API_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
 # Command to run the FastAPI application
 CMD ["uvicorn", "{app_name}.main:app", "--host", "0.0.0.0", "--port", "8000"]
