@@ -17,7 +17,7 @@ dependencies = [
     "python-multipart",
     "PyJWT",
     "openai",
-    "deepgram",
+    "deepgram_sdk",
     "slack_sdk"
 ]
 
