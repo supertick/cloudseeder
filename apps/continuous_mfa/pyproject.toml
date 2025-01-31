@@ -15,7 +15,8 @@ dependencies = [
     "pydantic-settings",
     "python-dotenv",
     "python-multipart",
-    "PyJWT"
+    "PyJWT",
+    "git"
 ]
 
 [project.optional-dependencies]
