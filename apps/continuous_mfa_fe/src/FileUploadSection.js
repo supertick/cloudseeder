@@ -1,8 +1,6 @@
 import React from 'react'
 import { styled } from '@mui/system'
 import Button from '@mui/material/Button'
-import { post } from 'aws-amplify/api'
-import { uploadData } from 'aws-amplify/storage'
 import { useMFALite } from './MFALiteContext'
 import { useUser } from './UserContext' // Import useUser to access userInfo
 
@@ -39,34 +37,34 @@ export default function FileUploadSection() {
   const { userInfo } = useUser() // Get userInfo from the user context
 
   const startMFALite = async (filename) => {
-    try {
-      const restOperation = post({
-        apiName: 'MetalyticsApi',
-        path: '/startMFALite',
-        options: {
-          body: {
-            xlsFileName: filename,
-            email: userInfo?.signInDetails?.loginId,
-            debug: false,
-            payload: userInfo
-          },
-          responseType: 'blob'
-        }
-      })
+    // try {
+    //   const restOperation = post({
+    //     apiName: 'MetalyticsApi',
+    //     path: '/startMFALite',
+    //     options: {
+    //       body: {
+    //         xlsFileName: filename,
+    //         email: userInfo?.signInDetails?.loginId,
+    //         debug: false,
+    //         payload: userInfo
+    //       },
+    //       responseType: 'blob'
+    //     }
+    //   })
   
-      const { body } = await restOperation.response
-      const response = await body.json()
+    //   const { body } = await restOperation.response
+    //   const response = await body.json()
   
-      if (response) {
-        setMfaStatus('MFA processing successfully started')
-        // setProgress(100) // Simulate progress completion
-      } else {
-        setMfaStatus('MFA processing failed to start')
-      }
-    } catch (error) {
-      console.error('Error starting MFA Lite:', error)
-      setMfaStatus('Error starting MFA Lite')
-    }
+    //   if (response) {
+    //     setMfaStatus('MFA processing successfully started')
+    //     // setProgress(100) // Simulate progress completion
+    //   } else {
+    //     setMfaStatus('MFA processing failed to start')
+    //   }
+    // } catch (error) {
+    //   console.error('Error starting MFA Lite:', error)
+    //   setMfaStatus('Error starting MFA Lite')
+    // }
   }  
 
   const handleFileSelect = (file) => {
@@ -91,11 +89,12 @@ export default function FileUploadSection() {
   
     try {
       console.log('Uploading file:', fileData.name)
-      const result = await uploadData({
-        path: filePath,
-        data: fileData,
-        contentType: fileData.type // Ensure correct content type
-      })
+      // const result = await uploadData({
+      //   path: filePath,
+      //   data: fileData,
+      //   contentType: fileData.type // Ensure correct content type
+      // })
+      let result = null
   
       console.log('File uploaded successfully:', result)
   

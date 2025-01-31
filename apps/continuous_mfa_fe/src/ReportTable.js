@@ -13,8 +13,6 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import DownloadIcon from '@mui/icons-material/Download'
 import { useMFALite } from './MFALiteContext'
 import { useUser } from './UserContext'
-import { post } from 'aws-amplify/api'
-import { getUrl } from 'aws-amplify/storage'
 import apiClient from './utils/apiClient'
 
 export default function ReportTable() {
@@ -66,7 +64,7 @@ export default function ReportTable() {
     try {
       const safeName = userInfo.signInDetails.loginId.replace(/[@.]/g, '_')
       const path = `public/reports/${safeName}/${filename}`
-      const downloadUrl = await getUrl({ path })
+      const downloadUrl = null // await getUrl({ path })
       window.location.href = downloadUrl.url.href
     } catch (error) {
       console.error('Error downloading report:', error)
@@ -75,18 +73,18 @@ export default function ReportTable() {
 
   const handleDelete = async (filename) => {
     try {
-      const restOperation = post({
-        apiName: 'MetalyticsApi',
-        path: '/deleteReport',
-        options: {
-          body: {
-            filename,
-            email: userInfo?.signInDetails?.loginId,
-            debug: false
-          }
-        }
-      })
-      await restOperation
+      // const restOperation = post({
+      //   apiName: 'MetalyticsApi',
+      //   path: '/deleteReport',
+      //   options: {
+      //     body: {
+      //       filename,
+      //       email: userInfo?.signInDetails?.loginId,
+      //       debug: false
+      //     }
+      //   }
+      // })
+      // await restOperation
       fetchReports()
     } catch (error) {
       console.error('Error deleting report:', error)
