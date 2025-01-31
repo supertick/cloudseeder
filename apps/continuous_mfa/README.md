@@ -32,14 +32,14 @@ python -m uvicorn continuous_mfa.main:app --reload
 
 Continuous Mfa Should be available at http://localhost:8000
 
-### Run the Application in Docker
+### Run the Application in Docker Locally
 ```sh
 # run this from above the apps directory
 docker build -t continuous_mfa -f apps/continuous_mfa/Dockerfile .
-docker run --rm --name continuous_mfa -p 8000:8000 continuous_mfa
+docker run --env-file .env --rm --name continuous_mfa -p 8000:8000 continuous_mfa
 
 # interactively
-docker run --rm -it continuous_mfa /bin/sh
+docker run --env-file .env --rm -it continuous_mfa /bin/sh
 
 ```
 

@@ -116,12 +116,17 @@ class LocalAuthProvider(AuthProvider):
     def authenticate(self, username: str, password: str) -> Optional[str]:
         logger.info(f"Authenticating user: {username}")
         user = self.database.get_item(USERS_TABLE, username)
-        if user and user["password_hash"] == self._hash_password(password):
-            token = self._generate_jwt(username)
-            user["token"] = token
-            user["modified"] = int(datetime.utcnow().timestamp() * 1000)
+        if user:
+            user["login_count"] = user.get("login_count", 0) + 1
             self.database.update_item(USERS_TABLE, username, user)
-            return token
+            if user["password_hash"] == self._hash_password(password):
+                token = self._generate_jwt(username)
+                user["token"] = token
+                user["last_login"] = int(datetime.utcnow().timestamp() * 1000)
+                self.database.update_item(USERS_TABLE, username, user)
+                return token
+            else:
+                self.database.update_item(USERS_TABLE, username, {"last_unsuccessful_login": int(datetime.utcnow().timestamp() * 1000)})
         return None
 
     def get_user(self, token: str) -> Optional[dict]:

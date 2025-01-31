@@ -31,7 +31,7 @@ import TopMenuBar from "./TopMenuBar";
 import apiClient from "./utils/apiClient";
 import Footer from "./Footer";
 
-const VALID_ROLES = ["admin", "user", "editor", "viewer"]; // Define valid roles
+const VALID_ROLES = ["admin", "user"]; // Define valid roles
 
 export default function Users() {
   const [users, setUsers] = useState([]);
@@ -141,6 +141,13 @@ export default function Users() {
     }));
   };
 
+  const formatEpochTimestamp = (epoch) => {
+  if (!epoch) return "N/A"; // Handle missing or null timestamps
+
+  const date = new Date(epoch * 1000); // Convert epoch seconds to milliseconds
+  return date.toLocaleString(); // Formats as "MM/DD/YYYY, HH:MM:SS AM/PM" based on locale
+};
+
   return (
     <div
       style={{
@@ -191,10 +198,10 @@ export default function Users() {
                 <TableCell>Profile</TableCell>
                 <TableCell>Email</TableCell>
                 <TableCell>Full Name</TableCell>
-                <TableCell>Last Logged In</TableCell>
-                <TableCell>Roles</TableCell>
-                <TableCell>Errors</TableCell>
+                <TableCell>Logins</TableCell>
                 <TableCell>Success</TableCell>
+                <TableCell>Unsuccessful</TableCell>
+                <TableCell>Roles</TableCell> 
                 <TableCell>Actions</TableCell>
               </TableRow>
             </TableHead>
@@ -215,10 +222,10 @@ export default function Users() {
                     </Link>
                   </TableCell>{" "}
                   <TableCell>{user.fullname}</TableCell>
-                  <TableCell>{user.last_login}</TableCell>
+                   <TableCell>{user.login_count}</TableCell>
+                  <TableCell>{formatEpochTimestamp(user.last_login)}</TableCell>
+                  <TableCell>{formatEpochTimestamp(user.last_unsuccessful_login)}</TableCell>
                   <TableCell>{user.roles.join(", ")}</TableCell>
-                  <TableCell>{user.errors}</TableCell>
-                  <TableCell>{user.success}</TableCell>
                   <TableCell>
                     <Tooltip title="Edit User">
                       <IconButton

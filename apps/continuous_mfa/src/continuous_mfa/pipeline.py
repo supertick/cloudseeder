@@ -1,5 +1,6 @@
 import logging
 import git
+import traceback
 import asyncio
 import time
 from uvicorn import Config, Server

@@ -33,7 +33,7 @@ import Footer from "./Footer";
 import { useParams } from "react-router-dom";
 import AppsIcon from "@mui/icons-material/Apps";
 
-const VALID_ROLES = ["admin", "user", "editor", "viewer"]; // Define valid roles
+const VALID_ROLES = ["admin", "user"]; // Define valid roles
 
 export default function User() {
   const { id } = useParams();

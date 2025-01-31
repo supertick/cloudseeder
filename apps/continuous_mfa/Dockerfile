@@ -27,10 +27,10 @@ EXPOSE 8000
 
 # Set environment variables (optional fallback values)
 # FIXME - dynamically pull config elements from tpl definition
-ENV CONTINUOUS_MFA_PORT=8000
-ENV CONTINUOUS_MFA_WORK_DIR="/work"
-ENV CONTINUOUS_MFA_LOG_LEVEL="info"
-ENV CONTINUOUS_MFA_DEEPGRAM_API_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+# ENV CONTINUOUS_MFA_PORT=8000
+# ENV CONTINUOUS_MFA_WORK_DIR="/work"
+# ENV CONTINUOUS_MFA_LOG_LEVEL="info"
+# ENV CONTINUOUS_MFA_DEEPGRAM_API_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
 # Command to run the FastAPI application
 CMD ["uvicorn", "continuous_mfa.main:app", "--host", "0.0.0.0", "--port", "8000"]

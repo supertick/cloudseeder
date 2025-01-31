@@ -10,6 +10,7 @@ import {
   Paper,
   Alert,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import {jwtDecode } from "jwt-decode"; // Import jwt-decode
 import { useUser } from "./UserContext"; // Import useUser
 import apiClient from "./utils/apiClient";
@@ -20,6 +21,7 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState(""); // State to manage error messages
 
   const { setUserInfo } = useUser(); // Access setUserInfo from UserContext
+  const navigate = useNavigate();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -38,12 +40,13 @@ const Login = () => {
 
         // Update the user context with the decoded user information
         setUserInfo(user);
+        sessionStorage.setItem("token", response.access_token);
+        sessionStorage.setItem("storedUser", JSON.stringify(user));
 
         // Clear any previous error messages
         setErrorMessage("");
-
-        // Optionally, redirect to another page or perform additional actions
         console.log("User logged in successfully:", user);
+        navigate(`/reports/${user.id}`);        
       }
     } catch (error) {
       // Set a user-friendly error message

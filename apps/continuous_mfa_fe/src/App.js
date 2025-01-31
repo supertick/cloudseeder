@@ -35,7 +35,7 @@ function App({ signOut }) {
       <MFALiteProvider>
         <Router>
           <Routes>
-            <Route path="/" element={<Home />} /> {/* Set Home as the default */}
+            <Route path="/" element={<Login />} /> {/* Set Home as the default */}
             <Route path="/home" element={<Home />} />
             <Route path="/users" element={<Users />} />
             <Route path="/products" element={<Product />} />
