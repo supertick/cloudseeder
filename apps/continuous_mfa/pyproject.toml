@@ -9,14 +9,26 @@ description = "A FastAPI application in a monorepo"
 authors = [{ name = "GroG Bot", email = "grogbot@robotlab-x.com" }]
 requires-python = ">=3.10"
 dependencies = [
+    "agixtsdk",
+    "boto3",
     "fastapi",
-    "uvicorn",
+    "GitPython",
+    "matplotlib",
+    "numpy",
+    "openpyxl",
+    "pandas",
+    "pillow",
+    "psutil",
     "pydantic",
     "pydantic-settings",
+    "PyJWT",
     "python-dotenv",
     "python-multipart",
-    "PyJWT",
-    "git"
+    "python-pptx",
+    "pyyaml",
+    "reportlab",
+    "scipy",
+    "uvicorn"
 ]
 
 [project.optional-dependencies]
