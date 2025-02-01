@@ -119,7 +119,7 @@ def main(app_name: str, monorepo_root: str):
         api_file = api_dir / f"{model_name.lower()}_api.py"
 
         service_code = load_template("service_content.py", app_name, model_name, model_name.capitalize())
-        service_file = api_dir / f"{model_name.lower()}_service.py"
+        service_file = service_dir / f"{model_name.lower()}_service.py"
 
         replacements = {
             "{app_name}": app_name,

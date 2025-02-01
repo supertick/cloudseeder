@@ -1,7 +1,11 @@
+import logging
 from queues.interface import QueueClient
-from ai_core.models.transcription_request import Transcription_request, Transcription_request
 from database.interface import NoSqlDb
+from ai_core.models.transcription_request import TranscriptionRequest
 
-def create_transcription_request(item: Transcription_request, db: NoSqlDb, q: QueueClient, user: dict):
-    print("===============Transcription request service called==============")
-    print(item)
+logger = logging.getLogger(__name__)
+
+
+def create_transcription_request(item: TranscriptionRequest, db: NoSqlDb, q: QueueClient, user: dict):
+    logger.info("===============TranscriptionRequest service called==============")
+    logger.info(item)
