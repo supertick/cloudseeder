@@ -28,9 +28,9 @@ def create_user(item: User, db: NoSqlDb, q: QueueClient, user: dict):
     return new_item
 
 
-def get_all_user(item: User, db: NoSqlDb, q: QueueClient, user: dict):
+def get_all_user(db: NoSqlDb, q: QueueClient, user: dict):
     logger.info("===============get_all_user called==============")
-    logger.info(item)
+    return db.get_all_items("user")
 
 
 def get_user(id: str, db: NoSqlDb, q: QueueClient, user: dict):

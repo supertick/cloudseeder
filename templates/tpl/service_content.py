@@ -28,9 +28,9 @@ def create_{model_name}(item: {ModelName}, db: NoSqlDb, q: QueueClient, user: di
     return new_item
 
 
-def get_all_{model_name}(item: {ModelName}, db: NoSqlDb, q: QueueClient, user: dict):
+def get_all_{model_name}(db: NoSqlDb, q: QueueClient, user: dict):
     logger.info("===============get_all_{model_name} called==============")
-    logger.info(item)
+    return db.get_all_items("{model_name}")
 
 
 def get_{model_name}(id: str, db: NoSqlDb, q: QueueClient, user: dict):

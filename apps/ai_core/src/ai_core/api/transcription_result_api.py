@@ -53,17 +53,18 @@ def create_transcription_result(item: TranscriptionResult,
                         db: NoSqlDb = Depends(get_db_provider), 
                         q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
-    logger.info(f"Received request to create: {item}")
+    logger.debug(f"Received request to create: {item}")
     ret = safe_invoke("ai_core.services.transcription_result_service", "create_transcription_result", [item, db, q, user])
     return ret
 
 # read - Retrieve all items
 @router.get("/transcription-results", response_model=List[TranscriptionResult])
-def get_all_transcription_results(db: NoSqlDb = Depends(get_db_provider), 
+def get_all_transcription_results(db: NoSqlDb = Depends(get_db_provider),
+                        q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
-    logger.info("Received request to retrieve all transcription_result")
+    logger.debug("Received request to retrieve all transcription_result")
     ret = safe_invoke("ai_core.services.transcription_result_service", "get_all_transcription_result", [db, q, user])
-    return db.get_all_items("transcription_result")
+    return ret
 
 # read - Retrieve a single item
 @router.get("/transcription-result/{id}", response_model=TranscriptionResult)

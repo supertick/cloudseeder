@@ -28,9 +28,9 @@ def create_transcription_result(item: TranscriptionResult, db: NoSqlDb, q: Queue
     return new_item
 
 
-def get_all_transcription_result(item: TranscriptionResult, db: NoSqlDb, q: QueueClient, user: dict):
+def get_all_transcription_result(db: NoSqlDb, q: QueueClient, user: dict):
     logger.info("===============get_all_transcription_result called==============")
-    logger.info(item)
+    return db.get_all_items("transcription_result")
 
 
 def get_transcription_result(id: str, db: NoSqlDb, q: QueueClient, user: dict):

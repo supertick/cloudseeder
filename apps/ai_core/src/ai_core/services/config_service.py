@@ -28,9 +28,9 @@ def create_config(item: Config, db: NoSqlDb, q: QueueClient, user: dict):
     return new_item
 
 
-def get_all_config(item: Config, db: NoSqlDb, q: QueueClient, user: dict):
+def get_all_config(db: NoSqlDb, q: QueueClient, user: dict):
     logger.info("===============get_all_config called==============")
-    logger.info(item)
+    return db.get_all_items("config")
 
 
 def get_config(id: str, db: NoSqlDb, q: QueueClient, user: dict):

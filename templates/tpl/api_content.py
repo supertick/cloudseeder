@@ -53,17 +53,18 @@ def create_{model_name}(item: {ModelName},
                         db: NoSqlDb = Depends(get_db_provider), 
                         q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
-    logger.info(f"Received request to create: {item}")
+    logger.debug(f"Received request to create: {item}")
     ret = safe_invoke("{app_name}.services.{model_name}_service", "create_{model_name}", [item, db, q, user])
     return ret
 
 # read - Retrieve all items
 @router.get("/{model-name}s", response_model=List[{ModelName}])
-def get_all_{model_name}s(db: NoSqlDb = Depends(get_db_provider), 
+def get_all_{model_name}s(db: NoSqlDb = Depends(get_db_provider),
+                        q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
-    logger.info("Received request to retrieve all {model_name}")
+    logger.debug("Received request to retrieve all {model_name}")
     ret = safe_invoke("{app_name}.services.{model_name}_service", "get_all_{model_name}", [db, q, user])
-    return db.get_all_items("{model_name}")
+    return ret
 
 # read - Retrieve a single item
 @router.get("/{model-name}/{id}", response_model={ModelName})

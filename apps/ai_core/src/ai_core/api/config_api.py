@@ -53,17 +53,18 @@ def create_config(item: Config,
                         db: NoSqlDb = Depends(get_db_provider), 
                         q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
-    logger.info(f"Received request to create: {item}")
+    logger.debug(f"Received request to create: {item}")
     ret = safe_invoke("ai_core.services.config_service", "create_config", [item, db, q, user])
     return ret
 
 # read - Retrieve all items
 @router.get("/configs", response_model=List[Config])
-def get_all_configs(db: NoSqlDb = Depends(get_db_provider), 
+def get_all_configs(db: NoSqlDb = Depends(get_db_provider),
+                        q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
-    logger.info("Received request to retrieve all config")
+    logger.debug("Received request to retrieve all config")
     ret = safe_invoke("ai_core.services.config_service", "get_all_config", [db, q, user])
-    return db.get_all_items("config")
+    return ret
 
 # read - Retrieve a single item
 @router.get("/config/{id}", response_model=Config)

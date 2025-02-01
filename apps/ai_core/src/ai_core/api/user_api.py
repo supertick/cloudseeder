@@ -53,17 +53,18 @@ def create_user(item: User,
                         db: NoSqlDb = Depends(get_db_provider), 
                         q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
-    logger.info(f"Received request to create: {item}")
+    logger.debug(f"Received request to create: {item}")
     ret = safe_invoke("ai_core.services.user_service", "create_user", [item, db, q, user])
     return ret
 
 # read - Retrieve all items
 @router.get("/users", response_model=List[User])
-def get_all_users(db: NoSqlDb = Depends(get_db_provider), 
+def get_all_users(db: NoSqlDb = Depends(get_db_provider),
+                        q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
-    logger.info("Received request to retrieve all user")
+    logger.debug("Received request to retrieve all user")
     ret = safe_invoke("ai_core.services.user_service", "get_all_user", [db, q, user])
-    return db.get_all_items("user")
+    return ret
 
 # read - Retrieve a single item
 @router.get("/user/{id}", response_model=User)
