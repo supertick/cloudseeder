@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 from typing import List, Optional, Literal
 import time
 
-class Transcription_request(BaseModel):
+class TranscriptionRequest(BaseModel):
     id: Optional[str] = Field(None, description="Transcription Request ID - can be created by client or will be self generated", example="123e4567-e89b-12d3-a456-426614174000")
     user_id: str = Field(None, description="clinician/user id", example="john@companya.com")
     patient_id: Optional[str] = Field(None, description="patient id - uuid ?", example="001a500000ou2FIAAY")

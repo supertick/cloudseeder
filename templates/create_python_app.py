@@ -81,7 +81,8 @@ app = FastAPI()
 def generate_pydantic_model(name, fields):
     """Generate a Pydantic model definition."""
     model_str = f"from pydantic import BaseModel, Field\nfrom typing import List, Optional, Literal\nimport time\n\n"
-    model_str += f"class {name.capitalize()}(BaseModel):\n"
+    mstr = name.replace("_", " ").title().replace(" ", "")
+    model_str += f"class {mstr}(BaseModel):\n"
 
     for field_name, field_type in fields.items():
         # Skip fields that start with an underscore
@@ -124,7 +125,7 @@ def main(app_name: str, monorepo_root: str):
             "{app_name}": app_name,
             "{model_name}": model_name,
             "{model-name}": model_name.replace("_", "-"),
-            "{ModelName}": model_name.capitalize(),
+            "{ModelName}": model_name.replace("_", " ").title().replace(" ", ""),
             "{APP_NAME}": app_name.upper(),
             "{Model Name}": model_name.replace("_", " ").title(),
             "{AppName}": app_name.capitalize(),
