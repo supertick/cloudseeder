@@ -4,6 +4,8 @@ import yaml
 import os
 from pathlib import Path
 
+# FIXME - {ModelName} is not correct Transcription_request
+
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), "tpl")
 
 
@@ -101,10 +103,12 @@ def main(app_name: str, monorepo_root: str):
     app_dir = Path(monorepo_root) / "apps" / app_name
     models_dir = app_dir / f"src/{app_name}/models"
     api_dir = app_dir / f"src/{app_name}/api"
+    service_dir = app_dir / f"src/{app_name}/services"
 
     # Ensure directories exist
     models_dir.mkdir(parents=True, exist_ok=True)
     api_dir.mkdir(parents=True, exist_ok=True)
+    service_dir.mkdir(parents=True, exist_ok=True)
 
     # Generate Pydantic models and API routes
     for model_name, fields in models.items():
@@ -112,6 +116,9 @@ def main(app_name: str, monorepo_root: str):
         print(f" ========= model_name = {model_name}")
         api_code = load_template("api_content.py", app_name, model_name, model_name.capitalize())
         api_file = api_dir / f"{model_name.lower()}_api.py"
+
+        service_code = load_template("service_content.py", app_name, model_name, model_name.capitalize())
+        service_file = api_dir / f"{model_name.lower()}_service.py"
 
         replacements = {
             "{app_name}": app_name,
@@ -124,6 +131,7 @@ def main(app_name: str, monorepo_root: str):
             "{App Name}": app_name.replace("_", " ").title(),
         }
         search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "api_content.py"), replacements, api_file)
+        search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "service_content.py"), replacements, service_file)
         # Save model file
         model_file = models_dir / f"{model_name.lower()}.py"
         with open(model_file, "w") as f:

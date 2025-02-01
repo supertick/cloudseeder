@@ -8,11 +8,12 @@ from database.interface import NoSqlDb
 from database.factory import get_database, get_db
 from queues.factory import get_queue_client
 from queues.interface import QueueClient
-from {app_name}.models.{model_name} import {ModelName}, {ModelName}
+from {app_name}.models.{model_name} import {ModelName}
 from typing import Dict
 from auth.factory import get_auth_provider
 from {app_name}.auth_util import require_role, no_role_required
 from {app_name}.config import config_provider
+from ai_core.invoker import safe_invoke
 
 
 logging.basicConfig(level=logging.INFO)
@@ -57,6 +58,9 @@ def create_{model_name}(item: {ModelName},
     logger.info(f"Using item_id: {item_id}")
     new_item = item.model_dump()
     new_item["id"] = item_id  # Store UUID in the database
+
+    ret = safe_invoke("{app_name}.services.{model_name}_service", "create_{model_name}", [new_item, db, q, user])
+
     # FIXME - if db: ...
     db.insert_item("{model_name}", item_id, new_item)
     logger.info(f"{ModelName} created: {new_item}")
@@ -71,6 +75,7 @@ def create_{model_name}(item: {ModelName},
 def get_all_{model_name}s(db: NoSqlDb = Depends(get_db_provider), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     logger.info("Received request to retrieve all {model_name}")
+    ret = safe_invoke("{app_name}.services.{model_name}_service", "get_all_{model_name}", [db, q, user])
     return db.get_all_items("{model_name}")
 
 # read - Retrieve a single item
@@ -79,6 +84,7 @@ def get_{model_name}(id: str,
                      db: NoSqlDb = Depends(get_db_provider), 
                      user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     logger.info(f"Received request to retrieve {model_name} with id: {id}")
+    safe_invoke("{app_name}.services.{model_name}_service", "get_{model_name}", [id, db, q, user])
     item = db.get_item("{model_name}", id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
@@ -93,6 +99,7 @@ def update_{model_name}(id: str,
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     item = db.get_item("{model_name}", id)
     logger.info(f"Received request to update {model_name} with id {id}: {updated_item}")
+    ret = safe_invoke("{app_name}.services.{model_name}_service", "update_{model_name}", [id, updated_item, db, q, user])
     if not item:
         logger.warning(f"{ModelName} with id {id} not found")
         raise HTTPException(status_code=404, detail="Item not found")
@@ -110,5 +117,6 @@ def delete_{model_name}(id: str,
     if not item:
         logger.warning(f"{ModelName} with id {id} not found")
         raise HTTPException(status_code=404, detail="Item not found")
+    ret = safe_invoke("{app_name}.services.{model_name}_service", "delete_{model_name}", [id, db, q, user])
     db.delete_item("{model_name}", id)
     return {"message": "Deleted successfully"}

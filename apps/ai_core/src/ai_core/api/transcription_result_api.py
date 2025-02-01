@@ -8,11 +8,12 @@ from database.interface import NoSqlDb
 from database.factory import get_database, get_db
 from queues.factory import get_queue_client
 from queues.interface import QueueClient
-from ai_core.models.transcription_result import Transcription_result, Transcription_result
+from ai_core.models.transcription_result import Transcription_result
 from typing import Dict
 from auth.factory import get_auth_provider
 from ai_core.auth_util import require_role, no_role_required
 from ai_core.config import config_provider
+from ai_core.invoker import safe_invoke
 
 
 logging.basicConfig(level=logging.INFO)
@@ -57,6 +58,9 @@ def create_transcription_result(item: Transcription_result,
     logger.info(f"Using item_id: {item_id}")
     new_item = item.model_dump()
     new_item["id"] = item_id  # Store UUID in the database
+
+    ret = safe_invoke("ai_core.services.transcription_result_service", "create_transcription_result", [new_item, db, q, user])
+
     # FIXME - if db: ...
     db.insert_item("transcription_result", item_id, new_item)
     logger.info(f"Transcription_result created: {new_item}")
@@ -71,6 +75,7 @@ def create_transcription_result(item: Transcription_result,
 def get_all_transcription_results(db: NoSqlDb = Depends(get_db_provider), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     logger.info("Received request to retrieve all transcription_result")
+    ret = safe_invoke("ai_core.services.transcription_result_service", "get_all_transcription_result", [db, q, user])
     return db.get_all_items("transcription_result")
 
 # read - Retrieve a single item
@@ -79,6 +84,7 @@ def get_transcription_result(id: str,
                      db: NoSqlDb = Depends(get_db_provider), 
                      user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     logger.info(f"Received request to retrieve transcription_result with id: {id}")
+    safe_invoke("ai_core.services.transcription_result_service", "get_transcription_result", [id, db, q, user])
     item = db.get_item("transcription_result", id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
@@ -93,6 +99,7 @@ def update_transcription_result(id: str,
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     item = db.get_item("transcription_result", id)
     logger.info(f"Received request to update transcription_result with id {id}: {updated_item}")
+    ret = safe_invoke("ai_core.services.transcription_result_service", "update_transcription_result", [id, updated_item, db, q, user])
     if not item:
         logger.warning(f"Transcription_result with id {id} not found")
         raise HTTPException(status_code=404, detail="Item not found")
@@ -110,5 +117,6 @@ def delete_transcription_result(id: str,
     if not item:
         logger.warning(f"Transcription_result with id {id} not found")
         raise HTTPException(status_code=404, detail="Item not found")
+    ret = safe_invoke("ai_core.services.transcription_result_service", "delete_transcription_result", [id, db, q, user])
     db.delete_item("transcription_result", id)
     return {"message": "Deleted successfully"}
