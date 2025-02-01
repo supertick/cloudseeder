@@ -115,10 +115,7 @@ def main(app_name: str, monorepo_root: str):
     for model_name, fields in models.items():
         model_code = generate_pydantic_model(model_name, fields)
         print(f" ========= model_name = {model_name}")
-        api_code = load_template("api_content.py", app_name, model_name, model_name.capitalize())
         api_file = api_dir / f"{model_name.lower()}_api.py"
-
-        service_code = load_template("service_content.py", app_name, model_name, model_name.capitalize())
         service_file = service_dir / f"{model_name.lower()}_service.py"
 
         replacements = {
@@ -132,7 +129,7 @@ def main(app_name: str, monorepo_root: str):
             "{App Name}": app_name.replace("_", " ").title(),
         }
         search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "api_content.py"), replacements, api_file)
-        search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "service_content.py"), replacements, service_file)
+        search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "service_content.py"), replacements, service_file, False)
         # Save model file
         model_file = models_dir / f"{model_name.lower()}.py"
         with open(model_file, "w") as f:

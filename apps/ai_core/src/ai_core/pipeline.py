@@ -5,7 +5,7 @@ import asyncio
 import time
 from uvicorn import Config, Server
 from ai_core.config import settings
-from ai_core.models.transcription_request import Transcription_request
+from ai_core.models.transcription_request import TranscriptionRequest
 from ai_core.main import app
 from queues.factory import get_queue_client
 from ai_core.answer_questions import answer_questions
@@ -37,7 +37,7 @@ async def start_queue_listener(queue_name, queue_type="local"):
                 logger.info(f"Received message: {message}")
                 # Process the message (e.g., call specific handlers)            
                 queue_client.delete_message(message["id"])
-                request = Transcription_request(**message)
+                request = TranscriptionRequest(**message)
                 logger.info(f"Request: {request}")
 
                 # FIXME - merge multiple audio files into one
