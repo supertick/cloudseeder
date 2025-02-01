@@ -7,7 +7,7 @@ from ai_core.models.transcription_request import TranscriptionRequest
 
 logger = logging.getLogger(__name__)
 
-
+# write - Create an item
 def create_transcription_request(item: TranscriptionRequest, db: NoSqlDb, q: QueueClient, user: dict):
     logger.info("===============create_transcription_request called==============")
 
@@ -27,23 +27,32 @@ def create_transcription_request(item: TranscriptionRequest, db: NoSqlDb, q: Que
         logger.info(f"Queue message count: {q.get_message_count()}")
     return new_item
 
-
+# read - get all items
 def get_all_transcription_request(db: NoSqlDb, user: dict):
     logger.info("===============get_all_transcription_request called==============")
     return db.get_all_items("transcription_request")
 
-
+# read - get an item
 def get_transcription_request(id: str, db: NoSqlDb, user: dict):
     logger.info("===============get_transcription_request called==============")
     logger.info(f"Received request to retrieve transcription_request with id: {id}")
     item = db.get_item("transcription_request", id)
     return item
 
-
+# write - update an item (without modifying ID)
 def update_transcription_request(id: str, new_item: TranscriptionRequest, db: NoSqlDb, q: QueueClient, user: dict):
     logger.info("===============update_transcription_request called==============")
     logger.info(new_item)
+    db.update_item("transcription_request", id, new_item.model_dump())
+    return db.get_item("transcription_request", id)
 
+# write - delete an item
 def delete_transcription_request(id: str, db: NoSqlDb, q: QueueClient, user: dict):
     logger.info("===============delete_transcription_request called==============")
-    logger.info(item)
+    logger.info(f"Received request to delete transcription_request with id {id}")
+    item = db.get_item("transcription_request", id)
+    if not item:
+        logger.warning(f"TranscriptionRequest with id {id} not found")
+        return None
+    db.delete_item("transcription_request", id)
+    return item

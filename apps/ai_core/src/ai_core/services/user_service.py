@@ -7,7 +7,7 @@ from ai_core.models.user import User
 
 logger = logging.getLogger(__name__)
 
-
+# write - Create an item
 def create_user(item: User, db: NoSqlDb, q: QueueClient, user: dict):
     logger.info("===============create_user called==============")
 
@@ -27,23 +27,32 @@ def create_user(item: User, db: NoSqlDb, q: QueueClient, user: dict):
         logger.info(f"Queue message count: {q.get_message_count()}")
     return new_item
 
-
+# read - get all items
 def get_all_user(db: NoSqlDb, user: dict):
     logger.info("===============get_all_user called==============")
     return db.get_all_items("user")
 
-
+# read - get an item
 def get_user(id: str, db: NoSqlDb, user: dict):
     logger.info("===============get_user called==============")
     logger.info(f"Received request to retrieve user with id: {id}")
     item = db.get_item("user", id)
     return item
 
-
+# write - update an item (without modifying ID)
 def update_user(id: str, new_item: User, db: NoSqlDb, q: QueueClient, user: dict):
     logger.info("===============update_user called==============")
     logger.info(new_item)
+    db.update_item("user", id, new_item.model_dump())
+    return db.get_item("user", id)
 
+# write - delete an item
 def delete_user(id: str, db: NoSqlDb, q: QueueClient, user: dict):
     logger.info("===============delete_user called==============")
-    logger.info(item)
+    logger.info(f"Received request to delete user with id {id}")
+    item = db.get_item("user", id)
+    if not item:
+        logger.warning(f"User with id {id} not found")
+        return None
+    db.delete_item("user", id)
+    return item

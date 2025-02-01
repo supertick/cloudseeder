@@ -80,18 +80,17 @@ def get_transcription_result(id: str,
 # write - Update an item (without modifying ID)
 @router.put("/transcription-result/{id}", response_model=TranscriptionResult)
 def update_transcription_result(id: str, 
-                        updated_item: TranscriptionResult, db: NoSqlDb = Depends(get_db_provider), 
+                        updated_item: TranscriptionResult, 
+                        db: NoSqlDb = Depends(get_db_provider), 
                         q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     item = db.get_item("transcription_result", id)
-    logger.info(f"Received request to update transcription_result with id {id}: {updated_item}")
+    logger.debug(f"Received request to update transcription_result with id {id}: {updated_item}")
     ret = safe_invoke("ai_core.services.transcription_result_service", "update_transcription_result", [id, updated_item, db, q, user])
     if not item:
         logger.warning(f"TranscriptionResult with id {id} not found")
         raise HTTPException(status_code=404, detail="Item not found")
-    
-    db.update_item("transcription_result", id, updated_item.model_dump())
-    return db.get_item("transcription_result", id)
+    return ret
 
 # write - Delete an item
 @router.delete("/transcription-result/{id}")
@@ -99,10 +98,9 @@ def delete_transcription_result(id: str,
                         db: NoSqlDb = Depends(get_db_provider), 
                         q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
-    item = db.get_item("transcription_result", id)
-    if not item:
+    logger.debug(f"Received request to delete transcription_result with id {id}")
+    ret = safe_invoke("ai_core.services.transcription_result_service", "delete_transcription_result", [id, db, q, user])
+    if not ret:
         logger.warning(f"TranscriptionResult with id {id} not found")
         raise HTTPException(status_code=404, detail="Item not found")
-    ret = safe_invoke("ai_core.services.transcription_result_service", "delete_transcription_result", [id, db, q, user])
-    db.delete_item("transcription_result", id)
-    return {"message": "Deleted successfully"}
+    return ret

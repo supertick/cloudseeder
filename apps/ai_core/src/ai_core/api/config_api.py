@@ -80,18 +80,17 @@ def get_config(id: str,
 # write - Update an item (without modifying ID)
 @router.put("/config/{id}", response_model=Config)
 def update_config(id: str, 
-                        updated_item: Config, db: NoSqlDb = Depends(get_db_provider), 
+                        updated_item: Config, 
+                        db: NoSqlDb = Depends(get_db_provider), 
                         q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     item = db.get_item("config", id)
-    logger.info(f"Received request to update config with id {id}: {updated_item}")
+    logger.debug(f"Received request to update config with id {id}: {updated_item}")
     ret = safe_invoke("ai_core.services.config_service", "update_config", [id, updated_item, db, q, user])
     if not item:
         logger.warning(f"Config with id {id} not found")
         raise HTTPException(status_code=404, detail="Item not found")
-    
-    db.update_item("config", id, updated_item.model_dump())
-    return db.get_item("config", id)
+    return ret
 
 # write - Delete an item
 @router.delete("/config/{id}")
@@ -99,10 +98,9 @@ def delete_config(id: str,
                         db: NoSqlDb = Depends(get_db_provider), 
                         q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
-    item = db.get_item("config", id)
-    if not item:
+    logger.debug(f"Received request to delete config with id {id}")
+    ret = safe_invoke("ai_core.services.config_service", "delete_config", [id, db, q, user])
+    if not ret:
         logger.warning(f"Config with id {id} not found")
         raise HTTPException(status_code=404, detail="Item not found")
-    ret = safe_invoke("ai_core.services.config_service", "delete_config", [id, db, q, user])
-    db.delete_item("config", id)
-    return {"message": "Deleted successfully"}
+    return ret

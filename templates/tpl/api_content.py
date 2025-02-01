@@ -80,18 +80,17 @@ def get_{model_name}(id: str,
 # write - Update an item (without modifying ID)
 @router.put("/{model-name}/{id}", response_model={ModelName})
 def update_{model_name}(id: str, 
-                        updated_item: {ModelName}, db: NoSqlDb = Depends(get_db_provider), 
+                        updated_item: {ModelName}, 
+                        db: NoSqlDb = Depends(get_db_provider), 
                         q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     item = db.get_item("{model_name}", id)
-    logger.info(f"Received request to update {model_name} with id {id}: {updated_item}")
+    logger.debug(f"Received request to update {model_name} with id {id}: {updated_item}")
     ret = safe_invoke("{app_name}.services.{model_name}_service", "update_{model_name}", [id, updated_item, db, q, user])
     if not item:
         logger.warning(f"{ModelName} with id {id} not found")
         raise HTTPException(status_code=404, detail="Item not found")
-    
-    db.update_item("{model_name}", id, updated_item.model_dump())
-    return db.get_item("{model_name}", id)
+    return ret
 
 # write - Delete an item
 @router.delete("/{model-name}/{id}")
@@ -99,10 +98,9 @@ def delete_{model_name}(id: str,
                         db: NoSqlDb = Depends(get_db_provider), 
                         q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
-    item = db.get_item("{model_name}", id)
-    if not item:
+    logger.debug(f"Received request to delete {model_name} with id {id}")
+    ret = safe_invoke("{app_name}.services.{model_name}_service", "delete_{model_name}", [id, db, q, user])
+    if not ret:
         logger.warning(f"{ModelName} with id {id} not found")
         raise HTTPException(status_code=404, detail="Item not found")
-    ret = safe_invoke("{app_name}.services.{model_name}_service", "delete_{model_name}", [id, db, q, user])
-    db.delete_item("{model_name}", id)
-    return {"message": "Deleted successfully"}
+    return ret
