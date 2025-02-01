@@ -54,21 +54,8 @@ def create_transcription_request(item: TranscriptionRequest,
                         q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     logger.info(f"Received request to create: {item}")
-    item_id = item.id if hasattr(item, "id") and item.id else str(uuid.uuid4())
-    logger.info(f"Using item_id: {item_id}")
-    new_item = item.model_dump()
-    new_item["id"] = item_id  # Store UUID in the database
-
-    ret = safe_invoke("ai_core.services.transcription_request_service", "create_transcription_request", [new_item, db, q, user])
-
-    # FIXME - if db: ...
-    db.insert_item("transcription_request", item_id, new_item)
-    logger.info(f"TranscriptionRequest created: {new_item}")
-    if q:
-        q.send_message(new_item)
-        logger.info(f"Message sent to queue: TranscriptionRequest created: {new_item}")
-        logger.info(f"Queue message count: {q.get_message_count()}")
-    return new_item
+    ret = safe_invoke("ai_core.services.transcription_request_service", "create_transcription_request", [item, db, q, user])
+    return ret
 
 # read - Retrieve all items
 @router.get("/transcription-requests", response_model=List[TranscriptionRequest])
