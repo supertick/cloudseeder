@@ -135,7 +135,7 @@ def main(app_name: str, monorepo_root: str):
     
     search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "config_content.py"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}/src/{app_name}", "config.py"))
     search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "pyproject_content.toml"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}", "pyproject.toml"), False)
-    search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "README.md"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}", "README.md"))
+    search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "README.md"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}", "README.md"), False)
     search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "_gitignore"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}", ".gitignore"))
     search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "Dockerfile"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}", "Dockerfile"), False)
     search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "auth_util.py"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}/src/{app_name}", "auth_util.py"))

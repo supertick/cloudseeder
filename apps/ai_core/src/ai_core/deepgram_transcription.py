@@ -1,7 +1,8 @@
 
 import logging
 from deepgram import DeepgramClient, PrerecordedOptions, FileSource
-from ai_core.models.transcription_request import Transcription_request
+# FIXME - use pydantic models
+# from ai_core.models.transcription_request import Transcription_request
 from ai_core.config import settings
 import os
 from datetime import datetime
