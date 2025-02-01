@@ -60,10 +60,9 @@ def create_{model_name}(item: {ModelName},
 # read - Retrieve all items
 @router.get("/{model-name}s", response_model=List[{ModelName}])
 def get_all_{model_name}s(db: NoSqlDb = Depends(get_db_provider),
-                        q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     logger.debug("Received request to retrieve all {model_name}")
-    ret = safe_invoke("{app_name}.services.{model_name}_service", "get_all_{model_name}", [db, q, user])
+    ret = safe_invoke("{app_name}.services.{model_name}_service", "get_all_{model_name}", [db, user])
     return ret
 
 # read - Retrieve a single item
@@ -71,13 +70,12 @@ def get_all_{model_name}s(db: NoSqlDb = Depends(get_db_provider),
 def get_{model_name}(id: str, 
                      db: NoSqlDb = Depends(get_db_provider), 
                      user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
-    logger.info(f"Received request to retrieve {model_name} with id: {id}")
-    safe_invoke("{app_name}.services.{model_name}_service", "get_{model_name}", [id, db, q, user])
-    item = db.get_item("{model_name}", id)
-    if not item:
+    logger.debug(f"Received request to retrieve {model_name} with id: {id}")
+    ret =safe_invoke("{app_name}.services.{model_name}_service", "get_{model_name}", [id, db, user])
+    if not ret:
         raise HTTPException(status_code=404, detail="Item not found")
-    logger.info(f"Retrieved {model_name}: {item}")
-    return item
+    logger.info(f"Retrieved {model_name}: {ret}")
+    return ret
 
 # write - Update an item (without modifying ID)
 @router.put("/{model-name}/{id}", response_model={ModelName})

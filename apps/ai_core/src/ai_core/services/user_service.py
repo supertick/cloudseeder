@@ -28,14 +28,16 @@ def create_user(item: User, db: NoSqlDb, q: QueueClient, user: dict):
     return new_item
 
 
-def get_all_user(db: NoSqlDb, q: QueueClient, user: dict):
+def get_all_user(db: NoSqlDb, user: dict):
     logger.info("===============get_all_user called==============")
     return db.get_all_items("user")
 
 
-def get_user(id: str, db: NoSqlDb, q: QueueClient, user: dict):
+def get_user(id: str, db: NoSqlDb, user: dict):
     logger.info("===============get_user called==============")
-    logger.info(f"id: {id}")
+    logger.info(f"Received request to retrieve user with id: {id}")
+    item = db.get_item("user", id)
+    return item
 
 
 def update_user(id: str, new_item: User, db: NoSqlDb, q: QueueClient, user: dict):

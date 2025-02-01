@@ -60,10 +60,9 @@ def create_transcription_result(item: TranscriptionResult,
 # read - Retrieve all items
 @router.get("/transcription-results", response_model=List[TranscriptionResult])
 def get_all_transcription_results(db: NoSqlDb = Depends(get_db_provider),
-                        q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     logger.debug("Received request to retrieve all transcription_result")
-    ret = safe_invoke("ai_core.services.transcription_result_service", "get_all_transcription_result", [db, q, user])
+    ret = safe_invoke("ai_core.services.transcription_result_service", "get_all_transcription_result", [db, user])
     return ret
 
 # read - Retrieve a single item
@@ -71,13 +70,12 @@ def get_all_transcription_results(db: NoSqlDb = Depends(get_db_provider),
 def get_transcription_result(id: str, 
                      db: NoSqlDb = Depends(get_db_provider), 
                      user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
-    logger.info(f"Received request to retrieve transcription_result with id: {id}")
-    safe_invoke("ai_core.services.transcription_result_service", "get_transcription_result", [id, db, q, user])
-    item = db.get_item("transcription_result", id)
-    if not item:
+    logger.debug(f"Received request to retrieve transcription_result with id: {id}")
+    ret =safe_invoke("ai_core.services.transcription_result_service", "get_transcription_result", [id, db, user])
+    if not ret:
         raise HTTPException(status_code=404, detail="Item not found")
-    logger.info(f"Retrieved transcription_result: {item}")
-    return item
+    logger.info(f"Retrieved transcription_result: {ret}")
+    return ret
 
 # write - Update an item (without modifying ID)
 @router.put("/transcription-result/{id}", response_model=TranscriptionResult)

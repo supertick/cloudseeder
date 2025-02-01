@@ -28,14 +28,16 @@ def create_transcription_result(item: TranscriptionResult, db: NoSqlDb, q: Queue
     return new_item
 
 
-def get_all_transcription_result(db: NoSqlDb, q: QueueClient, user: dict):
+def get_all_transcription_result(db: NoSqlDb, user: dict):
     logger.info("===============get_all_transcription_result called==============")
     return db.get_all_items("transcription_result")
 
 
-def get_transcription_result(id: str, db: NoSqlDb, q: QueueClient, user: dict):
+def get_transcription_result(id: str, db: NoSqlDb, user: dict):
     logger.info("===============get_transcription_result called==============")
-    logger.info(f"id: {id}")
+    logger.info(f"Received request to retrieve transcription_result with id: {id}")
+    item = db.get_item("transcription_result", id)
+    return item
 
 
 def update_transcription_result(id: str, new_item: TranscriptionResult, db: NoSqlDb, q: QueueClient, user: dict):

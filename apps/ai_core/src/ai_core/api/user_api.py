@@ -60,10 +60,9 @@ def create_user(item: User,
 # read - Retrieve all items
 @router.get("/users", response_model=List[User])
 def get_all_users(db: NoSqlDb = Depends(get_db_provider),
-                        q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     logger.debug("Received request to retrieve all user")
-    ret = safe_invoke("ai_core.services.user_service", "get_all_user", [db, q, user])
+    ret = safe_invoke("ai_core.services.user_service", "get_all_user", [db, user])
     return ret
 
 # read - Retrieve a single item
@@ -71,13 +70,12 @@ def get_all_users(db: NoSqlDb = Depends(get_db_provider),
 def get_user(id: str, 
                      db: NoSqlDb = Depends(get_db_provider), 
                      user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
-    logger.info(f"Received request to retrieve user with id: {id}")
-    safe_invoke("ai_core.services.user_service", "get_user", [id, db, q, user])
-    item = db.get_item("user", id)
-    if not item:
+    logger.debug(f"Received request to retrieve user with id: {id}")
+    ret =safe_invoke("ai_core.services.user_service", "get_user", [id, db, user])
+    if not ret:
         raise HTTPException(status_code=404, detail="Item not found")
-    logger.info(f"Retrieved user: {item}")
-    return item
+    logger.info(f"Retrieved user: {ret}")
+    return ret
 
 # write - Update an item (without modifying ID)
 @router.put("/user/{id}", response_model=User)

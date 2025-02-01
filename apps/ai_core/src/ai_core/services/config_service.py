@@ -28,14 +28,16 @@ def create_config(item: Config, db: NoSqlDb, q: QueueClient, user: dict):
     return new_item
 
 
-def get_all_config(db: NoSqlDb, q: QueueClient, user: dict):
+def get_all_config(db: NoSqlDb, user: dict):
     logger.info("===============get_all_config called==============")
     return db.get_all_items("config")
 
 
-def get_config(id: str, db: NoSqlDb, q: QueueClient, user: dict):
+def get_config(id: str, db: NoSqlDb, user: dict):
     logger.info("===============get_config called==============")
-    logger.info(f"id: {id}")
+    logger.info(f"Received request to retrieve config with id: {id}")
+    item = db.get_item("config", id)
+    return item
 
 
 def update_config(id: str, new_item: Config, db: NoSqlDb, q: QueueClient, user: dict):

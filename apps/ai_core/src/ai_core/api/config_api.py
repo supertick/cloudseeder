@@ -60,10 +60,9 @@ def create_config(item: Config,
 # read - Retrieve all items
 @router.get("/configs", response_model=List[Config])
 def get_all_configs(db: NoSqlDb = Depends(get_db_provider),
-                        q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     logger.debug("Received request to retrieve all config")
-    ret = safe_invoke("ai_core.services.config_service", "get_all_config", [db, q, user])
+    ret = safe_invoke("ai_core.services.config_service", "get_all_config", [db, user])
     return ret
 
 # read - Retrieve a single item
@@ -71,13 +70,12 @@ def get_all_configs(db: NoSqlDb = Depends(get_db_provider),
 def get_config(id: str, 
                      db: NoSqlDb = Depends(get_db_provider), 
                      user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
-    logger.info(f"Received request to retrieve config with id: {id}")
-    safe_invoke("ai_core.services.config_service", "get_config", [id, db, q, user])
-    item = db.get_item("config", id)
-    if not item:
+    logger.debug(f"Received request to retrieve config with id: {id}")
+    ret =safe_invoke("ai_core.services.config_service", "get_config", [id, db, user])
+    if not ret:
         raise HTTPException(status_code=404, detail="Item not found")
-    logger.info(f"Retrieved config: {item}")
-    return item
+    logger.info(f"Retrieved config: {ret}")
+    return ret
 
 # write - Update an item (without modifying ID)
 @router.put("/config/{id}", response_model=Config)

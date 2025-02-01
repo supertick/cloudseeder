@@ -28,14 +28,16 @@ def create_{model_name}(item: {ModelName}, db: NoSqlDb, q: QueueClient, user: di
     return new_item
 
 
-def get_all_{model_name}(db: NoSqlDb, q: QueueClient, user: dict):
+def get_all_{model_name}(db: NoSqlDb, user: dict):
     logger.info("===============get_all_{model_name} called==============")
     return db.get_all_items("{model_name}")
 
 
-def get_{model_name}(id: str, db: NoSqlDb, q: QueueClient, user: dict):
+def get_{model_name}(id: str, db: NoSqlDb, user: dict):
     logger.info("===============get_{model_name} called==============")
-    logger.info(f"id: {id}")
+    logger.info(f"Received request to retrieve {model_name} with id: {id}")
+    item = db.get_item("{model_name}", id)
+    return item
 
 
 def update_{model_name}(id: str, new_item: {ModelName}, db: NoSqlDb, q: QueueClient, user: dict):
