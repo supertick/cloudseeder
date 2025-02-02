@@ -7,12 +7,13 @@ app:
     config:
       id: Optional[str] = Field("default", example="default")
       port: Optional[int] = Field(8001, example="8001")
+      # FIXME - rename this to output
       work_dir: Optional[str] = Field("work", example="work")
       log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] = Field("INFO", description="Log Level", example="INFO") 
 
       # REQUIRED CONFIGURATION
       auth_enabled: Optional[bool] = Field(False, description="Enable authentication", example=True)
-      database_type: Literal["tinydb", "dynamodb"] = Field("tinydb", description="Database type", example="dynamodb")
+      database_type: Literal["none", "s3", "tinydb", "dynamodb"] = Field("none", description="Database type", example="dynamodb")
       debug: Optional[bool] = Field(True, description="Enable debug mode", example=True)
       # need blocking or async queues
       queue_type: Literal["local", "sqs"] = Field("local", description="Queue type", example="local")      

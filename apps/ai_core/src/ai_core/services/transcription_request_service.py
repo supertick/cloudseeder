@@ -22,7 +22,6 @@ logger = logging.getLogger(__name__)
 # write - Create an item
 def create_transcription_request(item: TranscriptionRequest, db: NoSqlDb, q: QueueClient, user: dict):
     logger.info("===============create_transcription_request called==============")
-    logger.info("*********************************************************")
     item_id = item.id if hasattr(item, "id") and item.id else str(uuid.uuid4())
     logger.info(f"Using item_id: {item_id}")
     new_item = item.model_dump()
@@ -46,6 +45,8 @@ def create_transcription_request(item: TranscriptionRequest, db: NoSqlDb, q: Que
     if not os.path.exists(parent_dir):
         os.makedirs(parent_dir)
 
+    if db:
+        db.insert_item("scribble", f"output/{item.user_id}/{item.patient_id}/{item.assessment_id}/deepgram.json", deepgram_json)
     # publish timings metrics errors slack ?
     # save or push file to storage for debugging
     output_file = os.path.join(parent_dir, "deepgram.json")

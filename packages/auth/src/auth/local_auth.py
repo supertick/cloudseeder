@@ -49,7 +49,11 @@ class LocalAuthProvider(AuthProvider):
         # Initialize users in the database
         self._initialize_users()
 
+    # WARNING - to have a form of authentication we need a concept of users and roles for authorization
     def _initialize_users(self):
+        if not self.database:
+            logger.warning("no users cannot do authentication")
+            return
         """Ensure the users table exists and create a default admin user if empty."""
         if not self.database.get_all_items(USERS_TABLE):
             logger.info("Initializing default admin user.")

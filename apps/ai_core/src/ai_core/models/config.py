@@ -8,7 +8,7 @@ class Config(BaseModel):
     work_dir: Optional[str] = Field("work", example="work")
     log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] = Field("INFO", description="Log Level", example="INFO")
     auth_enabled: Optional[bool] = Field(False, description="Enable authentication", example=True)
-    database_type: Literal["tinydb", "dynamodb"] = Field("tinydb", description="Database type", example="dynamodb")
+    database_type: Literal["none", "tinydb", "dynamodb"] = Field("none", description="Database type", example="dynamodb")
     debug: Optional[bool] = Field(True, description="Enable debug mode", example=True)
     queue_type: Literal["local", "sqs"] = Field("local", description="Queue type", example="local")
     deepgram_api_key: Optional[str] = Field(None, example="xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
