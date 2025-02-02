@@ -52,7 +52,7 @@ async def start_queue_listener(queue_name, queue_type="local"):
                 if not deepgram_json:
                     raise ValueError("Deepgram transcription failed.")
                 
-                parent_dir = os.path.join(settings.work_dir, request.patient_id, request.encounter_id)
+                parent_dir = os.path.join(settings.work_dir, request.patient_id, request.assessment_id)
                 if not os.path.exists(parent_dir):
                     os.makedirs(parent_dir)
 
@@ -72,7 +72,7 @@ async def start_queue_listener(queue_name, queue_type="local"):
                     f.write(json.dumps(conversation_json))
                     logger.info(f"Conversation file saved to {conversation_filename}")
 
-                answers_json = answer_questions(conversation_filename, request.patient_id, request.encounter_id, request.assessment_id, None)
+                answers_json = answer_questions(conversation_filename, request.patient_id, request.assessment_id, request.assessment_id, None)
                 answers_filename = os.path.join(parent_dir, "answers.json")
                 with open(answers_filename, "w") as f:
                     f.write(json.dumps(answers_json))

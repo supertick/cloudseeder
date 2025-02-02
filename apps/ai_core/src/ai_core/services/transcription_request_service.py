@@ -32,17 +32,17 @@ def create_transcription_request(item: TranscriptionRequest, db: NoSqlDb, q: Que
 
     # FIXME - merge multiple audio files into one
     # should only be 1 file per request
-    if len(item.files) != 1:
+    if len(item.audio_files) != 1:
         raise ValueError("Invalid number of files in the request.")
     
-    audio_filename = item.files[0]
+    audio_filename = item.audio_files[0]
 
     logger.info("stage 1 deepgram transcription")
     deepgram_json = transcribe(audio_filename)
     if not deepgram_json:
         raise ValueError("Deepgram transcription failed.")
     
-    parent_dir = os.path.join(settings.work_dir, item.patient_id, item.encounter_id)
+    parent_dir = os.path.join(settings.work_dir, item.patient_id, item.assessment_id)
     if not os.path.exists(parent_dir):
         os.makedirs(parent_dir)
 
@@ -62,7 +62,7 @@ def create_transcription_request(item: TranscriptionRequest, db: NoSqlDb, q: Que
         f.write(json.dumps(conversation_json))
         logger.info(f"Conversation file saved to {conversation_filename}")
 
-    answers_json = answer_questions(conversation_filename, item.patient_id, item.encounter_id, item.assessment_id, None)
+    answers_json = answer_questions(conversation_filename, item.patient_id, item.assessment_id, item.assessment_id, None)
     answers_filename = os.path.join(parent_dir, "answers.json")
     with open(answers_filename, "w") as f:
         f.write(json.dumps(answers_json))
