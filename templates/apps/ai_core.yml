@@ -32,25 +32,6 @@ app:
       slack_channel: Optional[str] = Field("acutedge-alerts", description="Slack channel", example="acutedge-alerts")
       slack_bot_token: Optional[str] = Field(None, description="Slack bot token", example="xxxxxxxx")
 
-    # company:
-    #   id: Optional[str] = Field(None)
-    #   name: str
-    #   description: str
-    #   users: list[str]
-
-    # user:
-    #   _method_map:
-    #     "post /v1/user": ["admin"]
-    #     "get /v1/users": []
-    #     "get /v1/user/{id}": []
-    #     "put /v1/user/{id}": ["admin"]
-    #     "delete /v1/user/{id}": ["admin"]
-    #   id: Optional[str] = Field(None, example="admin@scribble.ai")
-    #   full_name: Optional[str] = Field(None, example="John Doe")
-    #   password_hash: Optional[str] = Field(None, example="secret")
-    #   email: str
-    #   roles: list[str]
-
     user:
       id: Optional[str] = Field(None, example="john@company1.com")
       fullname: Optional[str] = Field(None, example="John Doe")
@@ -69,15 +50,3 @@ app:
       transcribe_type: Literal["deepgram", "aws-transcribe", "whisper"] = Field("deepgram", description="transcription type", example="deepgram")
       audio_files: list[str] = Field(None, example=["Kate-SOC-Visit-Audio-49min26sec.webm"])
       question_files: list[str] = Field(None, ddescription="questions for this assesment", example=["questions.json"])
-
-    transcription_result:
-      id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
-      type: Literal["deepgram", "aws-transcribe"] = Field("tinydb", description="transcription type", example="deepgram")
-      status: str
-      created: Optional[int] = Field(None, example=1683123456789)
-      patient: str
-      encounter: str
-      assessment: str
-      files: list[str]
-
-#       modified: Optional[int] = Field(None, example=1683123456789)
