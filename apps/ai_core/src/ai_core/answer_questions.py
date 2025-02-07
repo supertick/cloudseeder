@@ -5,6 +5,8 @@ from ai_core.slack import send_slack_message
 from itertools import zip_longest
 from concurrent.futures import ThreadPoolExecutor
 import json
+import tempfile
+import io
 import os
 import time
 
@@ -297,17 +299,16 @@ def prepare_user_content(splitted_list, template):
     return user_content_list
 
 
-def answer_questions(conversation_filename:str, patient_id: str, encounter_id: str, assessment_id: str, assessment_type: str):
+def answer_questions(conversation_data:dict, patient_id: str, encounter_id: str, assessment_id: str):
 
+    # FIXME - change to database call to get assessment list
     with open("assessment.json", "r") as file:
         full_assessment_list = json.load(file)
     logger.info(f"full_assessment_list: {len(full_assessment_list)} items")
 
-
     client = openai.OpenAI(api_key=settings.openai_key)
 
     try:
-        
         # ---------------------------------------------------------------
         # OpenAI Operation
         # ---------------------------------------------------------------
@@ -316,26 +317,46 @@ def answer_questions(conversation_filename:str, patient_id: str, encounter_id: s
                     
         # Create Vector Store
         vector_store = client.beta.vector_stores.create(name=vector_store_name)
-                
-        file_paths = [conversation_filename]
+
+        # Convert dict to JSON
+        json_content = json.dumps(conversation_data)
+        
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".json") as temp_file:
+            temp_file.write(json_content.encode("utf-8"))
+            temp_file_path = temp_file.name
+
+        # Use the filename in file_paths
+        file_paths = [temp_file_path]
         file_streams = [open(path, "rb") for path in file_paths]
 
+
+        # # Create an in-memory file
+        # file_stream = io.BytesIO(json_content.encode("utf-8"))
+        
+        # # Upload file to OpenAI first, then reference it
+        # uploaded_file = client.files.create(
+        #     file=file_stream,  # Pass the in-memory file
+        #     purpose="assistants"
+        # )
+
+        # Upload File to Vector Store
         file_batch = client.beta.vector_stores.file_batches.upload_and_poll(
-        vector_store_id=vector_store.id, files=file_streams
+            vector_store_id=vector_store.id,
+            files=file_streams  # Use OpenAI File ID
         )
 
-        print(file_batch.status)
-        print(file_batch.file_counts)
-        
+        logger.info(f"File batch status: {file_batch.status}")
+        logger.info(f"File batch counts: {file_batch.file_counts}")
+
         # Create Assistant
         assistant = create_openai_assistant(
             client=client,
-          assistant_name=assistant_name,
-          instructions=INSTRUCTIONS,
-          openai_model=settings.openai_model,
-          vector_store_id=vector_store.id
+            assistant_name=assistant_name,
+            instructions=INSTRUCTIONS,
+            openai_model=settings.openai_model,
+            vector_store_id=vector_store.id
         )
-        
+
         chunk_size = number_of_question  # Number of questions per chunk
         assessment_splitted_list = split_assessment_list(full_assessment_list, chunk_size)
         user_content_list = prepare_user_content(assessment_splitted_list, user_content_default)
@@ -381,40 +402,13 @@ def answer_questions(conversation_filename:str, patient_id: str, encounter_id: s
                                 question_answer_list.append(item)
                 except Exception as e:
                     logger.error(f"Error processing future: {e}")            
-
-            # Create Required JSON Format
-            # final_data_dict = {
-            #     "EncounterID": encounter_id,
-            #     "PatientID": patient_id,
-            #     "Responses": question_answer_list
-            # }
-                
-            # if final_data_dict:
-            #     return question_answer_list
-            #     # # Save JSON Data to s3
-            #     # object_key = f"question_answer/{patient_id}/{encounter_id}"
-            #     # question_answer_file_name = "question_answer.json"
-            #     # # upload_file_to_s3(object_key=object_key, file_name=question_answer_file_name, file_content=json.dumps(final_data_dict))
-            #     # with open(question_answer_file_name, "w") as json_file:
-            #     #     json.dump(question_answer_list, json_file)
-                
-        # Delete All OpenAI Objects
-        # I don't think embeddings require deleting
-        # if delete_openai_objects:
-        #     delete_all_openai_objects(
-        #         client=client,
-        #         file_ids_list=[transcription_file_obj.id],
-        #         vector_store_id=vector_store.id,
-        #         run_ids=run_obj_list,
-        #         assistant_id=assistant.id
-        #     )
                             
         # Send an Alert to Slack Channel
-        slack_message = f"Whole process completed successfully with Question-Answer pair.\n\n"
+        slack_message = (f"Whole process completed successfully with Question-Answer pair.\n\n"
         f"Date : *{time.ctime(time.time())}*\n"
         f"Patient ID : *{patient_id}*\n"
         f"Encounter ID : *{encounter_id}*\n"
-        f"Assessment ID : *{assessment_id}*"
+        f"Assessment ID : *{assessment_id}*")
 
         send_slack_message(slack_message)
 
@@ -424,37 +418,36 @@ def answer_questions(conversation_filename:str, patient_id: str, encounter_id: s
             "Responses": question_answer_list
         }
 
+        logger.info(f"final_data_dict: {final_data_dict}")
         return final_data_dict
                 
     except Exception as e:
         # Send an Alert to Slack Channel
-        error_message = f"Something went wrong while generating question-answer file.\n\n"
-        f"Date : *{time.ctime(time.time())}*\n"
-        f"Patient ID : *{patient_id}*\n"
-        f"Encounter ID : *{encounter_id}*\n"
-        f"Assessment ID : *{assessment_id}*\n"
-        f"Error : *{str(e)}*\n"
-        f"Line no. : *{e.__traceback__.tb_lineno}*"
+        error_message = (
+            f"Something went wrong while generating question-answer file.\n\n"
+            f"Date : *{time.ctime(time.time())}*\n"
+            f"Patient ID : *{patient_id}*\n"
+            f"Encounter ID : *{encounter_id}*\n"
+            f"Assessment ID : *{assessment_id}*\n"
+            f"Error : *{str(e)}*\n"
+            f"Line no. : *{e.__traceback__.tb_lineno}*"
+        )
 
         logger.error(error_message)
         send_slack_message(error_message)
         return None
         
 
-
-# async def main():
 def main():
-    """Starts the FastAPI app and the queue listener concurrently."""
-    queue_name = "run"
-    queue_type = "local"  # Replace with "sqs", "azure", etc., as needed
-
-    # await asyncio.gather(
-    #     start_fastapi(),  # Start the FastAPI server
-    #     start_queue_listener(queue_name, queue_type),  # Start the queue listener
-    # )
-
-    answer_questions(patient_id="kate", encounter_id="encounter-1", assessment_id="assessment-1", assessment_type="type")
+    try:
+        with open(os.path.join("tests","data","conversation.json"), "r", encoding="utf-8") as file:
+            conversation_data = json.load(file)    
+            answers = answer_questions(conversation_data, patient_id="kate", encounter_id="encounter-1", assessment_id="assessment-1")
+            print(answers)
+            with open(os.path.join(f"answers-{time.time()}.json"), "w", encoding="utf-8") as file:
+                json.dump(answers, file)
+    except Exception as e:
+        print(e)
 
 if __name__ == "__main__":
-    # asyncio.run(main())
     main()

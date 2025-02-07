@@ -14,7 +14,7 @@ from ai_core.main import app
 from queues.factory import get_queue_client
 from ai_core.answer_questions import answer_questions
 from datetime import datetime
-from ai_core.deepgram_transcription import transcribe, transform
+from ai_core.deepgram_transcription import transcribe, transform, transcribe_buffer
 
 
 logger = logging.getLogger(__name__)
@@ -22,6 +22,9 @@ logger = logging.getLogger(__name__)
 # write - Create an item
 def create_transcription_request(item: TranscriptionRequest, db: NoSqlDb, q: QueueClient, user: dict):
     logger.info("===============create_transcription_request called==============")
+    if not db:
+        raise ValueError("No database connection provided.")
+    
     item_id = item.id if hasattr(item, "id") and item.id else str(uuid.uuid4())
     logger.info(f"Using item_id: {item_id}")
     new_item = item.model_dump()
@@ -36,44 +39,41 @@ def create_transcription_request(item: TranscriptionRequest, db: NoSqlDb, q: Que
     
     audio_filename = item.audio_files[0]
 
-    logger.info("stage 1 deepgram transcription")
-    deepgram_json = transcribe(audio_filename)
-    if not deepgram_json:
-        raise ValueError("Deepgram transcription failed.")
-    
-    parent_dir = os.path.join(settings.work_dir, item.patient_id, item.assessment_id)
-    if not os.path.exists(parent_dir):
-        os.makedirs(parent_dir)
+    logger.info(f"audio_filename: {audio_filename}")
+    prefix = f"{item.user_id}/{item.patient_id}/{item.assessment_id}"
 
-    if db:
-        db.insert_item("scribble", f"output/{item.user_id}/{item.patient_id}/{item.assessment_id}/deepgram.json", deepgram_json)
+    # db.get_item("input", f"{item.user_id}/{item.patient_id}/{item.assessment_id}/deepgram.json")
+    audio_buffer = db.get_binary_item("input", f"{prefix}/{audio_filename}")
+    if not audio_buffer:
+        raise ValueError(f"Audio file not found in: input/{prefix}/{audio_filename}")
+
+    logger.info("starting deepgram transcription")
+    deepgram_json = transcribe_buffer(audio_buffer)
+    if not deepgram_json:
+        raise ValueError("Deepgram transcription failed for file: input/{prefix}/{audio_filename}")
+    
+    deepgram_dict = json.loads(deepgram_json)
+    
+    logger.info(f"saving deepgram transformation {prefix}/deepgram.json")    
+    db.insert_item("output", f"{prefix}/deepgram.json", deepgram_dict)
     # publish timings metrics errors slack ?
     # save or push file to storage for debugging
-    output_file = os.path.join(parent_dir, "deepgram.json")
-    with open(output_file, "w") as f:
-        f.write(deepgram_json)
 
-    logger.info("stage 2 deepgram transformation")
+    logger.info("deepgram transformation")
     conversation_json = transform(deepgram_json)
     if not conversation_json:
-        raise ValueError("Conversation transformation failed.")
-    
-    conversation_filename = os.path.join(parent_dir, "conversation.json")
-    with open(conversation_filename, "w") as f:
-        f.write(json.dumps(conversation_json))
-        logger.info(f"Conversation file saved to {conversation_filename}")
+        raise ValueError(f"conversation transformation failed for {deepgram_json}")
+    db.insert_item("output", f"{prefix}/conversation.json", conversation_json)
 
-    answers_json = answer_questions(conversation_filename, item.patient_id, item.assessment_id, item.assessment_id, None)
-    answers_filename = os.path.join(parent_dir, "answers.json")
-    with open(answers_filename, "w") as f:
-        f.write(json.dumps(answers_json))
-        logger.info(f"Answers file saved to {answers_filename}")
+    logger.info("answer questions")
+    answers_json = answer_questions(conversation_json, item.patient_id, item.assessment_id, item.assessment_id)
     
     if not answers_json:
         raise ValueError("Answers generation failed.")
 
-    logger.info("stage 3 openai")
-
+    db.insert_item("output", f"{prefix}/answers.json", conversation_json)
+    
+    logger.info("ai core processing finished")
     return new_item
 
 # read - get all items

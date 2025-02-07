@@ -53,5 +53,8 @@ pytest
 
 ### Run Tests with Coverage
 ```sh
+pytest --collect-only
 pytest --cov={app_name} --cov-report html
 ```
+
+

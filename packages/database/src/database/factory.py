@@ -5,7 +5,9 @@ from typing import Callable, Dict
 from database.interface import NoSqlDb
 from database.tinydb import TinyDBDatabase
 from database.dynamodb_database import DynamoDBDatabase
+from database.filesystem_database import FilesystemDatabase
 from database.s3_database import S3Database
+
 
 def get_database(config_provider: Callable[[], Dict[str, str]]) -> NoSqlDb:
     config = config_provider()
@@ -16,6 +18,8 @@ def get_database(config_provider: Callable[[], Dict[str, str]]) -> NoSqlDb:
         return TinyDBDatabase(config=config)
     elif database_type == "s3":
         return S3Database(config=config)
+    elif database_type == "filesystem":
+        return FilesystemDatabase(config=config)
     elif database_type == "none":
         return None
     else:

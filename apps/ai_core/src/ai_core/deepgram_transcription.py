@@ -51,8 +51,6 @@ def transform(json_data):
         logger.error(f"An error occurred: {e}")
 
 def transcribe(audio_filename: str):
-        # Create a Deepgram client using the API key
-        deepgram = DeepgramClient(settings.deepgram_api_key)
 
         # Read the audio file as binary data
         if not os.path.exists(audio_filename):
@@ -60,6 +58,12 @@ def transcribe(audio_filename: str):
 
         with open(audio_filename, "rb") as audio_file:
             buffer_data = audio_file.read()
+
+        return transcribe_buffer(buffer_data)
+
+def transcribe_buffer(buffer_data):
+        # Create a Deepgram client using the API key
+        deepgram = DeepgramClient(settings.deepgram_api_key)
 
         payload: FileSource = {
             "buffer": buffer_data,

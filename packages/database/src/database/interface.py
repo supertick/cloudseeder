@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Union
 
 class NoSqlDb(ABC):
     @abstractmethod
@@ -11,6 +11,9 @@ class NoSqlDb(ABC):
     def get_item(self, table: str, key: str) -> dict:
         """Retrieve an item by its key from the specified table."""
         pass
+
+    def get_binary_item(self, table: str, key: str) -> bytes:
+        """Retrieve an item by its key from the specified table."""
 
     @abstractmethod
     def get_all_items(self, table: str) -> list:

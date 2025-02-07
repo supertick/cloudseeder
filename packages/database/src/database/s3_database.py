@@ -1,8 +1,7 @@
 import json
 import logging
 import re
-from typing import Dict, List, Any
-
+from typing import Dict, List, Any, Union
 import boto3
 from botocore.exceptions import ClientError
 
@@ -47,13 +46,13 @@ class S3Database(NoSqlDb):
 
     def _get_s3_key(self, table: str, key: str) -> str:
         """Construct the S3 object key for the given table and key."""
-        return f"{table}/{key}.json"
+        return f"{table}/{key}"
 
     def insert_item(self, table: str, key: str, item: dict) -> dict:
         """Insert an item into the specified table (S3 prefix)."""
         logger.info(f"Inserting item into table '{table}' with key '{key}': {item}")
         # Ensure the key is included in the item
-        item["id"] = key
+        # item["id"] = key - bad idea
         s3_key = self._get_s3_key(table, key)
         item_json = json.dumps(item)
         try:
@@ -82,6 +81,26 @@ class S3Database(NoSqlDb):
             else:
                 logger.exception("Error retrieving item from S3")
                 raise e
+            
+    def get_binary_item(self, table: str, key: str) -> bytes:
+        s3_key = self._get_s3_key(table, key)
+        logger.info(f"Retrieving binary item from bucket with key: {s3_key}")
+        try:
+            obj = self.s3.Object(self.bucket_name, s3_key)
+            response = obj.get()
+
+            body = response["Body"].read()
+
+            logger.info("Binary or non-JSON data retrieved.")
+            return body
+
+        except ClientError as e:
+            if e.response.get("Error", {}).get("Code") == "NoSuchKey":
+                logger.warning(f"Item with key '{key}' not found in table '{table}'.")
+                return {}
+            else:
+                logger.exception("Error retrieving item from S3")
+                raise e            
 
     def get_all_items(self, table: str) -> list:
         """Retrieve all items from the specified table (S3 prefix)."""

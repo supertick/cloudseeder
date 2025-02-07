@@ -8,6 +8,8 @@ class AppSettings(Config, BaseSettings):
     class Config:
         env_prefix = "{APP_NAME}_"  # Looks for env variables like AI_CORE_PORT
         env_file = ".env"  # Optional: Load from .env file
+        extra = "ignore"  # Ignore extra env variables
+
 
     def to_config(self) -> Config:
         """Convert AppSettings to the original Config model."""

@@ -18,7 +18,8 @@ dependencies = [
     "PyJWT",
     "openai",
     "deepgram_sdk",
-    "slack_sdk"
+    "slack_sdk",
+    "pytest"
 ]
 
 [project.optional-dependencies]
