@@ -112,6 +112,17 @@ export default function Report() {
     }
   };
 
+  const handleProcessInputFile = () => {
+    apiClient.post("/run", {
+      "id": crypto.randomUUID(),
+      "product": "string",
+      "title": "input-1.xlsx",
+      "user_id": "john@company1.com",
+      "input_dir": "input_dir",
+      "output_dir": "output_dir"
+    })
+  }
+
   return (
     <div
       style={{
@@ -144,7 +155,7 @@ export default function Report() {
           <Button variant="contained" color="primary" startIcon={<AddIcon />} onClick={() => setUploadDialogOpen(true)}>
             Add Input
           </Button>
-          <Button variant="contained" color="primary" startIcon={<SyncIcon />} disabled={!selectedFile}>
+          <Button variant="contained" color="primary" startIcon={<SyncIcon />} disabled={!selectedFile} onClick={handleProcessInputFile}>
             Process Input File
           </Button>
         </span>

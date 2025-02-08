@@ -138,15 +138,20 @@ def main(app_name: str, monorepo_root: str):
         print(f"✅ Generated model: {model_file}")
         print(f"✅ Generated API: {api_file}")
 
-    
-    search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "config_content.py"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}/src/{app_name}", "config.py"))
+
+    # Protected files
     search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "pyproject_content.toml"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}", "pyproject.toml"), False)
     search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "README.md"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}", "README.md"), False)
-    search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "_gitignore"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}", ".gitignore"))
     search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "Dockerfile"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}", "Dockerfile"), False)
+
+    # Non-protected files
+    search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "config_content.py"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}/src/{app_name}", "config.py"))
+    search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "_gitignore"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}", ".gitignore"))
     search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "auth_util.py"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}/src/{app_name}", "auth_util.py"))
     search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "error_util_content.py"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}/src/{app_name}", "error_util.py"))
     search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "__init__.py"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}/src/{app_name}", "__init__.py"))
+    
+    search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "generate_ssl.py"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}/src/{app_name}", "generate_ssl.py"))
 
     # Generate FastAPI application structure
     create_fastapi_application(app_name, monorepo_root, models)

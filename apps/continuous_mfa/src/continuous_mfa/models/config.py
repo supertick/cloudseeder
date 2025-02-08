@@ -4,6 +4,7 @@ import time
 
 class Config(BaseModel):
     id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
+    ssl_enabled: Optional[bool] = Field(False, description="Enable SSL", example=True)
     auth_enabled: Optional[bool] = Field(False, description="Enable authentication", example=True)
     database_type: Literal["tinydb", "dynamodb"] = Field("tinydb", description="Database type", example="dynamodb")
     debug: Optional[bool] = Field(True, description="Enable debug mode", example=True)

@@ -3,7 +3,10 @@ import git
 import traceback
 import asyncio
 import time
+import uvicorn
 from uvicorn import Config, Server
+from continuous_mfa.generate_ssl import generate_self_signed_cert
+from continuous_mfa.config import settings
 from continuous_mfa.models.report import Report
 from continuous_mfa.main import app  # Import the FastAPI app
 from queues.factory import get_queue_client  # Import the queue factory
@@ -13,17 +16,29 @@ logger = logging.getLogger(__name__)
 
 
 async def start_fastapi():
-    """Starts the FastAPI application."""
-    config = Config(app, host="0.0.0.0", port=8000, reload=False)
-    server = Server(config)
-    await server.serve()
+    """Starts FastAPI asynchronously within the event loop."""
+    print(f"Running on port: {settings.port}")
 
-async def start_queue_listener(queue_name, queue_type="local"):
+    ssl_options = {}
+    if settings.ssl_enabled:
+        print("SSL enabled")
+        generate_self_signed_cert()
+        ssl_options = {
+            "ssl_keyfile": "key.pem",
+            "ssl_certfile": "cert.pem",
+        }
+
+    config = Config(app, host="0.0.0.0", port=settings.port, **ssl_options)
+    server = Server(config)
+    await server.serve() 
+
+
+async def start_queue_listener():
     """Starts listening to the queue and processing messages."""
     # Get the queue client instance
-    queue_client = get_queue_client(queue_name, queue_type=queue_type)
+    queue_client = get_queue_client("input")
 
-    logger.info(f"Listening on queue '{queue_name}' of type '{queue_type}'...")
+    logger.info(f"Listening on queue \"input\" of type '{settings.queue_type}'...")
     while True:
         # Receive and process messages
         message = queue_client.receive_message()
@@ -84,13 +99,10 @@ def check_and_pull_updates(interval, config):
 
 async def main():
     """Starts the FastAPI app and the queue listener concurrently."""
-    queue_name = "run"
-    queue_type = "local"  # Replace with "sqs", "azure", etc., as needed
-
     await asyncio.gather(
-        start_fastapi(),  # Start the FastAPI server
-        start_queue_listener(queue_name, queue_type),  # Start the queue listener
+        start_fastapi(),  # ✅ Start FastAPI server asynchronously
+        start_queue_listener(),  # ✅ Start queue listener
     )
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    asyncio.run(main())  # ✅ This is now safe because FastAPI runs asynchronously
