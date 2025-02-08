@@ -8,11 +8,12 @@ from database.interface import NoSqlDb
 from database.factory import get_database, get_db
 from queues.factory import get_queue_client
 from queues.interface import QueueClient
-from continuous_mfa.models.upload_file_content import Upload_file_content, Upload_file_content
+from continuous_mfa.models.upload_file_content import UploadFileContent
 from typing import Dict
 from auth.factory import get_auth_provider
 from continuous_mfa.auth_util import require_role, no_role_required
 from continuous_mfa.config import config_provider
+from ai_core.invoker import safe_invoke
 
 
 logging.basicConfig(level=logging.INFO)
@@ -47,58 +48,49 @@ def get_queue() -> QueueClient:
 
 
 # write - Create an item
-@router.post("/upload-file-content", response_model=Upload_file_content)
-def create_upload_file_content(item: Upload_file_content, 
+@router.post("/upload-file-content", response_model=UploadFileContent)
+def create_upload_file_content(item: UploadFileContent, 
                         db: NoSqlDb = Depends(get_db_provider), 
                         q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
-    logger.info(f"Received request to create: {item}")
-    item_id = item.id if hasattr(item, "id") and item.id else str(uuid.uuid4())
-    logger.info(f"Using item_id: {item_id}")
-    new_item = item.model_dump()
-    new_item["id"] = item_id  # Store UUID in the database
-    # FIXME - if db: ...
-    db.insert_item("upload_file_content", item_id, new_item)
-    logger.info(f"Upload_file_content created: {new_item}")
-    if q:
-        q.send_message(new_item)
-        logger.info(f"Message sent to queue: Upload_file_content created: {new_item}")
-        logger.info(f"Queue message count: {q.get_message_count()}")
-    return new_item
+    logger.debug(f"Received request to create: {item}")
+    ret = safe_invoke("continuous_mfa.services.upload_file_content_service", "create_upload_file_content", [item, db, q, user])
+    return ret
 
 # read - Retrieve all items
-@router.get("/upload-file-contents", response_model=List[Upload_file_content])
-def get_all_upload_file_contents(db: NoSqlDb = Depends(get_db_provider), 
+@router.get("/upload-file-contents", response_model=List[UploadFileContent])
+def get_all_upload_file_contents(db: NoSqlDb = Depends(get_db_provider),
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
-    logger.info("Received request to retrieve all upload_file_content")
-    return db.get_all_items("upload_file_content")
+    logger.debug("Received request to retrieve all upload_file_content")
+    ret = safe_invoke("continuous_mfa.services.upload_file_content_service", "get_all_upload_file_content", [db, user])
+    return ret
 
 # read - Retrieve a single item
-@router.get("/upload-file-content/{id}", response_model=Upload_file_content)
+@router.get("/upload-file-content/{id}", response_model=UploadFileContent)
 def get_upload_file_content(id: str, 
                      db: NoSqlDb = Depends(get_db_provider), 
                      user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
-    logger.info(f"Received request to retrieve upload_file_content with id: {id}")
-    item = db.get_item("upload_file_content", id)
-    if not item:
+    logger.debug(f"Received request to retrieve upload_file_content with id: {id}")
+    ret =safe_invoke("continuous_mfa.services.upload_file_content_service", "get_upload_file_content", [id, db, user])
+    if not ret:
         raise HTTPException(status_code=404, detail="Item not found")
-    logger.info(f"Retrieved upload_file_content: {item}")
-    return item
+    logger.info(f"Retrieved upload_file_content: {ret}")
+    return ret
 
 # write - Update an item (without modifying ID)
-@router.put("/upload-file-content/{id}", response_model=Upload_file_content)
+@router.put("/upload-file-content/{id}", response_model=UploadFileContent)
 def update_upload_file_content(id: str, 
-                        updated_item: Upload_file_content, db: NoSqlDb = Depends(get_db_provider), 
+                        updated_item: UploadFileContent, 
+                        db: NoSqlDb = Depends(get_db_provider), 
                         q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
     item = db.get_item("upload_file_content", id)
-    logger.info(f"Received request to update upload_file_content with id {id}: {updated_item}")
+    logger.debug(f"Received request to update upload_file_content with id {id}: {updated_item}")
+    ret = safe_invoke("continuous_mfa.services.upload_file_content_service", "update_upload_file_content", [id, updated_item, db, q, user])
     if not item:
-        logger.warning(f"Upload_file_content with id {id} not found")
+        logger.warning(f"UploadFileContent with id {id} not found")
         raise HTTPException(status_code=404, detail="Item not found")
-    
-    db.update_item("upload_file_content", id, updated_item.model_dump())
-    return db.get_item("upload_file_content", id)
+    return ret
 
 # write - Delete an item
 @router.delete("/upload-file-content/{id}")
@@ -106,9 +98,9 @@ def delete_upload_file_content(id: str,
                         db: NoSqlDb = Depends(get_db_provider), 
                         q: QueueClient = Depends(get_queue), 
                         user: dict = Depends(require_role([]) if settings.auth_enabled else no_role_required)):
-    item = db.get_item("upload_file_content", id)
-    if not item:
-        logger.warning(f"Upload_file_content with id {id} not found")
+    logger.debug(f"Received request to delete upload_file_content with id {id}")
+    ret = safe_invoke("continuous_mfa.services.upload_file_content_service", "delete_upload_file_content", [id, db, q, user])
+    if not ret:
+        logger.warning(f"UploadFileContent with id {id} not found")
         raise HTTPException(status_code=404, detail="Item not found")
-    db.delete_item("upload_file_content", id)
-    return {"message": "Deleted successfully"}
+    return ret
