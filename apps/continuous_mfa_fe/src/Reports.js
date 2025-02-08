@@ -341,7 +341,7 @@ export default function Reports() {
 
           <TableContainer
             sx={{
-              maxHeight: "80px", // Set maximum height for the table container
+              maxHeight: "180px", // Set maximum height for the table container
               overflowY: "auto", // Enable vertical scrolling when content overflows
             }}
           >
@@ -353,7 +353,7 @@ export default function Reports() {
               <TableHead>
                 <TableRow
                   sx={{
-                    height: "40px", // Adjust header row height
+                    height: "20px", // Adjust header row height
                     "& .MuiTableCell-root": {
                       padding: "4px 8px", // Reduce padding for header cells
                     },
@@ -437,7 +437,7 @@ export default function Reports() {
             }}
           ></div>
           <h3 style={{ color: "#2F3F5C", margin: 0 }}>
-            {user?.fullname} Reports
+            Reports
           </h3>
         </div>
 
