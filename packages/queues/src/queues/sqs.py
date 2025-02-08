@@ -9,11 +9,14 @@ logger = logging.getLogger(__name__)
 class SQSQueue(QueueClient):
     def __init__(self, name, aws_access_key_id, aws_secret_access_key):
 
+        region = SQSQueue.extract_region_from_url(name)
+        logger.info(f"initializing sqs queue with name: {name} and region: {region}")
+
         session = boto3.Session(
                 aws_access_key_id=aws_access_key_id,
                 aws_secret_access_key=aws_secret_access_key,
                 # aws_session_token=aws_session_token,  # Only needed for temporary credentials
-                region_name=SQSQueue.extract_region_from_url(name)
+                region_name=region
             )
 
         self.client = boto3.client("sqs")
@@ -40,3 +43,4 @@ class SQSQueue(QueueClient):
         parsed_url = urlparse(queue_url)
         match = re.search(r"sqs\.(.*?)\.amazonaws\.com", parsed_url.netloc)
         return match.group(1) if match else None
+    
