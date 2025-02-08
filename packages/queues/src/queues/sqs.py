@@ -19,7 +19,7 @@ class SQSQueue(QueueClient):
                 region_name=region
             )
 
-        self.client = boto3.client("sqs")
+        self.client = session.client("sqs")
         self.queue_url = name
 
     def send_message(self, message: str):
