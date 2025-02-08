@@ -18,8 +18,8 @@ def send_slack_message(message: str):
         # if settings.use_slack
         if slack_client:
             slack_client.chat_postMessage(
-                channel=settings.slack_channel_name, 
-                text=message
+                channel=settings.slack_channel, 
+                text=settings.slack_prefix + message
             )
     except Exception as e:
         raise e

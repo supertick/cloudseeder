@@ -10,6 +10,7 @@ from database.interface import NoSqlDb
 from uvicorn import Config, Server
 from ai_core.config import settings
 from ai_core.models.transcription_request import TranscriptionRequest
+from ai_core.models.transcription_result import TranscriptionResult
 from ai_core.main import app
 from queues.factory import get_queue_client
 from ai_core.answer_questions import answer_questions
@@ -23,6 +24,19 @@ logger = logging.getLogger(__name__)
 def create_transcription_request(item: TranscriptionRequest, db: NoSqlDb, q: QueueClient, user: dict):
     logger.info("===============create_transcription_request called==============")
     logger.info(f"settings: [{settings}]")
+
+    result = TranscriptionResult(
+                            id=item.id,
+                            user_id=item.user_id,
+                            patient_id=item.patient_id,
+                            assessment_id=item.assessment_id,
+                            company_id=item.company_id,
+                            transcribe_type=item.transcribe_type,
+                            status="processing",
+                            started=int(time.time()),
+                            answer_files=[]
+                        )
+
     if not db:
         raise ValueError("No database connection provided.")
     
@@ -57,6 +71,7 @@ def create_transcription_request(item: TranscriptionRequest, db: NoSqlDb, q: Que
     
     logger.info(f"saving deepgram transformation {prefix}/deepgram.json")    
     db.insert_item("output", f"{prefix}/deepgram.json", deepgram_dict)
+    result.answer_files.append(f"{prefix}/deepgram.json")
     # publish timings metrics errors slack ?
     # save or push file to storage for debugging
 
@@ -65,6 +80,7 @@ def create_transcription_request(item: TranscriptionRequest, db: NoSqlDb, q: Que
     if not conversation_json:
         raise ValueError(f"conversation transformation failed for {deepgram_json}")
     db.insert_item("output", f"{prefix}/conversation.json", conversation_json)
+    result.answer_files.append(f"{prefix}/conversation.json")
 
     logger.info("answer questions")
     answers_json = answer_questions(conversation_json, item.patient_id, item.assessment_id, item.assessment_id)
@@ -73,9 +89,10 @@ def create_transcription_request(item: TranscriptionRequest, db: NoSqlDb, q: Que
         raise ValueError("Answers generation failed.")
 
     db.insert_item("output", f"{prefix}/answers.json", conversation_json)
+    result.answer_files.append(f"{prefix}/answers.json")
     
     logger.info("ai core processing finished")
-    return new_item
+    return result
 
 # read - get all items
 def get_all_transcription_request(db: NoSqlDb, user: dict):
