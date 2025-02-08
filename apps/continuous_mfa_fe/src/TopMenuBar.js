@@ -6,7 +6,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useUser } from './UserContext';
 
 const TopMenuBarContainer = styled('div')({
-  width: '100%',
+  width: '99%',
   height: '50px',
   backgroundColor: '#2f3f5c',
   display: 'flex',
@@ -14,8 +14,11 @@ const TopMenuBarContainer = styled('div')({
   alignItems: 'center',
   padding: '0 20px',
   color: '#fff',
-  position: 'absolute',
+  position: 'fixed',  // ⬅️ Changed from "absolute" to "fixed"
   top: 0,
+  left: 0,
+  zIndex: 1000,       // ⬅️ Ensures it stays above other content
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Optional: adds shadow effect
 });
 
 const Logo = styled('img')({
@@ -51,14 +54,11 @@ export default function TopMenuBar() {
   const { userInfo, signOut } = useUser();
   const navigate = useNavigate();
 
-  // Check if the user has an admin role
   const isAdmin = userInfo?.roles?.includes("admin");
 
-  // Enhanced logout function
   const handleLogout = () => {
-    sessionStorage.clear(); // Clears all stored session data
-    // signOut(); // Call the existing signOut function from context
-    navigate('/login'); // Redirect to login page
+    sessionStorage.clear();
+    navigate('/login');
   };
 
   return (
@@ -79,7 +79,7 @@ export default function TopMenuBar() {
         <UserName>{userInfo?.email}</UserName>
         <IconButton onClick={handleLogout} color="inherit">
           <LogoutIcon />
-        </IconButton>
+        </IconButton>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       </UserInfo>
     </TopMenuBarContainer>
   );

@@ -7,7 +7,6 @@ import { useParams } from "react-router-dom";
 import {
   Add as AddIcon,
   Sync as SyncIcon,
-  Analytics as AnalyticsIcon,
   LibraryBooks as LibraryBooksIcon,
 } from "@mui/icons-material";
 import TopMenuBar from "./TopMenuBar";
@@ -28,21 +27,22 @@ export default function Report() {
   const [reports, setReports] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
 
+  const fetchData = async () => {
+    try {
+      const [userRes, inputsRes, reportsRes] = await Promise.all([
+        apiClient.get(`/user/${id}`),
+        apiClient.get("/inputs"),
+        apiClient.get("/reports"),
+      ]);
+      setUser(userRes);
+      setInputFiles(inputsRes.sort((a, b) => b.upload_date - a.upload_date));
+      setReports(reportsRes.sort((a, b) => b.upload_date - a.upload_date));
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [userRes, inputsRes, reportsRes] = await Promise.all([
-          apiClient.get(`/user/${id}`),
-          apiClient.get("/inputs"),
-          apiClient.get("/reports"),
-        ]);
-        setUser(userRes);
-        setInputFiles(inputsRes.sort((a, b) => b.upload_date - a.upload_date));
-        setReports(reportsRes.sort((a, b) => b.upload_date - a.upload_date));
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
     fetchData();
   }, [id]);
 
@@ -82,13 +82,14 @@ export default function Report() {
             .catch((error) => {
               console.error("Error processing file:", error);
             });
-            apiClient.get("/inputs")  
+            // apiClient.get("/inputs")  
           return response;
         })
         .catch((error) => {
           console.error("Error posting metadata:", error);
         });
     };
+
     reader.onerror = (error) => {
       console.error("Error reading file:", error);
     };
@@ -152,9 +153,6 @@ export default function Report() {
         <ReportInputTable inputFiles={inputFiles} selectedFile={selectedFile} setSelectedFile={setSelectedFile} handleOpenDeleteDialog={handleOpenDeleteDialog} />
 
         <br />
-        <h3 style={{ color: "#2F3F5C", margin: 0 }}>
-          <AnalyticsIcon style={{ fontSize: 30, color: "#2F3F5C" }} /> Reports
-        </h3>
 
         {/* Report Table */}
         <ReportTable reports={reports} handleOpenDeleteDialog={handleOpenDeleteDialog} />

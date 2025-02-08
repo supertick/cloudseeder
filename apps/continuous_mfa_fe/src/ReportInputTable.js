@@ -7,7 +7,8 @@ export default function ReportInputTable({ inputFiles, selectedFile, setSelected
   return (
     <TableContainer sx={{ maxHeight: "180px", overflowY: "auto" }}>
       <Table sx={{ borderCollapse: "collapse" }}>
-        <TableHead>
+        {/* Make the Table Head Sticky */}
+        <TableHead sx={{ position: "sticky", top: 0, zIndex: 1 }}>
           <TableRow>
             <TableCell></TableCell>
             <TableCell>Filename</TableCell>

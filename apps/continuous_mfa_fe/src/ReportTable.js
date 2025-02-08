@@ -1,7 +1,7 @@
 import React from "react";
 import { Table, TableHead, TableBody, TableRow, TableCell, TableContainer, Tooltip, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
-import { Delete as DeleteIcon, Apps as AppsIcon } from "@mui/icons-material";
+import { Delete as DeleteIcon, Apps as AppsIcon, Analytics as AnalyticsIcon } from "@mui/icons-material";
 
 export default function ReportTable({ reports, handleOpenDeleteDialog }) {
   return (
@@ -17,7 +17,9 @@ export default function ReportTable({ reports, handleOpenDeleteDialog }) {
         <TableBody>
           {reports.map((record) => (
             <TableRow key={record.id}>
-              <TableCell><AppsIcon style={{ fontSize: 40, color: "#2F3F5C" }} /></TableCell>
+              <TableCell>              
+              <AnalyticsIcon style={{ fontSize: 30, color: "#2F3F5C" }} />
+              </TableCell>
               <TableCell>
                 <Link to={`/products`} style={{ textDecoration: "none", color: "#1976d2" }}>{record.title} {record.id}</Link>
               </TableCell>
