@@ -22,6 +22,7 @@ logger = logging.getLogger(__name__)
 # write - Create an item
 def create_transcription_request(item: TranscriptionRequest, db: NoSqlDb, q: QueueClient, user: dict):
     logger.info("===============create_transcription_request called==============")
+    logger.info(f"settings: [{settings}]")
     if not db:
         raise ValueError("No database connection provided.")
     

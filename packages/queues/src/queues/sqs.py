@@ -16,3 +16,7 @@ class SQSQueue(QueueClient):
 
     def delete_message(self, message_id):
         self.client.delete_message(QueueUrl=self.queue_url, ReceiptHandle=message_id)
+
+    def get_message_count(self):
+        response = self.client.get_queue_attributes(QueueUrl=self.queue_url, AttributeNames=["ApproximateNumberOfMessages"])
+        return response["Attributes"]["ApproximateNumberOfMessages"]

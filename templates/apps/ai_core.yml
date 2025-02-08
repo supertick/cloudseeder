@@ -18,7 +18,9 @@ app:
 
       debug: Optional[bool] = Field(True, description="Enable debug mode", example=True)
       # need blocking or async queues
-      queue_type: Literal["local", "sqs"] = Field("local", description="Queue type", example="local")      
+      queue_type: Literal["local", "sqs"] = Field("sqs", description="Queue type", example="local")    
+      queue_url: Optional[str] = Field(None, description="SQS Queue URL", example="https://sqs.us-west-2.amazonaws.com/123456789012/my-queue")
+
       deepgram_api_key: Optional[str] = Field(None, example="xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
 
       openai_key: Optional[str] = Field(None, description="OpenAI access key", example="your-access-key")

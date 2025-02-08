@@ -17,6 +17,7 @@ WORKDIR /app/apps/ai_core
 
 EXPOSE 8001
 
-RUN chmod +x /app/apps/ai_core/src/ai_core/lambda_function.py
-
-CMD ["ai_core.lambda_function.lambda_handler"]
+# RUN chmod +x /app/apps/ai_core/src/ai_core/lambda_function.py
+# CMD ["ai_core.lambda_function.lambda_handler"]
+# CMD ["uvicorn", "ai_core.main:app", "--host", "0.0.0.0", "--port", "8000"]
+ENTRYPOINT ["uvicorn", "ai_core.main:app", "--host", "0.0.0.0", "--port", "8001"]

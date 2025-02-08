@@ -3,17 +3,42 @@ import json
 import os
 import asyncio
 import time
+from datetime import datetime
+from typing import Dict
 from uvicorn import Config, Server
 from ai_core.config import settings
-from ai_core.models.transcription_request import TranscriptionRequest
 from ai_core.main import app
 from queues.factory import get_queue_client
-from ai_core.answer_questions import answer_questions
-from datetime import datetime
-from ai_core.deepgram_transcription import transcribe, transform
-
+from queues.interface import QueueClient
+from queues.factory import get_queue_client
+from ai_core.config import settings, config_provider
+from ai_core.models.transcription_request import TranscriptionRequest
+from ai_core.services.transcription_request_service import create_transcription_request
+from database.factory import get_database
+from database.interface import NoSqlDb
 
 logger = logging.getLogger(__name__)
+
+def get_db_provider() -> NoSqlDb:
+    return get_database(config_provider)
+
+def get_queue() -> QueueClient:
+    queue_type = settings.queue_type  # Read from app config
+
+    q_params: Dict[str, str] = {}
+
+    if not queue_type:
+        return None
+
+    if queue_type == "local":
+        q_params = {}
+    elif queue_type == "sqs":
+        q_params = {
+           "queue_url": settings.queue_url
+        }
+
+    return get_queue_client(None, queue_type, **q_params)  # Pass to factory
+
 
 async def start_fastapi():
     """Starts the FastAPI application."""
@@ -23,10 +48,10 @@ async def start_fastapi():
     server = Server(config)
     await server.serve()
 
-async def start_queue_listener(queue_name, queue_type="local"):
+async def start_queue_listener(queue_name="ai_core_input", queue_type="sqs"):
     """Starts listening to the queue and processing messages."""
     # Get the queue client instance
-    queue_client = get_queue_client(queue_name, queue_type=queue_type)
+    queue_client = get_queue()
 
     logger.info(f"Listening on queue '{queue_name}' of type '{queue_type}'...")
     while True:
@@ -35,59 +60,27 @@ async def start_queue_listener(queue_name, queue_type="local"):
             message = queue_client.receive_message()
             if message:
                 logger.info(f"Received message: {message}")
-                # Process the message (e.g., call specific handlers)            
-                queue_client.delete_message(message["id"])
-                request = TranscriptionRequest(**message)
-                logger.info(f"Request: {request}")
-
-                # FIXME - merge multiple audio files into one
-                # should only be 1 file per request
-                if len(request.files) != 1:
-                    raise ValueError("Invalid number of files in the request.")
                 
-                audio_filename = request.files[0]
+                # FIXME - There should be a common metadata field for all messages & data field name
+                # No Common MetaData or Field Name For Actual Data !
+                # AWS SQS sends message in "Body" field
+                body = message["Body"]
+                recipient_handle = message["ReceiptHandle"]
 
-                logger.info("stage 1 deepgram transcription")
-                deepgram_json = transcribe(audio_filename)
-                if not deepgram_json:
-                    raise ValueError("Deepgram transcription failed.")
-                
-                parent_dir = os.path.join(settings.work_dir, request.patient_id, request.assessment_id)
-                if not os.path.exists(parent_dir):
-                    os.makedirs(parent_dir)
+                request = TranscriptionRequest(**json.loads(body))
+                logger.info(f"Transcription Request: {request}")
 
-                # publish timings metrics errors slack ?
-                # save or push file to storage for debugging
-                output_file = os.path.join(parent_dir, "deepgram.json")
-                with open(output_file, "w") as f:
-                    f.write(deepgram_json)
-
-                logger.info("stage 2 deepgram transformation")
-                conversation_json = transform(deepgram_json)
-                if not conversation_json:
-                    raise ValueError("Conversation transformation failed.")
-                
-                conversation_filename = os.path.join(parent_dir, "conversation.json")
-                with open(conversation_filename, "w") as f:
-                    f.write(json.dumps(conversation_json))
-                    logger.info(f"Conversation file saved to {conversation_filename}")
-
-                answers_json = answer_questions(conversation_filename, request.patient_id, request.assessment_id, request.assessment_id, None)
-                answers_filename = os.path.join(parent_dir, "answers.json")
-                with open(answers_filename, "w") as f:
-                    f.write(json.dumps(answers_json))
-                    logger.info(f"Answers file saved to {answers_filename}")
-                
-                if not answers_json:
-                    raise ValueError("Answers generation failed.")
-
-                logger.info("stage 3 openai")
+                logger.info(f"starting transcription {request.id}")
+                create_transcription_request(request, get_db_provider(), None, None)
+                logger.info(f"procesed transcription {request.id}")
+                queue_client.delete_message(recipient_handle)
+                logger.info(f"Deleted message with handle {recipient_handle}")
 
             await asyncio.sleep(1)
 
         except Exception as e:
             logger.error("An error occurred", exc_info=True)
-            # Prefent cpu thrashing
+            # prevent cpu thrashing
             await asyncio.sleep(1)
         
 

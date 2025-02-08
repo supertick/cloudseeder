@@ -3,16 +3,22 @@ import logging
 import json
 import openai
 from ai_core.config import settings
+from ai_core.config import config_provider
 from ai_core.models.transcription_request import TranscriptionRequest
+from ai_core.answer_questions import answer_questions
+from ai_core.deepgram_transcription import transcribe, transform
 from ai_core.services.transcription_request_service import create_transcription_request
 from queues.factory import get_queue_client
-from ai_core.answer_questions import answer_questions
 from datetime import datetime
-from ai_core.deepgram_transcription import transcribe, transform
+from database.factory import get_database, get_db
+from database.interface import NoSqlDb
 
 # Configure the logger
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
+
+def get_db_provider() -> NoSqlDb:
+    return get_database(config_provider)
 
 def process_record(record):
     """
@@ -35,7 +41,7 @@ def process_record(record):
     
     # Call your business logic with the validated model instance
     # Ensure that create_transcription_request, db, q, and user are defined/imported appropriately
-    create_transcription_request(transcription_request, None, None, None)
+    create_transcription_request(transcription_request, get_db_provider(), None, None)
 
 def lambda_handler(event, context):
     try:
