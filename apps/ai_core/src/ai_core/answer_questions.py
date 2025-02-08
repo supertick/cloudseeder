@@ -11,8 +11,6 @@ import os
 import time
 
 # FIXME - put in config
-slack_client = None
-slack_channel_name = "acutedge-alerts"
 delete_openai_objects = False
 number_of_question = 5
 

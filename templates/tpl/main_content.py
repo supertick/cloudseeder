@@ -1,4 +1,5 @@
 import logging
+import json
 from fastapi import FastAPI, Request, Depends, HTTPException, Security
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exceptions import RequestValidationError
@@ -13,7 +14,7 @@ import time
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-logger.info(f"App Setting: {settings}")
+logger.info(f"App Setting: {json.dumps(settings.model_dump(), indent=2)}")
 
 app = FastAPI(title="{AppTitle}", version="0.0.0")
 

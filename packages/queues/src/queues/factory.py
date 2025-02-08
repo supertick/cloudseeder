@@ -24,7 +24,7 @@ def get_queue_client(name: str, queue_type="local", **kwargs):
     elif queue_type == "local":
         queue_instance = LocalQueue()
     elif queue_type == "sqs":
-        queue_instance = SQSQueue(kwargs["queue_url"])
+        queue_instance = SQSQueue(name, kwargs["aws_access_key_id"], kwargs["aws_secret_access_key"])
     elif queue_type == "azure":
         queue_instance = AzureQueueClient(kwargs["connection_string"], kwargs["queue_name"])
     else:

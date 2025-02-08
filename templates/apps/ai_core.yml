@@ -20,8 +20,8 @@ app:
       # need blocking or async queues
       queue_only: Optional[bool] = Field(True, description="Run only queue listener - else run FastAPI and queue listener", example=True)
       queue_type: Literal["local", "sqs"] = Field("sqs", description="Queue type", example="local")    
-      queue_input_url: Optional[str] = Field(None, description="SQS Queue URL", example="https://sqs.us-west-2.amazonaws.com/123456789012/input-queue")
-      queue_output_url: Optional[str] = Field(None, description="SQS Queue URL", example="https://sqs.us-west-2.amazonaws.com/123456789012/outpu-queue")
+      queue_input_name: Optional[str] = Field(None, description="SQS Queue URL", example="https://sqs.us-west-2.amazonaws.com/123456789012/input-queue")
+      queue_output_name: Optional[str] = Field(None, description="SQS Queue URL", example="https://sqs.us-west-2.amazonaws.com/123456789012/outpu-queue")
 
       deepgram_api_key: Optional[str] = Field(None, example="xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
 
@@ -30,7 +30,6 @@ app:
 
       aws_access_key_id: Optional[str] = Field(None, description="AWS Access Key ID", example="your-access-key")
       aws_secret_access_key: Optional[str] = Field(None, description="AWS Secret Access Key", example="your-secret-key")
-      aws_region: Optional[str] = Field(None, description="AWS Region", example="us-east-1")
 
       slack_enabled: Optional[bool] = Field(True, description="Enable Slack notifications", example=True)
       slack_channel: Optional[str] = Field("acutedge-alerts", description="Slack channel", example="acutedge-alerts")

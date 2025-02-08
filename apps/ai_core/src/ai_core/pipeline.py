@@ -10,13 +10,14 @@ from ai_core.config import settings
 from ai_core.main import app
 from queues.factory import get_queue_client
 from queues.interface import QueueClient
-from queues.factory import get_queue_client
 from ai_core.config import settings, config_provider
 from ai_core.models.transcription_request import TranscriptionRequest
 from ai_core.models.transcription_result import TranscriptionResult
 from ai_core.services.transcription_request_service import create_transcription_request
 from database.factory import get_database
 from database.interface import NoSqlDb
+from ai_core.slack import send_slack_message
+import traceback
 
 logger = logging.getLogger(__name__)
 
@@ -26,7 +27,8 @@ def get_db_provider() -> NoSqlDb:
 # Has flexibility of abstraction - should not be here
 # The important part to update and keep is the abstraction between queue types and
 # common meta data
-def get_input_queue() -> QueueClient:
+
+def get_queue(name: str) -> QueueClient:
     queue_type = settings.queue_type  # Read from app config
 
     q_params: Dict[str, str] = {}
@@ -38,27 +40,11 @@ def get_input_queue() -> QueueClient:
         q_params = {}
     elif queue_type == "sqs":
         q_params = {
-           "queue_url": settings.queue_input_url
+           "aws_access_key_id": settings.aws_access_key_id,
+           "aws_secret_access_key": settings.aws_secret_access_key
         }
 
-    return get_queue_client(settings.queue_input_url, queue_type, **q_params)  # Pass to factory
-
-def get_output_queue() -> QueueClient:
-    queue_type = settings.queue_type  # Read from app config
-
-    q_params: Dict[str, str] = {}
-
-    if not queue_type:
-        return None
-
-    if queue_type == "local":
-        q_params = {}
-    elif queue_type == "sqs":
-        q_params = {
-           "queue_url": settings.queue_output_url
-        }
-
-    return get_queue_client(settings.queue_output_url, queue_type, **q_params)  # Pass to factory
+    return get_queue_client(name, queue_type, **q_params)  # Pass to factory
 
 
 async def start_fastapi():
@@ -72,10 +58,10 @@ async def start_fastapi():
 async def start_queue_listener():
     """Starts listening to the queue and processing messages."""
     # Get the queue client instance
-    queue_input_client = get_input_queue()
-    queue_output_client = get_output_queue()
+    queue_input_client = get_queue(settings.queue_input_name)
+    queue_output_client = get_queue(settings.queue_output_name)
 
-    logger.info(f"Listening on queue '{settings.queue_input_url}' of type '{settings.queue_type}'...")
+    logger.info(f"Listening on queue '{settings.queue_input_name}' of type '{settings.queue_type}'...")
     while True:
         try:
             # Receive and process messages
@@ -108,11 +94,10 @@ async def start_queue_listener():
 
         except Exception as e:
             logger.error("An error occurred", exc_info=True)
+            send_slack_message(f"An error occurred: {e}, traceback: {traceback.format_exc()}")
             # prevent cpu thrashing
             await asyncio.sleep(1)
         
-
-
 async def main():
     """Starts the FastAPI app and the queue listener concurrently."""
     logger.setLevel(settings.log_level)
