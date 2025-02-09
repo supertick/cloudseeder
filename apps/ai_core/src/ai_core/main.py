@@ -8,6 +8,8 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials, OAuth2Pas
 from typing import List, Optional
 from ai_core.config import settings
 from auth.factory import get_auth_provider
+from .generate_ssl import generate_self_signed_cert
+# FIXME - change name to AppSettings
 from .config import config_provider
 import jwt
 import time
@@ -92,4 +94,9 @@ def login(form_data: OAuth2PasswordRequestForm = Depends()):
 if __name__ == "__main__":
     import uvicorn
     print(f"Running on port: {settings.port}")
-    uvicorn.run(app, host="0.0.0.0", port=settings.port, reload=True)
+    if (settings.ssl_enabled):
+        print("ssl enabled")
+        generate_self_signed_cert()
+        uvicorn.run(app, host="0.0.0.0", port=settings.port, ssl_keyfile="key.pem", ssl_certfile="cert.pem", reload=True)
+    else:
+        uvicorn.run(app, host="0.0.0.0", port=settings.port, reload=True)    

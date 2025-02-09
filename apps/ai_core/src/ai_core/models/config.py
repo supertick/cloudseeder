@@ -7,6 +7,7 @@ class Config(BaseModel):
     port: Optional[int] = Field(8001, example="8001")
     work_dir: Optional[str] = Field("work", example="work")
     log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] = Field("INFO", description="Log Level", example="INFO")
+    ssl_enabled: Optional[bool] = Field(False, description="Enable SSL", example=True)
     auth_enabled: Optional[bool] = Field(False, description="Enable authentication", example=True)
     database_type: Literal["s3", "none", "tinydb", "dynamodb", "filesystem"] = Field("s3", description="Database type", example="dynamodb")
     bucket_name: Optional[str] = Field("scribble2-data", description="S3 bucket name", example="scribble2-data")

@@ -152,6 +152,7 @@ def main(app_name: str, monorepo_root: str):
     search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "__init__.py"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}/src/{app_name}", "__init__.py"))
     
     search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "generate_ssl.py"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}/src/{app_name}", "generate_ssl.py"))
+    search_and_replace(os.path.join(f"{TEMPLATE_DIR}", "invoker.py"), replacements, os.path.join(f"{monorepo_root}/apps/{app_name}/src/{app_name}", "invoker.py"))
 
     # Generate FastAPI application structure
     create_fastapi_application(app_name, monorepo_root, models)
