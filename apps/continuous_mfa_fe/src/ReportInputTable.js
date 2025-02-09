@@ -1,9 +1,30 @@
 import React from "react";
-import { Table, TableHead, TableBody, TableRow, TableCell, TableContainer, Tooltip, IconButton, Radio } from "@mui/material";
-import { Delete as DeleteIcon } from "@mui/icons-material";
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  TableContainer,
+  Tooltip,
+  IconButton,
+  Radio
+} from "@mui/material";
+import { Delete as DeleteIcon, GetApp as DownloadIcon } from "@mui/icons-material";
 import { formatDate } from "./DateUtils";
 
 export default function ReportInputTable({ inputFiles, selectedFile, setSelectedFile, handleOpenDeleteDialog }) {
+  
+  // Function to handle file download
+  const handleDownload = (fileUrl, fileName) => {
+    const link = document.createElement("a");
+    link.href = fileUrl;
+    link.download = fileName; // Suggested file name
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <TableContainer sx={{ maxHeight: "180px", overflowY: "auto" }}>
       <Table sx={{ borderCollapse: "collapse" }}>
@@ -23,6 +44,16 @@ export default function ReportInputTable({ inputFiles, selectedFile, setSelected
               <TableCell>{record.files}</TableCell>
               <TableCell>{formatDate(record.upload_date)}</TableCell>
               <TableCell>
+                <Tooltip title="Download">
+                  <IconButton
+                    onClick={(e) => { 
+                      e.stopPropagation();
+                      handleDownload(record.fileUrl, record.files); // Assuming `fileUrl` contains the actual download URL
+                    }}
+                  >
+                    <DownloadIcon />
+                  </IconButton>
+                </Tooltip>
                 <Tooltip title="Delete">
                   <IconButton onClick={(e) => { e.stopPropagation(); handleOpenDeleteDialog(record.id); }}>
                     <DeleteIcon />

@@ -78,6 +78,9 @@ export default function Report() {
             .post("/input", metadata)
             .then((response) => {
               console.info("File processed successfully:", response);
+              apiClient.get("/inputs").then((response) => {
+                setInputFiles(response);
+              });
             })
             .catch((error) => {
               console.error("Error processing file:", error);

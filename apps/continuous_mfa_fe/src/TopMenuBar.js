@@ -51,13 +51,13 @@ const MenuLink = styled(Link)({
 });
 
 export default function TopMenuBar() {
-  const { userInfo, signOut } = useUser();
+  const { userInfo, setUserInfo } = useUser();
   const navigate = useNavigate();
 
   const isAdmin = userInfo?.roles?.includes("admin");
 
   const handleLogout = () => {
-    sessionStorage.clear();
+    setUserInfo(null)
     navigate('/login');
   };
 

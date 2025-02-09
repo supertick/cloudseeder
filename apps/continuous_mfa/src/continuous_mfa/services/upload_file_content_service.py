@@ -1,6 +1,9 @@
 import logging
 from typing import List
 import uuid
+import base64
+from pathlib import Path
+from typing import Dict
 from queues.interface import QueueClient
 from database.interface import NoSqlDb
 from continuous_mfa.models.upload_file_content import UploadFileContent
@@ -8,24 +11,41 @@ from continuous_mfa.models.upload_file_content import UploadFileContent
 logger = logging.getLogger(__name__)
 
 # write - Create an item
-def create_upload_file_content(item: UploadFileContent, db: NoSqlDb, q: QueueClient, user: dict):
+def create_upload_file_content(item: UploadFileContent, db, q, user: Dict):
+    """
+    Saves an uploaded file's base64 data to a directory structure:
+    data/upload/{user_id}/{upload_date}/{filename}
+
+    Args:
+        item (UploadFileContent): The upload file metadata and data.
+        db (NoSqlDb): Database client (not used in this function but available for future use).
+        q (QueueClient): Queue client (not used in this function but available for future use).
+        user (dict): User information (not used, but can be used for additional metadata).
+
+    Returns:
+        str: The full path to the saved file.
+    """
     logger.info("===============create_upload_file_content called==============")
 
-    item_id = item.id if hasattr(item, "id") and item.id else str(uuid.uuid4())
-    logger.info(f"Using item_id: {item_id}")
-    new_item = item.model_dump()
-    new_item["id"] = item_id  # Store UUID in the database
+    # Define the directory structure
+    upload_dir = Path(f"data/upload/{item.user_id}")
+    upload_dir.mkdir(parents=True, exist_ok=True)  # Create directories if they don't exist
 
-    logger.info(item)
+    # Define file path
+    file_path = upload_dir / f"{item.upload_date} - {item.filename}"
 
-    # FIXME - if db: ...
-    db.insert_item("upload_file_content", item_id, new_item)
-    logger.info(f"UploadFileContent created: {new_item}")
-    if q:
-        q.send_message(new_item)
-        logger.info(f"Message sent to queue: UploadFileContent created: {new_item}")
-        logger.info(f"Queue message count: {q.get_message_count()}")
-    return new_item
+    try:
+        # Decode base64 data and write to file
+        with open(file_path, "wb") as file:
+            file.write(base64.b64decode(item.data))
+        
+        logger.info(f"File saved successfully at: {file_path}")
+
+        return {"message": "File uploaded successfully", "file_path": str(file_path)}
+    
+    except Exception as e:
+        logger.error(f"Failed to save file: {e}")
+        return None
 
 # read - get all items
 def get_all_upload_file_content(db: NoSqlDb, user: dict):

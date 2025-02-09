@@ -1,11 +1,24 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 // Create the context
 export const UserContext = createContext();
 
 // Provider to wrap around your app
 export const UserProvider = ({ children }) => {
-  const [userInfo, setUserInfo] = useState(null);
+  // Load user from sessionStorage if available
+  const [userInfo, setUserInfo] = useState(() => {
+    const storedUser = sessionStorage.getItem("userInfo");
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
+
+  // Save userInfo to sessionStorage whenever it changes
+  useEffect(() => {
+    if (userInfo) {
+      sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
+    } else {
+      sessionStorage.removeItem("userInfo"); // Clear sessionStorage on logout
+    }
+  }, [userInfo]);
 
   return (
     <UserContext.Provider value={{ userInfo, setUserInfo }}>
