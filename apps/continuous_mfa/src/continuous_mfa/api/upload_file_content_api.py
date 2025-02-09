@@ -13,7 +13,7 @@ from typing import Dict
 from auth.factory import get_auth_provider
 from continuous_mfa.auth_util import require_role, no_role_required
 from continuous_mfa.config import config_provider
-from ai_core.invoker import safe_invoke
+from continuous_mfa.invoker import safe_invoke
 
 
 logging.basicConfig(level=logging.INFO)
