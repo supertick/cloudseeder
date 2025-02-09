@@ -108,3 +108,5 @@ Pipfile.lock
 db.json
 
 # apps
+apps/continuous_mfa/cert.pem
+apps/continuous_mfa/key.pem
