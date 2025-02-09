@@ -21,6 +21,12 @@ app:
       aws_secret_access_key: Optional[str] = Field(None, description="AWS Secret Access Key", example="your-secret-key")
       aws_region: Optional[str] = Field(None, description="AWS Region", example="us-east-1")
 
+      mfatwin_dir: Optional[str] = Field("mfatwin", example="mfatwin")
+
+      google_chat_enabled: Optional[bool] = Field(True, description="Enable Google Chat Messaging", example=True)
+      google_chat_webhook: Optional[str] = Field(None, example="https://chat.googleapis.com/v1/spaces/XXXXXXXX/messages?key=XXXXXXXXXXXXX&token=XXXXXXXXXXXXXXXXXXXXX")
+      google_chat_prefix: Optional[str] = Field("🚀 *Dev Continuous MFA*\n Testing Continuous MFA Messaging [GitHub continuous_mfa](https://github.com/Metalyticsbio/continuous_mfa)", example="Continuous MFA")
+
       version: Optional[str] = Field("0.0.0", example="0.1.0")
 
     user:
@@ -49,24 +55,25 @@ app:
 
     input:
       id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
-      title: Optional[str] = Field(None, example="Input File 1")
+      description: Optional[str] = Field(None, example="Input File 1")
       user_id: Optional[str] = Field(None, example="john@company1.com")
       files: List[str]
       upload_date: Optional[int] = Field(None, example=1683123456789)
 
     run:
       id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
-      product: Optional[str] = None
-      title: Optional[str] = Field(None, example="input-1.xlsx")
+      product: Optional[str] = Field(None, example="MFALite")
+      description: Optional[str] = Field(None, example="Test run")
       # IMPORTANT - user_id is filled in from auth not passed in 
       user_id: Optional[str] = Field(None, example="john@company1.com")
-      input_dir: Optional[str] = Field(None, example="input_dir")
-      output_dir: Optional[str] = Field(None, example="output_dir")
+      # input_dir: Optional[str] = Field(None, example="input_dir")
+      # output_dir: Optional[str] = Field(None, example="output_dir")
+      input_files: list[str] = Field(default_factory=list, example=["file1.txt", "file2.txt"])
 
     report:
       id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")
-      product: Optional[str] = None
-      title: Optional[str] = None
+      product: Optional[str] = Field(None, example="MFALite")
+      description: Optional[str] = Field(None, example="Test report")
       user_id: Optional[str] = Field(None, example="john@company1.com")
       input_files: list[str] = Field(default_factory=list, example=["file1.txt", "file2.txt"])
       output_files: list[str] = Field(default_factory=list, example=["file1.txt", "file2.txt"])
@@ -79,7 +86,7 @@ app:
 
     upload_file_content:
       id: Optional[str] = Field(None, example="john@company1.com-1683123456789")
-      user_id: str
-      upload_date: int
-      filename: str
-      data: str
+      user_id: str = Field(None, example="john@company1.com")
+      upload_date: int = Field(None, example=1683123456789)
+      filename: str = Field(None, example="file1.txt")
+      data: str = Field(None, description="Base64 encoded file data", example="base64 encoded data")

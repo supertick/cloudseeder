@@ -17,6 +17,6 @@ class Config(BaseModel):
     aws_region: Optional[str] = Field(None, description="AWS Region", example="us-east-1")
     mfatwin_dir: Optional[str] = Field("mfatwin", example="mfatwin")
     google_chat_enabled: Optional[bool] = Field(True, description="Enable Google Chat Messaging", example=True)
-    google_chat_webhook: Optional[str] = Field("https://chat.googleapis.com/v1/spaces/AAAA40PP240/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=NfZbb_efOlZ7dF8jLET9XoEkTA6mEf7GXMtCG4RZEG8", example="https://chat.googleapis.com/v1/spaces/AAAA40PP240/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=NfZbb_efOlZ7dF8jLET9XoEkTA6mEf7GXMtCG4RZEG8")
+    google_chat_webhook: Optional[str] = Field(None, example="https://chat.googleapis.com/v1/spaces/XXXXXXXX/messages?key=XXXXXXXXXXXXX&token=XXXXXXXXXXXXXXXXXXXXX")
     google_chat_prefix: Optional[str] = Field("🚀 *Dev Continuous MFA*\n Testing Continuous MFA Messaging [GitHub continuous_mfa](https://github.com/Metalyticsbio/continuous_mfa)", example="Continuous MFA")
     version: Optional[str] = Field("0.0.0", example="0.1.0")

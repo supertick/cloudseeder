@@ -44,7 +44,7 @@ def stream_output(pipe):
         logger.info(line.strip())
     pipe.close()
 
-def process_error(config, err=""):
+def process_error(err=""):
     logger.error(f"Process error: {err}")
 
 def kill_process(process, config):
