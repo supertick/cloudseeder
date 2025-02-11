@@ -19,4 +19,5 @@ class Config(BaseModel):
     google_chat_enabled: Optional[bool] = Field(True, description="Enable Google Chat Messaging", example=True)
     google_chat_webhook: Optional[str] = Field(None, example="https://chat.googleapis.com/v1/spaces/XXXXXXXX/messages?key=XXXXXXXXXXXXX&token=XXXXXXXXXXXXXXXXXXXXX")
     google_chat_prefix: Optional[str] = Field("🚀 *Dev Continuous MFA*\n Testing Continuous MFA Messaging [GitHub continuous_mfa](https://github.com/Metalyticsbio/continuous_mfa)", example="Continuous MFA")
+    timeout: Optional[int] = Field(300, description="Timeout for a process in seconds", example=300)
     version: Optional[str] = Field("0.0.0", example="0.1.0")

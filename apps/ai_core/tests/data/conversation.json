@@ -1,0 +1,1215 @@
+[
+  {
+    "speaker_id": 0,
+    "text": "Hi, Robert. My name is Kate. I'm gonna be your nurse today. How are you doing?"
+  },
+  { "speaker_id": 1, "text": "Hey, Kate. How are you?" },
+  {
+    "speaker_id": 0,
+    "text": "Good. Thank you for asking. And how about yourself?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "I'm doing okay. You know, we're just getting old. So"
+  },
+  {
+    "speaker_id": 0,
+    "text": "Yeah. I understand. We're all getting there. Robert, is this okay, for me being here for you? I I got your permission to to do the start of care today."
+  },
+  {
+    "speaker_id": 1,
+    "text": "Yeah. That's fine. What what is start of care, Kate?"
+  },
+  {
+    "speaker_id": 0,
+    "text": "Okay. So starter care is basically, an activity that we have to do in order to admit you to home health. Okay. Okay."
+  },
+  { "speaker_id": 1, "text": "So it's my admission today?" },
+  {
+    "speaker_id": 0,
+    "text": "Yes. This is admission. This is initial visit with the nurse. I am a nurse. So you've been into the hospital, and your doctor decided that, you will benefit from the nursing, and we will see."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Maybe you will also benefit from physical therapy and occupational therapy, but, we will find out as as as we go. Okay?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "How much time do you think this will take? I have to go to the grocery store."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Usually, it takes about an hour to hour and a half."
+  },
+  { "speaker_id": 1, "text": "Okay. Okay." },
+  {
+    "speaker_id": 0,
+    "text": "Robert, can you please, confirm your, full name and date of birth for me, please?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "Robert Smith, and I'm seventy years old. So that'll so my date of birth is, I don't remember, Kate, what my date of birth is, but I'm seventy years old."
+  },
+  {
+    "speaker_id": 0,
+    "text": "K. Okay. Good. Do you do you remember what day is it today?"
+  },
+  { "speaker_id": 1, "text": "It is Friday today." },
+  {
+    "speaker_id": 0,
+    "text": "Good. Do you remember the the what is the the number of the of the month month number?"
+  },
+  { "speaker_id": 1, "text": "It's, yeah, it's May five fifth month." },
+  { "speaker_id": 0, "text": "Okay. And do you remember who's the president?" },
+  { "speaker_id": 1, "text": "The president is Biden." },
+  { "speaker_id": 0, "text": "Good. And do you know where you are right now?" },
+  { "speaker_id": 1, "text": "I'm at home." },
+  { "speaker_id": 0, "text": "Mhmm." },
+  { "speaker_id": 1, "text": "In my home in Chicago." },
+  {
+    "speaker_id": 0,
+    "text": "Very good. Thank you for that. Okay. So, Robert, what we're gonna do, I'm gonna open up my computer, and I have a bunch of questions in here to ask you. And we have to go through all of them, k, preferably."
+  },
+  {
+    "speaker_id": 0,
+    "text": "If there's something that you're not sure, we can think about it together, or sometimes we can, reach out to your doctor to answer some other questions. Depends on, how comfortable you feel answering them. And we're gonna start with this question. Tell me, please, what, what transportation are you using to get to the doctor, and do you have any help?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "I have my daughter who takes me to the doctor when I need. I can drive. You know, sometimes I drive, but not very good. So if I really have to, I might Mhmm. Right?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "But I don't like to anymore, especially with my eyes, so my daughter takes me."
+  },
+  {
+    "speaker_id": 0,
+    "text": "I see. Okay. So right now when you are, receiving the home care, you're considered to be a homebound, which means they insurance will not like if you will be driving right now. Okay. As much as you can."
+  },
+  { "speaker_id": 1, "text": "Drive right now. Okay." },
+  {
+    "speaker_id": 0,
+    "text": "Drive right now. Because if you will be able to drive, means you can get to the outpatient services, so you will lose"
+  },
+  { "speaker_id": 1, "text": "your Wow." },
+  { "speaker_id": 0, "text": "For home care." },
+  { "speaker_id": 1, "text": "Okay. Thanks. Okay." },
+  {
+    "speaker_id": 0,
+    "text": "Okay. Do you have any questions on that? No. No. Okay."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Good. You mentioned that you have some issues with your vision. Can you tell me more about that?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "I just you know, I it's a little hard to read. I sometimes even with glasses. Mhmm. So but I do wear glasses and, I mean, I I can watch television. Mhmm."
+  },
+  {
+    "speaker_id": 1,
+    "text": "But, I I think it's okay. I can do the things that I really need to do."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Good. Do you have any, yellow spots or floaters?"
+  },
+  { "speaker_id": 1, "text": "No. I don't have." },
+  {
+    "speaker_id": 0,
+    "text": "Okay. So yellow spots of floaters can be a symptoms of, some of the medications that you, that you take, side effects. So if you don't have those, it means you don't have those side effects, which is good. And, I can, see that you are not wearing any hearing devices. Right?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "Right now, I'm not wearing the hearing aid, but I do have hearing aids. Like, sometimes I'll wear them."
+  },
+  { "speaker_id": 0, "text": "Okay. Are they for both ears?" },
+  { "speaker_id": 1, "text": "Yeah." },
+  {
+    "speaker_id": 0,
+    "text": "Okay. And for since when? Two years. Two years. Two years."
+  },
+  {
+    "speaker_id": 0,
+    "text": "I started. Yeah. Okay. And how often are you following up with your doctor, with ENT?"
+  },
+  { "speaker_id": 1, "text": "With the the hearing doctor." },
+  { "speaker_id": 0, "text": "Mhmm." },
+  {
+    "speaker_id": 1,
+    "text": "I haven't seen him in two years since the hearing aids."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Okay. And let's see. Yeah. What is your level of education?"
+  },
+  { "speaker_id": 1, "text": "I have a master's." },
+  {
+    "speaker_id": 0,
+    "text": "Okay. So you can read and write and understand. Very good. Okay. Okay."
+  },
+  {
+    "speaker_id": 0,
+    "text": "So we already know that your mental status is good. You're alert and oriented. And I am going to say three words for you to remember. Please repeat the words after I have said all three. The word is telephone, accord, and a car."
+  },
+  { "speaker_id": 1, "text": "You said, telephone, a car, and a cord?" },
+  {
+    "speaker_id": 0,
+    "text": "Correct. Good job. Okay. And we already did that. Sorry."
+  },
+  {
+    "speaker_id": 0,
+    "text": "We were a little bit jumping things. Very cool. Okay. You don't have any delirium?"
+  },
+  { "speaker_id": 1, "text": "What is delirium?" },
+  {
+    "speaker_id": 0,
+    "text": "Delirium is when you basically don't understand what's going on without you. It's it's a lot of anxiety or people get scared. It usually happens when they get, sepsis, like infection. They regret infection, and they're disoriented. Okay."
+  },
+  {
+    "speaker_id": 0,
+    "text": "So cognitive function, you will be alert and oriented because I'm talking to you. And how often would you think that you're getting confused?"
+  },
+  { "speaker_id": 1, "text": "Sometimes, like" },
+  { "speaker_id": 0, "text": "Sometimes. I" },
+  {
+    "speaker_id": 1,
+    "text": "am yeah. I guess sometimes if, I don't know if it's confusing or if it's, being forgetful, but I'll come downstairs and forget my, forget my, glasses in the bedroom. Mhmm. Then I'll go up to the bed and then come back down again without the glasses. So that happens."
+  },
+  { "speaker_id": 0, "text": "Is that happening daily?" },
+  { "speaker_id": 1, "text": "It happens often. Yeah." },
+  {
+    "speaker_id": 0,
+    "text": "Happens often. Okay. Do you have, history of Alzheimer's or dementia in your family? No. No."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Okay. No. And how often are you getting anxious?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "Only when I'm going out to see some family, like, sometimes when there's a lot of people. But no. Not regularly."
+  },
+  { "speaker_id": 0, "text": "Not regularly." },
+  { "speaker_id": 1, "text": "Okay." },
+  {
+    "speaker_id": 0,
+    "text": "Okay. Over the last two weeks, have you been bothered by any of the following problems? Little interest or pleasure in doing things."
+  },
+  {
+    "speaker_id": 1,
+    "text": "Yeah. I do get bored sometimes, So then I don't want to like, I don't sometimes I wanna go for a walk, but then I don't go. Mhmm. So then a whole week passes by. Since I walked outside, I like walking."
+  },
+  { "speaker_id": 1, "text": "Mhmm. Sometimes I don't feel like it." },
+  { "speaker_id": 0, "text": "Okay. So how often this happens?" },
+  {
+    "speaker_id": 1,
+    "text": "I'd like to go, like, five days a week booking, but maybe some days some weeks, I only go once."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Okay. So would you say it it happens most days of week? Half, technically? Or"
+  },
+  { "speaker_id": 1, "text": "You could say, like, maybe half time." },
+  {
+    "speaker_id": 0,
+    "text": "Half time. Okay. Are you feeling down, depressed, or hopeless?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "I wouldn't say hopeless, but sometimes I feel lonely."
+  },
+  { "speaker_id": 0, "text": "Mhmm." },
+  { "speaker_id": 1, "text": "So because, you know, I live by myself." },
+  { "speaker_id": 0, "text": "I see. Do you have a family or support system?" },
+  {
+    "speaker_id": 1,
+    "text": "I have my daughter who, you know, come checks on me every now and then, and she'll call. I have a cell phone so we can talk. But she's also busy. She has kids and, you know, they're busy too with their school and stuff. So"
+  },
+  { "speaker_id": 0, "text": "I see. How about friends or neighbors?" },
+  { "speaker_id": 1, "text": "I don't talk to friends much or or neighbors." },
+  { "speaker_id": 0, "text": "Do you have grandkids?" },
+  { "speaker_id": 1, "text": "I have two grandkids. Yeah." },
+  { "speaker_id": 0, "text": "Are they visiting?" },
+  { "speaker_id": 1, "text": "I'm sorry?" },
+  { "speaker_id": 0, "text": "Are they visiting?" },
+  {
+    "speaker_id": 1,
+    "text": "They visit, you know, once a month or something like that when my daughter can bring them around."
+  },
+  { "speaker_id": 0, "text": "Do you think you have enough support at home?" },
+  {
+    "speaker_id": 1,
+    "text": "I get, you know, food delivered for Meals on Wheels. Yeah."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Do you have, would you like to have a caregiver? At least part time. Maybe for two, three hours a day. Somebody to keep you company, help you with medications, maybe, you know, somebody you can go to get groceries."
+  },
+  { "speaker_id": 1, "text": "Will they be coming in every day?" },
+  {
+    "speaker_id": 0,
+    "text": "So what we can do, we can or, we can, request an order from your doctor to get social worker for you. They will come. They will do an assessment, and most likely, they will help you to apply. They will apply for you, basically, for Catholic Charities. And at that point, it's gonna be at their discretion, but many people do get help, at least two to three hours a day, five days a week."
+  },
+  { "speaker_id": 0, "text": "So I think What do" },
+  { "speaker_id": 1, "text": "they do? Like, do they do dishes and laundry?" },
+  {
+    "speaker_id": 0,
+    "text": "They can basically help you anything you do around the house. Okay. They can go for a walk with you. They can assist you."
+  },
+  { "speaker_id": 1, "text": "Nice. I think that would be nice. Mhmm." },
+  {
+    "speaker_id": 0,
+    "text": "Okay. So we can we can definitely do that for you. Let's continue. And do you have trouble falling asleep or staying asleep or sleeping too much?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "I get up in the middle of the night, then it's hard to go back to sleep. So I, you know, I'll sleep. Mhmm. Because maybe I don't do too much. So I just, you know, watch TV or something, and then I'll sleep."
+  },
+  { "speaker_id": 1, "text": "And then I can get up at two in the morning." },
+  { "speaker_id": 0, "text": "Do you nap during the day?" },
+  { "speaker_id": 1, "text": "I do. Like, take a couple naps." },
+  {
+    "speaker_id": 0,
+    "text": "Okay. We then talk about taking naps and not being able to sleep a little later. Okay? Okay. Are you feeling tired or having little energy?"
+  },
+  { "speaker_id": 1, "text": "I do feel tired a lot. Yeah." },
+  { "speaker_id": 0, "text": "How active are you during the day?" },
+  {
+    "speaker_id": 1,
+    "text": "Well, I like to go for walks in the morning, but I don't go. So then I feel like that I'm tired maybe or don't like it as much. But I sometimes I like it, so I don't know."
+  },
+  { "speaker_id": 0, "text": "Okay. How was your appetite?" },
+  { "speaker_id": 1, "text": "I eat, like, two times in a day. Like, yeah." },
+  { "speaker_id": 0, "text": "Hungry or are you eating because you have to?" },
+  {
+    "speaker_id": 1,
+    "text": "I like ice cream a lot. Mhmm. So I eat that at night. But"
+  },
+  { "speaker_id": 0, "text": "able to cook for yourself?" },
+  {
+    "speaker_id": 1,
+    "text": "I eat toast with butter. You know, I can do that. Sometimes I can make eggs, but I don't do more a lot of cooking."
+  },
+  { "speaker_id": 0, "text": "Okay. Are you feeling bad about yourself?" },
+  {
+    "speaker_id": 1,
+    "text": "I don't feel good that I depend on people now to do things for me."
+  },
+  {
+    "speaker_id": 0,
+    "text": "I understand. Do you have trouble concentrating on things?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "No. Like, I can read and yeah. Like, if you if you, you know, were talking fast and saying a lot of words, then it might might have trouble understanding. It takes me a little bit minute to process things."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Okay. Can people hear you well usually when you're talking?"
+  },
+  { "speaker_id": 1, "text": "I think so." },
+  {
+    "speaker_id": 0,
+    "text": "Okay. I can hear you well right now. Okay. Have you ever had thoughts that you will be better off dead or thinking of hurting or injuring yourself in some way?"
+  },
+  { "speaker_id": 1, "text": "No. I don't think so." },
+  { "speaker_id": 0, "text": "Okay. Very good." },
+  {
+    "speaker_id": 1,
+    "text": "Yeah. I don't think I'm that old. I still can I'm seventy. I can you know, I like to go on trips if I can and travel."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Mhmm. Mhmm. Yeah. Again, I set you up with physical therapy and occupational therapy. They will get you going."
+  },
+  { "speaker_id": 0, "text": "Okay." },
+  { "speaker_id": 1, "text": "Okay." },
+  { "speaker_id": 0, "text": "Okay? Would you like to do that?" },
+  { "speaker_id": 1, "text": "Yes." },
+  {
+    "speaker_id": 0,
+    "text": "Okay. Do you understand the difference between physical therapy and occupational therapy?"
+  },
+  { "speaker_id": 1, "text": "Physical therapy works with the body. Right?" },
+  { "speaker_id": 0, "text": "Yes." },
+  { "speaker_id": 1, "text": "What about occupational?" },
+  {
+    "speaker_id": 0,
+    "text": "With movement, going up and down the stairs, when your stamina, falls prevention, they would do all that. And occupational therapy works with small motorics and activities of daily living, like using your phone, navigating in and out of bathtub, things like that."
+  },
+  { "speaker_id": 1, "text": "Oh, okay. Mhmm." },
+  { "speaker_id": 0, "text": "Okay. Fair. Good. I'm so sorry." },
+  { "speaker_id": 1, "text": "Yeah. That might be helpful." },
+  {
+    "speaker_id": 0,
+    "text": "Oh, they are helpful, and they are lots of fun. Mhmm. They really are. Okay. Okay."
+  },
+  {
+    "speaker_id": 0,
+    "text": "And they will also provide you with the so called HEPs, home exercise program. They will give you printouts. So then for the days when you feel, like, you don't wanna go outside because it might be cold, you know, or the weather is not good, you can do some home exercises by yourself for the range of motion, you know, whatever you prefer. So it's a good resource to to have."
+  },
+  { "speaker_id": 1, "text": "Okay." },
+  {
+    "speaker_id": 0,
+    "text": "Okay. Do you feel like you're having any, memory deficits aside of those that you tell me that you're you're forgetting things once in a while, which we all do?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "Yeah. Sometimes when I'm reading stuff, I don't remember what I'm reading. Mhmm."
+  },
+  { "speaker_id": 0, "text": "How often that does that happen?" },
+  { "speaker_id": 1, "text": "It happens often." },
+  {
+    "speaker_id": 0,
+    "text": "Happens often. Do you tend to think about multiple things when you're reading?"
+  },
+  { "speaker_id": 1, "text": "Yeah. I think so. Yeah." },
+  {
+    "speaker_id": 0,
+    "text": "So you're just probably not giving your whole attention to what you're doing. Right? Okay. Disruptive behaviors. How about the disruptive behavior?"
+  },
+  { "speaker_id": 1, "text": "I don't know what that means." },
+  {
+    "speaker_id": 0,
+    "text": "No. Okay. It's I mean, it's physical, verbal, or other dangerous behaviors."
+  },
+  { "speaker_id": 1, "text": "Or That I have?" },
+  { "speaker_id": 0, "text": "Yes." },
+  { "speaker_id": 1, "text": "I don't think so." },
+  {
+    "speaker_id": 0,
+    "text": "No. Okay. And you said that you are living by yourself, and your daughter is visiting you. How often is she visiting you?"
+  },
+  { "speaker_id": 1, "text": "I'd say maybe once a week." },
+  {
+    "speaker_id": 0,
+    "text": "Once a week. Anybody else who's visiting you except her? Grandkids?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "They're just not old enough to visit by themselves. Mhmm. But I have neighbors sometimes, you know, he'll stop by."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Okay. So we will push then. Yeah. Okay. So that will be occasional short term assistance."
+  },
+  {
+    "speaker_id": 0,
+    "text": "But we will get you social worker. So Okay. Types and sources of assistance. I will fill that. Are you able to perform activities such as, morning routine, washing your face, taking a shower, shaving?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "Yeah. I think so. Like, sometimes, you know, if I'm in the tub, like, it's hard for me to sometimes it's hard for me to get up, but, yeah, I I can get around pretty good."
+  },
+  { "speaker_id": 0, "text": "Yeah. Do you have a grab bars?" },
+  { "speaker_id": 1, "text": "I don't have those. Okay." },
+  {
+    "speaker_id": 0,
+    "text": "We will have to think about that because that's a"
+  },
+  {
+    "speaker_id": 1,
+    "text": "I really don't need that stuff. I think I'm okay."
+  },
+  { "speaker_id": 0, "text": "Have you ever fallen in your bathtub?" },
+  { "speaker_id": 1, "text": "Maybe once." },
+  { "speaker_id": 0, "text": "Maybe once." },
+  { "speaker_id": 1, "text": "May maybe twice." },
+  { "speaker_id": 0, "text": "Mhmm. Do you have a chair in there?" },
+  { "speaker_id": 1, "text": "No. I don't have chair in there." },
+  { "speaker_id": 0, "text": "You're taking a bath standing?" },
+  { "speaker_id": 1, "text": "Yes." },
+  { "speaker_id": 0, "text": "Shower?" },
+  { "speaker_id": 1, "text": "Yeah." },
+  { "speaker_id": 0, "text": "K. Do you have anything, like, anti slip mat?" },
+  { "speaker_id": 1, "text": "I don't think so." },
+  {
+    "speaker_id": 0,
+    "text": "Okay. So we will have to work on that too just to prevent further falls. Okay. Are you able to dress up your upper body?"
+  },
+  { "speaker_id": 1, "text": "Like a shirt?" },
+  { "speaker_id": 0, "text": "Mhmm." },
+  { "speaker_id": 1, "text": "I think so." },
+  {
+    "speaker_id": 0,
+    "text": "Are you having any difficulty with, zippers or buttons or snaps?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "Buttons, I don't like to wear shirts that have buttons. Mhmm. Snaps also are hard. But"
+  },
+  { "speaker_id": 0, "text": "Having pain in in, your joints?" },
+  { "speaker_id": 1, "text": "Just in my knees." },
+  { "speaker_id": 0, "text": "How about dressing lower body?" },
+  {
+    "speaker_id": 1,
+    "text": "I can put my pants on. I think, fairly good. It just takes me a little bit longer, but I can do it."
+  },
+  { "speaker_id": 0, "text": "Okay." },
+  { "speaker_id": 1, "text": "Yeah." },
+  {
+    "speaker_id": 0,
+    "text": "Good. And you mentioned that you've been taking your showers by yourself. Right? Yes. Do you think you want to, get any assistance for now until you get stronger?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "I don't know. That that may be strange to have somebody in there."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Okay. We do have a home health aide services. She can come once a week if you would like. Mhmm. Okay?"
+  },
+  {
+    "speaker_id": 0,
+    "text": "You don't have to decide now. You can think about it. But it's Okay."
+  },
+  { "speaker_id": 1, "text": "I'll talk to my daughter about that." },
+  { "speaker_id": 0, "text": "Okay. It's gonna be covered by your insurance." },
+  {
+    "speaker_id": 1,
+    "text": "Oh, that's good. I was going to ask you about the other people you were saying. Yes. Is that included? Or"
+  },
+  {
+    "speaker_id": 0,
+    "text": "It will be everything will be covered whatever we're doing here. Okay. And this is one of the prerequisites when, you know, when they're admitting you to home health. Okay. Oh, and I forgot to ask you."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Are you currently enrolled with any other home care services?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "Like, people like you that Mhmm. Even? No. I don't know. You're the first person I'm seeing."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Okay. Just be aware because if you are, then you won't have to pay out of pocket because insurance is not there to pay for two services at once."
+  },
+  { "speaker_id": 1, "text": "Okay. Okay." },
+  { "speaker_id": 0, "text": "Okay. And are you able to" },
+  {
+    "speaker_id": 1,
+    "text": "What about the the home health aide person that you said? Do I have to pay for her?"
+  },
+  { "speaker_id": 0, "text": "No. It's it's included. Mhmm. Yes. Okay." },
+  {
+    "speaker_id": 0,
+    "text": "So now we're gonna talk about toilet transferring. Bedside commode without falls or stumbling?"
+  },
+  { "speaker_id": 1, "text": "I think so." },
+  {
+    "speaker_id": 0,
+    "text": "Mhmm. How are you? Are you walking independently or you're using the device? I have"
+  },
+  { "speaker_id": 1, "text": "a wheelchair that I use sometimes." },
+  { "speaker_id": 0, "text": "But Sometimes? Okay." },
+  {
+    "speaker_id": 1,
+    "text": "Yeah. I don't use it. Like, I'm feeling okay these days, so I'm not using it."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Okay. So are you using cane or walker or you're just hanging by the furniture?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "Yeah. I just go by the wall. Oh. Just hang by the table, and I can get there. Yeah."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Mhmm. Okay. How many folds did you have in the last six months?"
+  },
+  { "speaker_id": 1, "text": "I think I had maybe two times." },
+  { "speaker_id": 0, "text": "Two times. Were they both in the bathtub?" },
+  {
+    "speaker_id": 1,
+    "text": "One was in the bathtub. The other one was in the bedroom, and he went to the bathroom."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Okay. Do you remember what happened that second time?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "I slipped. I just tried to put my hand on the table, and I just didn't have enough strength. So then I just slipped and fell."
+  },
+  { "speaker_id": 0, "text": "Okay. Did you hit your head?" },
+  { "speaker_id": 1, "text": "Little bit." },
+  {
+    "speaker_id": 0,
+    "text": "A little bit. Okay. Mhmm. Do you remember if there was any loss of consciousness?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "I don't think so. I think it was just maybe a cut, and they were able to stitch it up."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Okay. So you were by yourself when that happened?"
+  },
+  { "speaker_id": 1, "text": "Yeah." },
+  { "speaker_id": 0, "text": "Okay. And then you woke up? Or" },
+  {
+    "speaker_id": 1,
+    "text": "Then, I just slept because it was late. So I just slept on the floor that night"
+  },
+  { "speaker_id": 0, "text": "Oh." },
+  {
+    "speaker_id": 1,
+    "text": "In the morning, you know, when I got up, yeah, to make coffee and then it was okay."
+  },
+  { "speaker_id": 0, "text": "Okay. Do you have a live alert?" },
+  { "speaker_id": 1, "text": "I don't have that. No." },
+  {
+    "speaker_id": 0,
+    "text": "Okay. So what we can do, we can, as a part of our services, we can apply for a live alert for you. Mhmm. I believe it it costs, like, ten dollars a month. Mhmm."
+  },
+  {
+    "speaker_id": 0,
+    "text": "It's like a special button. You know? You can wear it on on your neck at all times. And if you fall, if you cannot get up and you're alone, basically, what you do, you're just gonna press the button. It's gonna alert, nine one one system, and they will know that, you know, they will have to attend to you right away."
+  },
+  { "speaker_id": 1, "text": "I have a cell phone." },
+  {
+    "speaker_id": 0,
+    "text": "Yeah. But sometimes when you go to the restroom, you don't take it with you."
+  },
+  { "speaker_id": 1, "text": "Mhmm. Mhmm." },
+  {
+    "speaker_id": 0,
+    "text": "Yeah. It's, especially in situations like that. That's something that you have on yourself at all times to alert, you know, because we we never"
+  },
+  {
+    "speaker_id": 1,
+    "text": "all this stuff for me? Because I don't remember all the things that you're saying that I could get."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Yes. I can definitely write it for you. There is a folder, that I brought. It's it has a lot of information. We're gonna go, little by little every time because it can be overwhelming, and I don't wanna put it on the on the first day."
+  },
+  { "speaker_id": 1, "text": "I can talk to my daughter about it." },
+  {
+    "speaker_id": 0,
+    "text": "Of course. Yes. We're gonna talk about the most important things, safety things today. And then rest of it, we'll just Okay. Touch on, next visit."
+  },
+  { "speaker_id": 0, "text": "Okay?" },
+  { "speaker_id": 1, "text": "Mhmm." },
+  {
+    "speaker_id": 0,
+    "text": "Okay. So are you able to maintain your hygiene by yourself?"
+  },
+  { "speaker_id": 1, "text": "What do you mean by that?" },
+  {
+    "speaker_id": 0,
+    "text": "After you're using restroom number one, number two, you're able to clean yourself?"
+  },
+  { "speaker_id": 1, "text": "Yeah. Yeah." },
+  {
+    "speaker_id": 0,
+    "text": "Okay. And you are transferring independently, and you will talk about that. Terminate activities. We talked about that. How long have you been using your wheelchair?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "Maybe a year ago, they gave it to me. Mhmm. I used it for two months, I think, And then"
+  },
+  {
+    "speaker_id": 0,
+    "text": "And which circumstances they gave it to you? What what happened?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "Because my knees were hurting, so I told the doctor. And, I was having a hard time getting up from bed and walking."
+  },
+  { "speaker_id": 0, "text": "Mhmm. Okay." },
+  {
+    "speaker_id": 1,
+    "text": "Especially when I go out, like, with my daughter to the diner Okay. Then they start to use."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Do you have any other assistive devices? Walker?"
+  },
+  { "speaker_id": 1, "text": "I use a cane sometimes." },
+  {
+    "speaker_id": 0,
+    "text": "Mhmm. Okay. And you said you don't have a grab bars and a shower. Right? No."
+  },
+  { "speaker_id": 1, "text": "Do you" },
+  { "speaker_id": 0, "text": "have a commode?" },
+  { "speaker_id": 1, "text": "No." },
+  {
+    "speaker_id": 0,
+    "text": "No. Okay. And motorized vehicle and scooters, I assume you don't have. Okay. So we basically talked about all of these."
+  },
+  {
+    "speaker_id": 0,
+    "text": "And tell me more about your appetite. Are you eating okay? Do you feel like you have difficulty swallowing? I"
+  },
+  {
+    "speaker_id": 1,
+    "text": "don't think so. I just, you know, eat the same thing again and again so I get bored sometimes."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Mhmm. But No difficulty swallowing? No. Okay. No raspiness?"
+  },
+  { "speaker_id": 1, "text": "What what did you say?" },
+  {
+    "speaker_id": 0,
+    "text": "It's like a feeling that your throat hurts or something that's stuck in there."
+  },
+  { "speaker_id": 1, "text": "No. No. No. It's okay." },
+  {
+    "speaker_id": 0,
+    "text": "Okay. Good. Eating and swallowing. Mobility. Okay."
+  },
+  {
+    "speaker_id": 0,
+    "text": "When you're getting in and out of bed, do you feel like you need help or you can do it by yourself?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "Just depends, like, how good I feel. Mhmm. But most days, I can do it on my own."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Okay. When you change position from laying to sitting to standing, do you get light headed at all? Sometimes. Sometimes. When you do it fast?"
+  },
+  { "speaker_id": 1, "text": "Yeah." },
+  {
+    "speaker_id": 0,
+    "text": "Definitely. Okay. Make sure you when you change your position, you sit down first, dangle your feet for a little bit. You can drink a glass of water, and then go. K?"
+  },
+  { "speaker_id": 0, "text": "Remember, the slower, the better." },
+  { "speaker_id": 1, "text": "Mhmm." },
+  {
+    "speaker_id": 0,
+    "text": "Okay. And how many feet do you think you can walk how as far as you can? What would be the number?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "I would say I can go from here all the way up to my driveway to the end of the driveway. So that's maybe two hundred feet."
+  },
+  { "speaker_id": 0, "text": "Good. How I how are you doing with stairs?" },
+  {
+    "speaker_id": 1,
+    "text": "It's a little hard with my knees, but, you know, I can I can do it?"
+  },
+  {
+    "speaker_id": 0,
+    "text": "Mhmm. And we can see here in your house that you have a couple of stairs, at the front, and you have a couple of stairs at your backyard. Do you have basement?"
+  },
+  { "speaker_id": 1, "text": "I do have a basement. Yeah." },
+  { "speaker_id": 0, "text": "Okay. Do you have a need to go in there?" },
+  {
+    "speaker_id": 1,
+    "text": "Sometimes I go in there because we have pictures there. So I just like looking at the pictures."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Okay. So then we definitely have to set you up with physical therapy and occupational therapy because that can be a hazard for you. Okay. You have stairs in your house. We have to really work on your mobility."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Okay. And bladder and bowel. Have you been treated for urinary tract infection in the past fourteen days?"
+  },
+  { "speaker_id": 1, "text": "I don't know. I don't think so." },
+  {
+    "speaker_id": 0,
+    "text": "I don't. Okay. Have you had, difficulty urinating, burning with urination?"
+  },
+  { "speaker_id": 1, "text": "No. No." },
+  {
+    "speaker_id": 0,
+    "text": "Do you have any urinary retention symptoms? Like, you wanna pee, but you cannot?"
+  },
+  { "speaker_id": 1, "text": "No. No. It no. I can be okay." },
+  { "speaker_id": 0, "text": "Okay. Any dribbling?" },
+  { "speaker_id": 1, "text": "Sometimes." },
+  { "speaker_id": 0, "text": "Sometimes. Okay." },
+  { "speaker_id": 1, "text": "Yeah. And Right after I pee. Yeah." },
+  {
+    "speaker_id": 0,
+    "text": "Mhmm. Any pain when you pee or pressure to initiate the stream?"
+  },
+  { "speaker_id": 1, "text": "No pain." },
+  { "speaker_id": 0, "text": "No pain." },
+  { "speaker_id": 1, "text": "No pain." },
+  { "speaker_id": 0, "text": "Okay. So are you using any deep hands? Or" },
+  { "speaker_id": 1, "text": "the diapers." },
+  { "speaker_id": 0, "text": "Diapers. Mhmm." },
+  { "speaker_id": 1, "text": "No. I don't use diapers." },
+  { "speaker_id": 0, "text": "Okay. And any history with bowel incontinence?" },
+  { "speaker_id": 1, "text": "What would that mean?" },
+  { "speaker_id": 0, "text": "That you're basically pooping yourself." },
+  { "speaker_id": 1, "text": "Not controlling. Not being able to control." },
+  { "speaker_id": 0, "text": "Not being able to control." },
+  {
+    "speaker_id": 1,
+    "text": "Hoping, not being able to control. I think I think I'm okay there. Yeah."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Okay. So here we have your diagnosis, hypertension, high cholesterol. Right. And we're gonna fill out. Do you have a history of diabetes?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "In my family? Mhmm. Yeah. My father had diabetes."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Mhmm. You've never been diagnosed with diabetes yourself?"
+  },
+  { "speaker_id": 1, "text": "Not really." },
+  { "speaker_id": 0, "text": "Not really. Okay." },
+  {
+    "speaker_id": 1,
+    "text": "Like, they told me to not eat so much sweet stuff. But"
+  },
+  { "speaker_id": 0, "text": "But you said you like ice cream?" },
+  { "speaker_id": 1, "text": "That's one thing I like a lot." },
+  {
+    "speaker_id": 0,
+    "text": "I don't blame you. Okay. Risk for hospitalization. We do that ourselves. Okay."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Tell me more about your sleep. Are you able to get a good night sleep?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "I sleep most days, but sometimes I get up in the morning, like, middle of the night, two in the morning."
+  },
+  { "speaker_id": 0, "text": "Okay. And I" },
+  { "speaker_id": 1, "text": "just can't go back to sleep." },
+  { "speaker_id": 0, "text": "You do that because you are in pain?" },
+  {
+    "speaker_id": 1,
+    "text": "No. Just can't sleep. I get restless. Sometimes I'm sweating."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Do you take anything for sleep, like melatonin or any other medication?"
+  },
+  { "speaker_id": 1, "text": "I don't take anything for sleep." },
+  {
+    "speaker_id": 0,
+    "text": "Easy enough. Okay. Xanax. Okay. So tell me more about your pain."
+  },
+  {
+    "speaker_id": 1,
+    "text": "The knees, yeah, I have pain in my knees. So they gave me Tylenol for that."
+  },
+  { "speaker_id": 0, "text": "Okay. And it's both knees. Right?" },
+  { "speaker_id": 1, "text": "Both knees." },
+  { "speaker_id": 0, "text": "Since when did it started?" },
+  { "speaker_id": 1, "text": "Oh, it's been ten years now." },
+  {
+    "speaker_id": 0,
+    "text": "Ten years. Okay. So is that an arthritis related? Did they ever tell you?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "They said, like, I may just need to get new knees."
+  },
+  { "speaker_id": 0, "text": "Mhmm. Okay." },
+  {
+    "speaker_id": 1,
+    "text": "But I don't want to get new knees because I've heard they're pay that's painful."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Oh, that's true. It's painful, but then it gets better and it's not painful anymore."
+  },
+  { "speaker_id": 1, "text": "Yeah." },
+  {
+    "speaker_id": 0,
+    "text": "But it's on on you to decide. How bad does your pain get on a scale of zero to ten zero?"
+  },
+  { "speaker_id": 1, "text": "Say eight." },
+  { "speaker_id": 0, "text": "Oh, eight is a lot." },
+  { "speaker_id": 1, "text": "Well, seven maybe then." },
+  { "speaker_id": 0, "text": "Okay. Is Tylenol cutting it for you?" },
+  {
+    "speaker_id": 1,
+    "text": "When I take it, like, for the next two, three hours, I feel okay."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Okay. Do you take anything else except Tylenol? This is,"
+  },
+  { "speaker_id": 1, "text": "this thing called amlodipine." },
+  {
+    "speaker_id": 0,
+    "text": "Okay. Amlodipine is for blood pressure. Do you take any opioids, narcotics, like, for pain?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "It's sevastatin. That's cholesterol for cholesterol. Right?"
+  },
+  { "speaker_id": 0, "text": "Ambastatin. Mhmm." },
+  {
+    "speaker_id": 1,
+    "text": "Embastatin. Yeah. No. I don't take take anything for"
+  },
+  { "speaker_id": 0, "text": "Okay. What" },
+  { "speaker_id": 1, "text": "did you ask again? Or what?" },
+  {
+    "speaker_id": 0,
+    "text": "Did you take any, like, opioids? Oh. Like, card"
+  },
+  { "speaker_id": 1, "text": "Pain killer?" },
+  { "speaker_id": 0, "text": "Pain medication. Mhmm. Pain killer. No. Okay." },
+  { "speaker_id": 0, "text": "Okay. Is this pain, wakes you up at night?" },
+  { "speaker_id": 1, "text": "Not really. No." },
+  { "speaker_id": 0, "text": "Not really. Okay." },
+  { "speaker_id": 1, "text": "It's only when I walk where I'm moving." },
+  {
+    "speaker_id": 0,
+    "text": "Mhmm. So you wake up with this pain, or it's getting worse when you're moving?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "I don't wake up with the pain. It's just, when I move."
+  },
+  {
+    "speaker_id": 0,
+    "text": "It's fine. Yeah. You think you'll be able to participate in physical therapy with this pain?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "Depends on what they were asking me to do. Okay."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Well, they will start slow, and they will do their assessment. I would suggest for you taking Tylenol at least twenty minutes before the therapies the therapist is coming Okay. To make your experience a little easier. Okay. Okay."
+  },
+  { "speaker_id": 0, "text": "And How" },
+  { "speaker_id": 1, "text": "much more do you think we have, Kate?" },
+  { "speaker_id": 0, "text": "Oh, we have a lot." },
+  {
+    "speaker_id": 1,
+    "text": "We have a lot? Okay. Mhmm. We go on for another, maybe, ten minutes then. Yeah."
+  },
+  { "speaker_id": 1, "text": "What time? Time for my TV." },
+  {
+    "speaker_id": 0,
+    "text": "So we are page eighteen out of twenty three. I see."
+  },
+  {
+    "speaker_id": 1,
+    "text": "Oh, okay. Okay. So do you have time to keep going?"
+  },
+  { "speaker_id": 0, "text": "Right. Mhmm." },
+  {
+    "speaker_id": 1,
+    "text": "Okay. Then just keep going. Let's just finish it."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Okay. Okay. So pain interferes with good activity. Have you ever had physical therapy or occupational therapy before?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "Physical therapy, I've had before for my knees and yeah."
+  },
+  { "speaker_id": 0, "text": "Okay. Did you like it?" },
+  { "speaker_id": 1, "text": "Yeah. It just doesn't do anything." },
+  {
+    "speaker_id": 0,
+    "text": "Doesn't do anything. Okay. Maybe that's, in this case, you you should think about knee replacement one by one. Mhmm. But we will leave it to physical therapist and you to decide, of course."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Okay. Okay. How would you say this pain is, interfering with your daily activities? Is this preventing you from doing things?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "Oh, I like to go for walks, and because it hurts, then I don't do as much. Mhmm."
+  },
+  {
+    "speaker_id": 0,
+    "text": "So here I would ask you, is it rarely, occasionally, frequently, or constantly? Because that's important."
+  },
+  { "speaker_id": 1, "text": "I'd say frequently." },
+  {
+    "speaker_id": 0,
+    "text": "Frequently. Okay. Are you getting short of breath when you're walking or doing activity, like taking a bath, taking a shower?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "Just, walking. I get short of breath sometimes if I'm going far."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Okay. After how many feet are you getting short of breath?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "I I'd say maybe two hundred feet or something like that."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Okay. That's not bad. Are you feeling any short of breath when you're talking right now to me?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "Little bit. A little bit. You talk you talk fast."
+  },
+  { "speaker_id": 0, "text": "Oh, okay. Yeah." },
+  { "speaker_id": 1, "text": "I'll keep up. Yeah." },
+  {
+    "speaker_id": 0,
+    "text": "I'll try to talk slower. Okay. Are you getting short of breath when you're laying flat?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "No. I don't think so. No. Only when I'm walking."
+  },
+  { "speaker_id": 0, "text": "Okay. How many pillows do you sleep on?" },
+  { "speaker_id": 1, "text": "Just one pillow." },
+  {
+    "speaker_id": 0,
+    "text": "Just one. Okay. Do you feel short of breath when you're bending forward?"
+  },
+  { "speaker_id": 1, "text": "No. I don't think so." },
+  {
+    "speaker_id": 0,
+    "text": "Good. Okay. Do you get, do you have any swelling in your body, your feet or arms?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "Any swelling? Just in my ankle. I think I pushed it the other day."
+  },
+  { "speaker_id": 0, "text": "Mhmm. One ankle or both?" },
+  { "speaker_id": 1, "text": "The right ankle. Yeah." },
+  {
+    "speaker_id": 0,
+    "text": "Right ankle. Okay. Is there any bruising in there?"
+  },
+  { "speaker_id": 1, "text": "It just was little blue." },
+  { "speaker_id": 0, "text": "Mhmm." },
+  { "speaker_id": 1, "text": "And I think it's getting better now." },
+  {
+    "speaker_id": 0,
+    "text": "Okay. So after you twisted it, what did you do?"
+  },
+  { "speaker_id": 1, "text": "Nothing. I just, yeah, just sat in the chair." },
+  {
+    "speaker_id": 0,
+    "text": "Okay. So next time when you twist your ankle, remember there is an acronym called RICE. Like RICE? RICE. Mhmm."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Stands for rest, eyes, or I Compression. Compression. Uh-huh. Thank you. And then levitation."
+  },
+  { "speaker_id": 0, "text": "Yeah. Yes." },
+  { "speaker_id": 1, "text": "I've heard of that one before." },
+  {
+    "speaker_id": 0,
+    "text": "Yeah. So do those things if if you hurt your extremity. It really helps to prevent the swelling."
+  },
+  { "speaker_id": 1, "text": "Okay." },
+  {
+    "speaker_id": 0,
+    "text": "Okay. Nutrition now. We will know that. Feeding. You're able to feed yourself."
+  },
+  {
+    "speaker_id": 0,
+    "text": "We already talked about this. Okay. Do you have any issues with your skin, any open wounds or sores or something that's bothering you on your skin?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "Just in my back, there's a mole that hurts sometimes, but when I sleep. Mhmm. But but not I wouldn't say it's too bad."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Okay. I will have to take a look at that a little later when we get too hands on. Okay? Okay. Okay."
+  },
+  {
+    "speaker_id": 0,
+    "text": "So no ulcers. The lower portion of your feet, I would say the shin area, ankle ankle area. Do you have any discoloration, like the darker color skin or no? No. No."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Okay. Good. So you don't have any surgical wounds. Right? Because we're here for high blood pressure."
+  },
+  {
+    "speaker_id": 0,
+    "text": "I don't think so. Yes. We're here for high blood pressure. Mhmm. K."
+  },
+  {
+    "speaker_id": 0,
+    "text": "You have no open wounds. Okay. And then your I will ask you for your medication list. Can you tell me what medications are you taking?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "I take Tylenol and then, the emlodipine. And then the other name that I don't remember, the simvastatin."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Simvastatin. Very okay. So you do not really have any high risk medications that you're taking. Is anybody helping you with administration of those medications or you do it yourself?"
+  },
+  {
+    "speaker_id": 1,
+    "text": "Well, my daughter just checks in on me every now and then. Not daily, but I think I can do it on my own."
+  },
+  { "speaker_id": 0, "text": "Do you ever forget to take any doses?" },
+  {
+    "speaker_id": 1,
+    "text": "I I do forget to take medicine sometimes. Yeah. How often? I don't remember. Maybe maybe once or twice a week."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Okay. Are you using a medication box or you're just taking them as it is"
+  },
+  {
+    "speaker_id": 1,
+    "text": "in the balance? Somebody told me to get that, but I don't yeah."
+  },
+  {
+    "speaker_id": 0,
+    "text": "If you would like to, I have, a nice medication box in my trunk. I can"
+  },
+  { "speaker_id": 1, "text": "Ah, I can give you one" },
+  { "speaker_id": 0, "text": "for for free." },
+  { "speaker_id": 1, "text": "Thank you. Thank you." },
+  {
+    "speaker_id": 0,
+    "text": "Okay. And we can maybe, set up them together. Okay. And familiarize so you can preset your medications for a week ahead, and you don't have to remember that. Mhmm."
+  },
+  { "speaker_id": 0, "text": "It's" },
+  { "speaker_id": 1, "text": "very nice. Yeah." },
+  {
+    "speaker_id": 0,
+    "text": "And it will be easier on your fingers because you don't have to Yeah. Yeah. Also, when"
+  },
+  {
+    "speaker_id": 1,
+    "text": "I forget and I get confused sometimes, I think that would be helpful."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Yeah. Because it has Monday, Tuesday, Wednesday. Mhmm. And it has morning, like, midday and evening. Okay."
+  },
+  {
+    "speaker_id": 0,
+    "text": "It's nice for the visual because your simvastatin needs to be taken before you go to bed. Okay. Okay. We'll talk about that. Okay."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Drug regimen, medication issues, no medication issues, follow-up. That's me. High risk, no high risk medications. Oral medication. So we're talking about and no injectables."
+  },
+  {
+    "speaker_id": 0,
+    "text": "You don't take any injectable medications, don't you?"
+  },
+  { "speaker_id": 1, "text": "No. I don't no." },
+  { "speaker_id": 0, "text": "No needles?" },
+  { "speaker_id": 1, "text": "No needles. No." },
+  {
+    "speaker_id": 0,
+    "text": "Okay. So you are not on oxygen. And do you use any CPAP or BiPAP? This is the machine for breathing when you sleep."
+  },
+  { "speaker_id": 1, "text": "No. I don't think so. Okay." },
+  { "speaker_id": 0, "text": "Do you know if you snore?" },
+  { "speaker_id": 1, "text": "Sometimes, like, people tell me." },
+  { "speaker_id": 0, "text": "Okay. Yeah. Okay. We're done." },
+  { "speaker_id": 1, "text": "Okay. Thanks, Kate." },
+  { "speaker_id": 0, "text": "Okay. Do you have any questions for me?" },
+  {
+    "speaker_id": 1,
+    "text": "No. Like, do you or you said this is a lot of stuff to write. You said you're gonna write it and give it to me, so I don't know when you'll be able to do that."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Yes. I will do that shortly. I just wanna make sure that after our conversation today, you know, things are clear. So I will create a care plan for you. This is my job that I'm usually doing, and I will set you up for two times a week for nurse visits for three weeks."
+  },
+  { "speaker_id": 0, "text": "K?" },
+  { "speaker_id": 1, "text": "I will a week?" },
+  { "speaker_id": 0, "text": "Two times a week for three weeks." },
+  { "speaker_id": 1, "text": "With it Mhmm. For three weeks." },
+  {
+    "speaker_id": 0,
+    "text": "And then after that, once a week for three weeks. Once a week"
+  },
+  { "speaker_id": 1, "text": "for three weeks." },
+  {
+    "speaker_id": 0,
+    "text": "So I'll come and see you for six weeks in total, and then we will see how your progress is, how your blood pressure is controlled. We're gonna further talk about your, blood pressure medications. You only take one."
+  },
+  { "speaker_id": 1, "text": "Mhmm." },
+  {
+    "speaker_id": 0,
+    "text": "It needs to be taken in the morning. Do you have a blood pressure cuff?"
+  },
+  { "speaker_id": 1, "text": "I have it somewhere, but I don't use it." },
+  {
+    "speaker_id": 0,
+    "text": "Mhmm. Is that the the one that goes on your upper arm or on the Yeah. Upper arm. Good. Okay."
+  },
+  {
+    "speaker_id": 0,
+    "text": "So when I will do the vital signs today, if if if possible, Can we find your blood pressure cuff and kinda check with my cuff and then check with yours to see how"
+  },
+  { "speaker_id": 1, "text": "Yeah. How" },
+  { "speaker_id": 0, "text": "good the readings are on yours?" },
+  { "speaker_id": 1, "text": "Okay. Okay." },
+  {
+    "speaker_id": 0,
+    "text": "So your blood pressure medication is a very kinda popular medication. Lots of people are taking it. The the the major side effect that you can get from this medication is swelling in your feet, which you don't get, which is good. Okay. K."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Another medication is simvastatin. As I said already, you take it for high cholesterol. Mhmm. Be taking it in the evening before you go to bed because it works best on empty stomach. K?"
+  },
+  {
+    "speaker_id": 0,
+    "text": "And the most, often side effect that you can get with that medication is a muscle cramping in your lower legs. Okay? Okay. If you ever notice that you're having those muscle cramping and they're becoming severe and very often, hold your simvastatin and let your doctor know. Okay?"
+  },
+  {
+    "speaker_id": 0,
+    "text": "Okay. For the, Tylenol, make sure you do not take more than three thousand milligrams in twenty four hours."
+  },
+  { "speaker_id": 1, "text": "Okay." },
+  {
+    "speaker_id": 0,
+    "text": "I will write this down for you. We have, medication list where I will list all those side effects. Mhmm. You too. You don't have to memorize, but just kinda familiarize yourself with those."
+  },
+  {
+    "speaker_id": 0,
+    "text": "Okay? So if your medication bottle we're gonna grab your medication bottle and and seal it. So if there are five hundred milligrams"
+  },
+  { "speaker_id": 1, "text": "Mhmm." },
+  {
+    "speaker_id": 0,
+    "text": "And those are hurting, the best way is to take your medication on the clock. So you will take two pills. Mhmm. One thousand milligram, you can take every eight hours. So you will stay here under your three thousand for twenty four hours."
+  },
+  { "speaker_id": 1, "text": "Okay." },
+  { "speaker_id": 0, "text": "K? Any questions on that?" },
+  { "speaker_id": 1, "text": "No. Yeah. No. I don't think so." },
+  {
+    "speaker_id": 0,
+    "text": "Okay. So pretty clear. Okay. So when we're gonna do the hands on, on the blood pressure checking, I want you to, sit and relax and not to cross your legs because if checking your blood pressure by yourself and you're crossing your legs, it can increase your blood pressure to about ten percent from your baseline."
+  },
+  { "speaker_id": 1, "text": "Okay." },
+  {
+    "speaker_id": 0,
+    "text": "Do you smoke? No. I don't smoke. Do you drink coffee?"
+  },
+  { "speaker_id": 1, "text": "I like coffee. Yeah. I drink coffee." },
+  {
+    "speaker_id": 0,
+    "text": "K. So make sure you check your, blood pressure about an hour after you took you after you take your blood pressure medications."
+  },
+  { "speaker_id": 1, "text": "Oh, an hour after. Okay." },
+  {
+    "speaker_id": 0,
+    "text": "An hour after. Mhmm. Okay. So we're gonna check your blood pressure, and it would be one thirty over seventy. And your heart rate would be seventy five, and your saturation would be ninety seven, which is very good."
+  },
+  { "speaker_id": 1, "text": "Mhmm." },
+  {
+    "speaker_id": 0,
+    "text": "And let's see. You would be walking for me. And majority of walking, I would then defer to physical therapy, and then I will talk with physical therapy because they will do, you know,"
+  }
+]

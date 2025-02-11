@@ -79,7 +79,7 @@ def kill_process(process, config):
         process.kill()
         process_error(config, "Process timeout reached. Terminating process and its children.")
 
-def start_process(command, cwd, config):
+def start_process(command, cwd):
 
     send_google_chat_message(f"PROCESS in {cwd} start_process {command}")
 
@@ -105,7 +105,7 @@ def start_process(command, cwd, config):
     stdout_thread.start()
     stderr_thread.start()
     
-    timer = threading.Timer(config.timeout, kill_process, [process, config])
+    timer = threading.Timer(settings.timeout, kill_process, [process, settings])
     timer.start()
     
     stdout_thread.join()
@@ -139,16 +139,23 @@ async def start_queue_listener():
             # copy iput files to work directory
 
             # set work directory
+            
 
             
             report = Report()
             report.start_datetime = datetime.utcnow().timestamp()
             report.user_id = message.get("user_id")
             report.product = message.get("product")
-            report.title = message.get("title")
+            report.description = message.get("description")
             report.input_files = []
             report.output_files = []
             report.status = "started"
+
+
+
+
+
+            start_process(message.get("command"), message.get("work_dir"))
 
             logger.info(f"Report: {report}")
 

@@ -27,6 +27,8 @@ app:
       google_chat_webhook: Optional[str] = Field(None, example="https://chat.googleapis.com/v1/spaces/XXXXXXXX/messages?key=XXXXXXXXXXXXX&token=XXXXXXXXXXXXXXXXXXXXX")
       google_chat_prefix: Optional[str] = Field("🚀 *Dev Continuous MFA*\n Testing Continuous MFA Messaging [GitHub continuous_mfa](https://github.com/Metalyticsbio/continuous_mfa)", example="Continuous MFA")
 
+      timeout: Optional[int] = Field(300, description="Timeout for a process in seconds", example=300)
+
       version: Optional[str] = Field("0.0.0", example="0.1.0")
 
     user:
@@ -68,7 +70,7 @@ app:
       user_id: Optional[str] = Field(None, example="john@company1.com")
       # input_dir: Optional[str] = Field(None, example="input_dir")
       # output_dir: Optional[str] = Field(None, example="output_dir")
-      input_files: list[str] = Field(default_factory=list, example=["file1.txt", "file2.txt"])
+      input_files: list[str] = Field(default_factory=list, example=["1739143870616 - Demo_Template-input-file-V3.1.xlsx"])
 
     report:
       id: Optional[str] = Field(None, example="123e4567-e89b-12d3-a456-426614174000")

@@ -275,7 +275,7 @@ def get_splitted_assessment_list()-> list:
     Get Splitted Assessment list by assessment_object_key
     """
     # file_content = get_s3_object_content(object_key=assessment_object_key)
-    with open("assessment.json", "r") as json_file:
+    with open("questions.json", "r") as json_file:
         file_content = json.load(json_file)
         assessment_raw_list = json.loads(file_content)
         assessment_splitted_list = [t for t in zip_longest(*[iter(assessment_raw_list)]*number_of_question, fillvalue=None) if all(v is not None for v in t)]
@@ -300,7 +300,7 @@ def prepare_user_content(splitted_list, template):
 def answer_questions(conversation_data:dict, patient_id: str, encounter_id: str, assessment_id: str):
 
     # FIXME - change to database call to get assessment list
-    with open("assessment.json", "r") as file:
+    with open("questions.json", "r") as file:
         full_assessment_list = json.load(file)
     logger.info(f"full_assessment_list: {len(full_assessment_list)} items")
 

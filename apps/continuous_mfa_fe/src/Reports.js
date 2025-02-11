@@ -48,6 +48,76 @@ export default function Report() {
     fetchData();
   }, [id]);
 
+  const handleFileUpload = (file) => {
+    const epoch_time = new Date().getTime();
+    const metadata = {
+      id: `${user?.id}-${epoch_time}`,
+      filename: file.name,
+      user_id: user?.id,
+      upload_date: epoch_time,
+    };
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64File = reader.result.split(",")[1]; // Extract the Base64 string
+      const payload = {
+        ...metadata,
+        data: base64File, // Add the encoded file
+      };
+
+      // Example of sending the payload
+      apiClient
+        .post("/upload-file-content", payload)
+        .then((response) => {
+          console.log("Metadata posted successfully:", response);
+          const metadata = {
+            id: response.id,
+            files: [file.name],
+            user_id: user?.id,
+            upload_date: epoch_time,
+          };
+          apiClient
+            .post("/input", metadata)
+            .then((response) => {
+              console.info("File processed successfully:", response);
+              apiClient.get("/inputs").then((response) => {
+                setInputFiles(response);
+              });
+            })
+            .catch((error) => {
+              console.error("Error processing file:", error);
+            });
+            // apiClient.get("/inputs")  
+          return response;
+        })
+        .catch((error) => {
+          console.error("Error posting metadata:", error);
+        });
+    };
+
+    reader.onerror = (error) => {
+      console.error("Error reading file:", error);
+    };
+
+    reader.readAsDataURL(file); // Read the file as Base64
+  };
+
+  const handleOpenDeleteDialog = (fileId) => {
+    setDeleteFileId(fileId);
+    setIsDeleteDialogOpen(true);
+  };
+
+  const handleDeleteFile = async () => {
+    try {
+      await apiClient.delete(`/input/${deleteFileId}`);
+      setInputFiles((prev) => prev.filter((file) => file.id !== deleteFileId));
+      setIsDeleteDialogOpen(false);
+    } catch (error) {
+      console.error("Error deleting file:", error);
+    }
+  };
+
+
   const handleProcessInputFile = (selectedProduct) => {
     apiClient.post("/run", {
       id: crypto.randomUUID(),
@@ -124,7 +194,7 @@ export default function Report() {
       <ReportUploadDialog
         isOpen={isUploadDialogOpen}
         onClose={() => setUploadDialogOpen(false)}
-        onUpload={fetchData} // Refresh inputs after upload
+        onUpload={handleFileUpload} // Refresh inputs after upload
       />
 
       {/* Process Dialog */}

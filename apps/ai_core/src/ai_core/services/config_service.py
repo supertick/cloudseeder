@@ -4,6 +4,7 @@ import uuid
 from queues.interface import QueueClient
 from database.interface import NoSqlDb
 from ai_core.models.config import Config
+from ai_core.config import settings
 
 logger = logging.getLogger(__name__)
 
@@ -30,14 +31,14 @@ def create_config(item: Config, db: NoSqlDb, q: QueueClient, user: dict):
 # read - get all items
 def get_all_config(db: NoSqlDb, user: dict):
     logger.info("===============get_all_config called==============")
-    return db.get_all_items("config")
+    return [settings]
 
 # read - get an item
 def get_config(id: str, db: NoSqlDb, user: dict):
     logger.info("===============get_config called==============")
-    logger.info(f"Received request to retrieve config with id: {id}")
-    item = db.get_item("config", id)
-    return item
+    logger.info(f"Received request to retrieve config with id: {id}")    
+    # No templates for config - simply get the single current config object
+    return settings
 
 # write - update an item (without modifying ID)
 def update_config(id: str, new_item: Config, db: NoSqlDb, q: QueueClient, user: dict):
