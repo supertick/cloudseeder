@@ -88,7 +88,7 @@ def create_transcription_request(item: TranscriptionRequest, db: NoSqlDb, q: Que
     if not answers_json:
         raise ValueError("Answers generation failed.")
 
-    db.insert_item("output", f"{prefix}/answers.json", conversation_json)
+    db.insert_item("output", f"{prefix}/answers.json", answers_json)
     result.answer_files.append(f"{prefix}/answers.json")
     
     logger.info("ai core processing finished")
