@@ -76,6 +76,7 @@ Desktop.ini
 .env.production
 .env.test
 .env.*.local
+.env.*
 
 # AWS credential files
 .aws/
@@ -107,7 +108,16 @@ Pipfile.lock
 db.json
 
 # apps
+cert.pem
+key.pem
+
+# tinydb
+db.json
+
+# apps
 data
 work
 input
 output
+
+!tests/data

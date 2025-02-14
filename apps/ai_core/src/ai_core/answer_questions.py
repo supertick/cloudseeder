@@ -416,7 +416,7 @@ def answer_questions(conversation_data:dict, patient_id: str, encounter_id: str,
             "Responses": question_answer_list
         }
 
-        logger.info(f"final_data_dict: {final_data_dict}")
+        # logger.debug(f"final_data_dict: {final_data_dict}")
         return final_data_dict
                 
     except Exception as e:

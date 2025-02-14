@@ -71,7 +71,7 @@ def transcribe_buffer(buffer_data):
 
         # Configure Deepgram options for audio analysis
         options = PrerecordedOptions(
-            # model="nova-2",
+            model="nova-2",
             # smart_format=True,
             # utterances=True,  # Output utterances
             # entities=True,  # Output entities

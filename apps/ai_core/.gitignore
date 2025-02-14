@@ -76,6 +76,7 @@ Desktop.ini
 .env.production
 .env.test
 .env.*.local
+.env.*
 
 # AWS credential files
 .aws/
@@ -102,6 +103,13 @@ error.log
 poetry.lock
 Pipfile.lock
 
+
+# tinydb
+db.json
+
+# apps
+cert.pem
+key.pem
 
 # tinydb
 db.json

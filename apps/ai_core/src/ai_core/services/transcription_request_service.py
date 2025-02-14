@@ -57,7 +57,7 @@ def create_transcription_request(item: TranscriptionRequest, db: NoSqlDb, q: Que
     logger.info(f"audio_filename: {audio_filename}")
     prefix = f"{item.user_id}/{item.patient_id}/{item.assessment_id}"
 
-    # db.get_item("input", f"{item.user_id}/{item.patient_id}/{item.assessment_id}/deepgram.json")
+    # db.get_item("input", f"{item.user_id}/{item.patient_id}/{item.assessment_id}/transcription.json")
     audio_buffer = db.get_binary_item("input", f"{prefix}/{audio_filename}")
     if not audio_buffer:
         raise ValueError(f"Audio file not found in: input/{prefix}/{audio_filename}")
@@ -69,9 +69,9 @@ def create_transcription_request(item: TranscriptionRequest, db: NoSqlDb, q: Que
     
     deepgram_dict = json.loads(deepgram_json)
     
-    logger.info(f"saving deepgram transformation {prefix}/deepgram.json")    
-    db.insert_item("output", f"{prefix}/deepgram.json", deepgram_dict)
-    result.answer_files.append(f"{prefix}/deepgram.json")
+    logger.info(f"saving deepgram transformation {prefix}/transcription.json")    
+    db.insert_item("output", f"{prefix}/transcription.json", deepgram_dict)
+    result.answer_files.append(f"{prefix}/transcription.json")
     # publish timings metrics errors slack ?
     # save or push file to storage for debugging
 
@@ -91,7 +91,7 @@ def create_transcription_request(item: TranscriptionRequest, db: NoSqlDb, q: Que
     db.insert_item("output", f"{prefix}/answers.json", answers_json)
     result.answer_files.append(f"{prefix}/answers.json")
     
-    logger.info("ai core processing finished")
+    logger.info(f"=== ai core processing finished {item.id} output/{prefix}/answers.json ===")
     return result
 
 # read - get all items

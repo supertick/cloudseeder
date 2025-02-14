@@ -208,7 +208,7 @@ export default function Report() {
       <ReportDeleteDialog
         isOpen={isDeleteDialogOpen}
         onClose={() => setIsDeleteDialogOpen(false)}
-        onDelete={fetchData} // Refresh inputs after delete
+        onDelete={handleDeleteFile} // Refresh inputs after delete xxx
       />
 
       <Footer />
